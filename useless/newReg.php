@@ -3,12 +3,9 @@
 <head>
 	<title>Student Registration Form | Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.min.css">
     <style type="text/css">
-    	.pad {
-    		padding: 25px;
-    	}
     	@media screen and (min-width: 991px) {
 	    	.container {
 	    		margin-right: 10%;
@@ -16,7 +13,7 @@
     	}
     </style>
 </head>
-<body bgcolor="#f1f1f1" ng-app="basemodule">
+<body bgcolor="#f1f1f1">
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
 	  <li><a href="#!">Profile</a></li>
@@ -375,7 +372,7 @@
 	<!--main end-->
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>           
     <script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
-    <script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
+    <!-- <script type="text/javascript" src="<?php //echo base_url()?>assets/js/angular. min.js"></script> -->
     <script type="text/javascript">
     	$(".button-collapse").sideNav();
     	$(document).ready(function() {

@@ -1,5 +1,10 @@
+#Setting for accessing controller without index.php
+
 RewriteEngine on
+
+RewriteRule ^index.php/(.*)$ /$1 [R=302,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond $1 !^(index.php|assets)
-RewriteRule ^(.*)$ index.php/$1 [L]
+RewriteRule ^(.*)$ index.php?/$1 [L]
