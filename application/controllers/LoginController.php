@@ -11,7 +11,8 @@ class LoginController extends CI_Controller {
 
 	public function index()  {
 
-		$this->load->view('login');
+		$data['value'] = 'none';
+		$this->load->view('login', $data);
 	}
 
 	public function validateUser() {
@@ -21,8 +22,8 @@ class LoginController extends CI_Controller {
 		if($this->loginModel->validate()) {
 			redirect('studentRegistration');
 		} else {
-			echo "inside else";
-			redirect('LoginController');
+			$data['value'] = 'block';
+			$this->load->view('login', $data);
 		}
 	}
 
@@ -45,7 +46,7 @@ class LoginController extends CI_Controller {
 			echo "email not sent!";
 			}
 		} else {
-			echo "Problem adding to databse";
+			echo "Problem adding to database";
 		}
 	}
 

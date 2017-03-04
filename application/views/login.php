@@ -55,6 +55,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </head>
 
   <body class="deep-purple lighten-1">
+    <div id="unsuccessfulMessage" class="col s12 z-depth-1 center card-panel translucent" style="color: white; display: <?= $value;?>">
+    <p>Login Unsuccessful!</p>
+    </div>
     <!-- Start Page Loading -->
     <div id="loader-wrapper">
         <div id="loader"></div>        
@@ -131,6 +134,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           $('#hideDiv').hide('blind');
 
         }
+      });
+
+      $(document).ready( function() {
+        $('#unsuccessfulMessage').delay(3000).fadeOut();
       });
     </script>
   </body>

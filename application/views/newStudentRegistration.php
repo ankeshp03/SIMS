@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.min.css">
    	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/select2.min.css">
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
     <style type="text/css">
     	@media screen and (min-width: 991px) {
 	    	.container {

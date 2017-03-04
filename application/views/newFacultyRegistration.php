@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<!--main-->
 	<div class="container main" ng-app="baseModule" ng-controller="formController">
       <div class="card-panel">
-        <form id="studentRegistrationForm" class="col s12" method="post" action="<?php echo base_url('studentRegistration/addStudentDB')?>" name="studentRegistrationForm" autocomplete>
+        <form id="facultyRegistrationForm" class="col s12" method="post" action="<?php echo base_url('facultyRegistration/addfacultyDB')?>" name="facultyRegistrationForm" autocomplete>
             <div class="row">
                	<div class="input-field col s4">
                 	<input id="fname" name="fname" type="text" class="active" pattern="[A-Za-z ]+" title="Special Characters not allowed" required>
@@ -63,13 +63,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <input id="dob" name="dob" type="date" class="datepicker">
                	</div>
                	<div class="input-field col s4">
-                  	<label for="doa">Date of Admission <span class="spanRed">*</span></label>
+                  	<label for="doa">Date of Joining <span class="spanRed">*</span></label>
                   	<input id="doa" name="doa" type="date" class="datepicker">
                	</div>
             </div>
             <div class="row">
             	<div class="input-field col s2" style="padding-top: 20px;">
-            		<select name="studentCountryCode" class="names" style="width: 100%;">
+            		<select name="facultyCountryCode" class="names" style="width: 100%;">
 						<option value="91" selected>India (+91)</option>
 						<option value="44">UK (+44)</option>
 						<option value="1">USA (+1)</option>
@@ -314,11 +314,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</select>
             	</div>
             	<div class="input-field col s4">
-            		<input id="studentPhone" type="number" name="studentPhone" required>
-            		<label for="studentPhone">Faculty Contact<span class="spanRed">*</span></label>
+            		<input id="facultyPhone" type="number" name="facultyPhone" required>
+            		<label for="facultyPhone">Faculty Contact<span class="spanRed">*</span></label>
             	</div>					
             	<div class="input-field col s2" style="padding-top: 20px;">
-            		<select name="parentCountryCode" class="names" style="width: 100%;">
+            		<select name="alternateCountryCode" class="names" style="width: 100%;">
 						<option value="91" selected>India (+91)</option>
 						<option value="44">UK (+44)</option>
 						<option value="1">USA (+1)</option>
@@ -563,22 +563,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</select>
             	</div>
             	<div class="input-field col s4">
-            		<input id="parentPhone" type="number" name="parentPhone" ng-model="parentPhone" required>
-					<label>Parent Contact<span class="spanRed">*</span></label>
+            		<input id="alternatePhone" type="number" name="alternatePhone" required>
+					<label>Alternate Contact</label>
             	</div>
             </div>
             <div class="row">
-               	<div class="input-field col s8">
-                	<input id="email" name="email" type="email" ng-model="email" class="validate" pattern="^[a-z]+\.[a-z]{4}\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
+               	<div class="input-field col s12">
+                	<input id="email" name="email" type="email" ng-model="email" class="validate" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
                   	<label for="email">Email <span class="spanRed">*</span></label>
-               	</div>
-               	<div class="input-field col s4">
-                  	<select name="quota" id="quota">
-	                     <option value="CET" selected>CET</option>
-	                     <option value="COMEDK">COMEDK</option>
-	                     <option value="Management">Management</option>
-	                </select>
-	                <label>Quota <span class="spanRed">*</span></label>
                	</div>
             </div>
             <div class="row">

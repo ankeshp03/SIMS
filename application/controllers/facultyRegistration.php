@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class StudentRegistration extends CI_Controller {
+class FacultyRegistration extends CI_Controller {
 
 	public function __construct() {
 
@@ -10,30 +10,30 @@ class StudentRegistration extends CI_Controller {
 	}
 
 	public function index() {
-		
-		$data['title'] = 'Student';
-		$data['link1'] = 'studentRegistration#';
-		$data['link2'] = 'facultyRegistration';
-		$data['color1'] = 'blue';
-		$data['color2'] = 'grey';
+
+		$data['title'] = 'Faculty';
+		$data['link1'] = 'studentRegistration/';
+		$data['link2'] = 'facultyRegistration#';
+		$data['color1'] = 'grey';
+		$data['color2'] = 'blue';
 		$this->load->view('template/navbarTop', $data);
 		$this->load->view('template/sidenavLargeMed', $data);
 		$this->load->view('template/sidenavSmall', $data);
-		$this->load->view('newStudentRegistration');
+		$this->load->view('newFacultyRegistration');
 	}
 
-	public function addStudentDB() {
+	public function addFacultyDB() {
 
 		//loading the model where the data will be sent to store in the database
-		$this->load->model('studentModel');
+		$this->load->model('facultyModel');
 	
 		//passing the variables as paramater to the function that is in the model which will store the data in the database. if the condition is true then the data are added to the database
-		if ($this->studentModel->addStudent()) {
-			redirect('studentRegistration');
+		if ($this->facultyModel->addFaculty()) {
+			redirect('facultyRegistration');
 		}
 		else {
 			echo "not added";
-			$this->load->view('newStudentRegistration');
+			$this->load->view('newfacultyRegistration');
 		}
 	}
 }
