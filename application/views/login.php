@@ -78,7 +78,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row margin">
             <div class="input-field col s12">
               <i class="material-icons prefix">perm_identity</i>
-              <input id="email" name="email" type="email" class="white-text flow-text" required="true" autocomplete="on">
+              <input id="email" name="email" type="email" class="white-text flow-text validate" autocomplete="on" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
               <label for="email" class="white-text flow-text">Email</label>
             </div>
           </div>
@@ -137,7 +137,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       });
 
       $(document).ready( function() {
-        $('#unsuccessfulMessage').delay(3000).fadeOut();
+        $('#unsuccessfulMessage').delay(3000).slideUp(500);
       });
     </script>
   </body>
