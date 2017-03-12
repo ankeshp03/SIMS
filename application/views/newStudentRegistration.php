@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	<ul id="dropdown1" class="dropdown-content">
 	  <li><a href="#!">Profile</a></li>
 	  <li class="divider"></li>
-	  <li><a href="#!">Logout</a></li>
+	  <li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 	</ul>
 	<!--contents of the dropdown menu end-->
 	<!--main-->
@@ -57,6 +57,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   
                   	<input id="female" type="radio" name="gender" value="female">
                   	<label for="female">Female</label>
+
+                  	<input id="others" type="radio" name="gender" value="others">
+                  	<label for="others">Others</label>
                	</div>
                	<div class="input-field col s4">
                     <label for="dob">Date of Birth <span class="spanRed">*</span></label>

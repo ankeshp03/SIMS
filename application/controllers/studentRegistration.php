@@ -33,7 +33,7 @@ class StudentRegistration extends CI_Controller {
 		}
 		else {
 			echo "not added";
-			$this->load->view('newStudentRegistration');
+			$this->index();
 		}
 	}
 }

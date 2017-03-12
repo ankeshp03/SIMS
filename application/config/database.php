@@ -79,6 +79,7 @@ $db['default'] = array(
 	'username' => 'root',
 	'password' => 'password',
 	'database' => 'final_project',
+	#'database' => 'sample',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
