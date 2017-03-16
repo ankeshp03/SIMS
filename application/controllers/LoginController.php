@@ -22,6 +22,8 @@ class LoginController extends CI_Controller {
 		$this->load->model('loginModel');
 
 		if($this->loginModel->validate()) {
+			$this->load->library('session');
+			$this->session->set_userdata('email', $this->input->post('email'));
 			echo "successful";
 		} else {
 			echo "Login Unsuccessful!";
@@ -33,8 +35,13 @@ class LoginController extends CI_Controller {
 		if(!$this->input->is_ajax_request()) {
 			exit('No direct script access allowed');
 		}
-
+		
 		$this->load->model('loginModel');
+
+		if(!$this->loginModel->emailExist()) {
+			exit('Email id is not registered!');
+		}
+
 		$val = $this->loginModel->keyPresent();
 		if($val == null) {
 			$key = md5(uniqid());
@@ -42,10 +49,6 @@ class LoginController extends CI_Controller {
 		}
 		else {
 			$key = $val;
-		}
-
-		if(!$this->loginModel->emailExist()) {
-			exit('Email id is not registered!');
 		}
 
 		$this->load->library('email', array('mailtype'=>'html'));
@@ -89,6 +92,9 @@ class LoginController extends CI_Controller {
 	}
 
 	public function logout() {
+
+		$this->load->library('session');
+		$this->session->sess_destroy();
 		redirect('loginController');
 	}
 }

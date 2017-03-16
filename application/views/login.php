@@ -1,4 +1,4 @@
-﻿<?php
+﻿﻿<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <!DOCTYPE html>
@@ -48,10 +48,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    body {
     display: table-cell;
-     vertical-align: middle;
-   }
+    vertical-align: middle;
+  }
 
- </style>
+</style>
 
 </head>
 
@@ -116,7 +116,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   ================================================ -->
 
   <!-- jQuery Library -->
-  <!--script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js" ></script-->
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
   <!--materialize js-->
@@ -150,6 +149,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             password: $('#password').val()
           },
           success:function(data) {
+            
+             $sessionVal = "<?php echo $this->session->userdata('email'); ?>";
+            console.log($sessionVal);
 
             if(data == 'Login Unsuccessful!') {
               $('#password').val('');
@@ -157,7 +159,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               $('#unsuccessfulMessage').show('blind');
               $('#unsuccessfulMessage').delay(3000).hide('blind');     
             }
-            else if(data == 'successful'){
+            else if(data == 'successful'){// && $sessionVal) {
               document.location.href = '<?php echo base_url("studentRegistration");?>';
             }
           }
