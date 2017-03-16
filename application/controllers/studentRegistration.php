@@ -17,6 +17,7 @@ class StudentRegistration extends CI_Controller {
 		if(!$sessionVal) {
 			redirect('loginController');
 		}
+		
 		$data['title'] = 'Student';
 		$data['link1'] = 'studentRegistration#';
 		$data['link2'] = 'facultyRegistration';

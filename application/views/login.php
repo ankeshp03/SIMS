@@ -149,17 +149,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             password: $('#password').val()
           },
           success:function(data) {
-            
-             $sessionVal = "<?php echo $this->session->userdata('email'); ?>";
-            console.log($sessionVal);
 
-            if(data == 'Login Unsuccessful!') {
-              $('#password').val('');
-              $('#unsuccessfulMessage').html(data);
-              $('#unsuccessfulMessage').show('blind');
-              $('#unsuccessfulMessage').delay(3000).hide('blind');     
-            }
-            else if(data == 'successful'){// && $sessionVal) {
+           $sessionVal = "<?php echo $this->session->userdata('email'); ?>";
+           console.log($sessionVal);
+
+           if(data == 'Login Unsuccessful!') {
+            $('#password').val('');
+            $('#unsuccessfulMessage').html(data);
+            $('#unsuccessfulMessage').show('blind');
+            $('#unsuccessfulMessage').delay(3000).hide('blind');     
+          }
+            else if(data == 'successful') {
               document.location.href = '<?php echo base_url("studentRegistration");?>';
             }
           }

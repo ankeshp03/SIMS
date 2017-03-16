@@ -11,6 +11,13 @@ class FacultyRegistration extends CI_Controller {
 
 	public function index() {
 
+		$this->load->library('session');
+        $sessionVal = $this->session->userdata('email');
+		
+		if(!$sessionVal) {
+			redirect('loginController');
+		}
+		
 		$data['title'] = 'Faculty';
 		$data['link1'] = 'studentRegistration/';
 		$data['link2'] = 'facultyRegistration#';
