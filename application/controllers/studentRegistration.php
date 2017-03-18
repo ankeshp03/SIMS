@@ -26,7 +26,7 @@ class StudentRegistration extends CI_Controller {
 		$this->load->view('template/navbarTop', $data);
 		$this->load->view('template/sidenavLargeMed', $data);
 		$this->load->view('template/sidenavSmall', $data);
-		$this->load->view('newStudentRegistration');
+		$this->load->view('stuReg');
 	}
 
 	public function addStudentDB() {
