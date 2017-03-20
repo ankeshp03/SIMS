@@ -10,10 +10,13 @@ class LoginModel extends CI_Model {
 		$query = $this->db->get('users');
 
 		if($query->num_rows() > 0) {
-			return true;
+			foreach ($query->result() as $row)
+			{
+				return $row->level;
+			}
 		}
 		else {
-			return false;
+			return null;
 		}
 	}
 

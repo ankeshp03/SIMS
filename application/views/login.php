@@ -159,11 +159,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#unsuccessfulMessage').show('blind');
             $('#unsuccessfulMessage').delay(3000).hide('blind');     
           }
-            else if(data == 'successful') {
-              document.location.href = '<?php echo base_url("studentRegistration");?>';
+          else {
+            switch(data) {
+
+              case "admin" : alert('inside admin case');
+              document.location.href = "<?php echo base_url('adminController');?>";
+              break;
+              case "headProctor" : document.location.href = "<?php echo base_url('headProctorController');?>";
+              break;
+              case "proctor" : document.location.href = "<?php echo base_url('proctorController');?>";
+              break;
+              case "faculty" : document.location.href = "<?php echo base_url('facultyController');?>";
+              break;
+              case "student" : document.location.href = "<?php echo base_url('studentController');?>";
+              break;
+              default : document.location.href = "<?php echo base_url('pageNotFoundController');?>";              
             }
+
           }
-        });
+        }
+      });
       });
 
       $('#forgotPassword').on('submit', function(value) {

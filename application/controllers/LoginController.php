@@ -21,10 +21,32 @@ class LoginController extends CI_Controller {
 		}
 		$this->load->model('loginModel');
 
-		if($this->loginModel->validate()) {
+		$user = $this->loginModel->validate();
+		if($user != null) {
 			$this->load->library('session');
 			$this->session->set_userdata('email', $this->input->post('email'));
-			echo "successful";
+			switch ($user) {
+				case 1:
+					$this->session->set_userdata('user', 'admin');
+					echo "admin";
+					break;
+				case 2:
+					$this->session->set_userdata('user', 'head proctor');
+					echo "headProctor";
+					break;
+				case 3:
+					$this->session->set_userdata('user', 'proctor');
+					echo "proctor";
+					break;
+				case 4:
+					$this->session->set_userdata('user', 'faculty');
+					echo "faculty";
+					break;
+				default:
+					$this->session->set_userdata('user', 'student');
+					echo "student";
+					break;
+			}
 		} else {
 			echo "Login Unsuccessful!";
 		}

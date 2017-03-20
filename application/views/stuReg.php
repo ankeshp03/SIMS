@@ -174,12 +174,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 							<div class="row">
 								<div class="input-field col center s6">
-									<input id="occupation" name="occupation" type="text" required>
-									<label for="occupation">Occupation <span class="spanRed">*</span></label>
+									<input id="parentOccupation" name="parentOccupation" type="text" required>
+									<label for="parentOccupation">Occupation <span class="spanRed">*</span></label>
 								</div>
 								<div class="input-field col center s6">
-									<input id="designation" name="designation" type="text" required>
-									<label for="designation">Designation <span class="spanRed">*</span></label>
+									<input id="parentDesignation" name="parentDesignation" type="text" required>
+									<label for="parentDesignation">Designation <span class="spanRed">*</span></label>
 								</div>
 							</div>
 							<div class="row">
@@ -196,8 +196,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</div>
 							<div class="row">
 								<div class="input-field col center s6">
-									<input id="mobile" name="mobile" type="text" required>
-									<label for="mobile">Mobile <span class="spanRed">*</span></label>
+									<input id="parentMobile" name="parentMobile" type="text" required>
+									<label for="parentMobile">Parent Mobile <span class="spanRed">*</span></label>
 								</div>
 								<div class="input-field col center s6">
 									<input id="pan" name="pan" type="text" required>
@@ -213,8 +213,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="collapsible-body">
 							<div class="row">
 								<div class="input-field col s8">
-									<input type="text" name="localAddress" id="localAddress" name="localAddress" ng-model="correspondanceAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
-									<label for="localtAddress" ng-class="{'active':activateLabel}">Local Address of Applicant (if any, in Bangalore) <span class="spanRed">*</span></label>
+									<input type="text" name="localAddress" id="localAddress" name="localAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
+									<label for="localtAddress">Local Address of Applicant (if any, in Bangalore) <span class="spanRed">*</span></label>
 								</div>
 								<div class="input-field col center s4">
 									<input id="bangaloreMobile" name="bangaloreMobile" type="text" required>
