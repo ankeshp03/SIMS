@@ -25,7 +25,9 @@ class LoginController extends CI_Controller {
 		if($user != null) {
 			$this->load->library('session');
 			$this->session->set_userdata('email', $this->input->post('email'));
-			switch ($user) {
+			$this->session->set_userdata('username', $user['username']);
+			$this->session->set_userdata('level', $user['level']);
+			switch ($user['level']) {
 				case 1:
 					$this->session->set_userdata('user', 'admin');
 					echo "admin";

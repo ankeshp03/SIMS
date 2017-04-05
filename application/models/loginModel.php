@@ -12,7 +12,9 @@ class LoginModel extends CI_Model {
 		if($query->num_rows() > 0) {
 			foreach ($query->result() as $row)
 			{
-				return $row->level;
+				$res['level'] = $row->level;
+				$res['username'] = $row->username;
+				return $res;
 			}
 		}
 		else {

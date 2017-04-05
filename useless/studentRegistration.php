@@ -18,7 +18,7 @@ class StudentRegistration extends CI_Controller {
 			redirect('loginController');
 		}
 		
-		$data['title'] = 'Student';
+		/*$data['title'] = 'Student';
 		$data['link1'] = 'studentRegistration#';
 		$data['link2'] = 'facultyRegistration';
 		$data['color1'] = 'blue';
@@ -26,7 +26,7 @@ class StudentRegistration extends CI_Controller {
 		$this->load->view('template/navbarTop', $data);
 		$this->load->view('template/sidenavLargeMed', $data);
 		$this->load->view('template/sidenavSmall', $data);
-		$this->load->view('stuReg');
+		*/$this->load->view('adminDashboard');
 	}
 
 	public function addStudentDB() {

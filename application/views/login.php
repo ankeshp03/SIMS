@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Icons -->
 
   <link href="<?php echo base_url()?>assets/css/icon.css" type="text/css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Favicons-->
 
@@ -78,14 +79,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="input-field col s12">
             <i class="material-icons prefix">perm_identity</i>
             <input id="email" name="email" type="email" class="white-text flow-text validate" autocomplete="on" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
-            <label for="email" class="white-text flow-text">Email</label>
+            <label id="emailLabel" for="email" class="white-text flow-text">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="material-icons md-24 prefix">lock_outline</i>
             <input id="password" name="password" type="password" class="white-text flow-text" required="true" autocomplete="off">
-            <label for="password" class="white-text flow-text">Password</label>
+            <label id="passwordLabel" for="password" class="white-text flow-text">Password</label>
           </div>
         </div>
         <div class="row">
@@ -117,6 +118,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <!-- jQuery Library -->
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js"></script>
+
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
   <!--materialize js-->
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js" async></script>
@@ -124,6 +127,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/plugins.js" async></script>
 
   <script type="text/javascript">
+
+    $(function () {
+      if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        $("#email, #password, #emailSendKey").click(function() {
+          $element = "#" + $(this).attr('id') + "Label";
+          $($element).addClass('active');
+        });
+
+        $("#email, #password, #emailSendKey").focusout(function() {
+          $element = "#" + $(this).attr('id') + "Label";
+          if(!$(this).val()){
+            $($element).removeClass('active');
+          }
+        });
+      }
+    });
 
     $('#hide').click(function() {
 
@@ -162,8 +181,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           else {
             switch(data) {
 
-              case "admin" : alert('inside admin case');
-              document.location.href = "<?php echo base_url('adminController');?>";
+              case "admin" : document.location.href = "<?php echo base_url('adminController');?>";
               break;
               case "headProctor" : document.location.href = "<?php echo base_url('headProctorController');?>";
               break;

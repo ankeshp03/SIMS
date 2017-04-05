@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+if($this->session->userdata('level') != "1") {
+	redirect($_SERVER['HTTP_REFERER']);
+}
 ?>
 
 <!DOCTYPE html>

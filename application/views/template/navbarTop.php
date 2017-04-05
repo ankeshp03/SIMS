@@ -9,7 +9,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<a class="brand-logo hide-on-med-and-down center"><?= $title?> Registration Form</a>
 			<span style="padding-left: 5%; font-size: 20px;" class="hide-on-large-only"><?= $title?> Registration Form</span>
 	    	<ul class="right">
-	    	<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true">Button<i class="material-icons right">arrow_drop_down</i></a></li>
+	    	<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true"><?php echo $this->session->userdata('username'); ?> <i class="material-icons right">arrow_drop_down</i></a></li>
 	       	</ul>
 		</div>
 	</nav>
