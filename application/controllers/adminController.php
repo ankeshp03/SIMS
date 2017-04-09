@@ -62,8 +62,8 @@ class AdminController extends CI_Controller {
 		}
 		
 		$data['title'] = 'Faculty';
-		$data['link1'] = 'studentRegistration/';
-		$data['link2'] = 'facultyRegistration#';
+		$data['link1'] = 'adminController/studentRegistration';
+		$data['link2'] = 'adminController/facultyRegistration#';
 		$data['color1'] = 'grey';
 		$data['color2'] = 'blue';
 		$this->load->view('template/navbarTop', $data);

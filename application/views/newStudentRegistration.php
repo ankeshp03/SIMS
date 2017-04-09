@@ -39,6 +39,9 @@ if($this->session->userdata('level') != "1") {
 		table {
 
 		}
+		collapsible-body {
+			display: block !important;
+		}
 
 	</style>
 </head>
@@ -57,7 +60,7 @@ if($this->session->userdata('level') != "1") {
 		<form id="studentRegistrationForm" class="col s12" method="post" action="<?php echo base_url('studentRegistration/addStudentDB')?>" name="studentRegistrationForm" autocomplete>
 			<ul class="collapsible z-depth-2" style="border-top-left-radius: 10px; border-bottom-right-radius: 10px; margin-top: 30px;" data-collapsible="expandable">
 				<li>
-					<div class="collapsible-header indigo lighten-2 active" style="border-top-left-radius: 10px;"><!--active class-->
+					<div class="firstCollapsible collapsible-header indigo lighten-2 active" style="border-top-left-radius: 10px;"><!--active class-->
 						<span class="collHead">Applicant’s Personal Information</span>
 					</div>
 					<div class="collapsible-body">
@@ -455,11 +458,20 @@ if($this->session->userdata('level') != "1") {
 		<!--main end-->
 		<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
 		<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
+		<script scr="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			$(".button-collapse").sideNav();
 
 			$(document).ready(function() {
 				$('#parentType').material_select();
+			});
+
+			$(document).ready(function(){
+				$(".firstCollapsible").off('click.collapse').css('pointer-events', 'none');
+			});
+
+			$(".collapsible-header").click(function() {
+				$(this).off('click.collapse').css('pointer-events', 'none');
 			});
 
 			$(function () {
@@ -468,10 +480,6 @@ if($this->session->userdata('level') != "1") {
 						$("#dobLabel").addClass('active');
 					});
 				}
-			});
-
-			$(".collapsible-header").click(function() {
-				$(this).off('click');
 			});
 
     	//Calculating the date upto yesterday

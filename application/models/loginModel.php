@@ -22,6 +22,14 @@ class LoginModel extends CI_Model {
 		}
 	}
 
+	public function getTotal() {
+
+		$this->db->select('email');
+		$query = $this->db->get('users');
+
+		return $query->num_rows();
+	}
+
 	public function emailExist() {
 
 		$this->db->where('email', $this->input->post('emailSendKey'));

@@ -47,11 +47,26 @@ if($this->session->userdata('level') != "1") {
 			float: right;
 			margin-top: -65px;
 		}
+		.circle {
+			border: 5px solid rgba(0,0,0,0.7);
+			border-radius: 50%;
+			width: 150px;
+			height: 150px;
+		}
+		.circleText {
+			width: 100%;
+			color: rgba(0,0,0,0.7);
+		}
 	</style>
 </head>
 <body>
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
+		<li><a href="#!">Profile</a></li>
+		<li class="divider"></li>
+		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
+	</ul>
+	<ul id="dropdown2" class="dropdown-content">
 		<li><a href="#!">Profile</a></li>
 		<li class="divider"></li>
 		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
@@ -83,14 +98,63 @@ if($this->session->userdata('level') != "1") {
 		<div class="nav-wrapper">
 			<a href="#!" class="brand-logo" style="color: rgba(255, 255, 255, 0.9);">ADMIN PANEL</a>
 			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul class="side-nav" id="mobile-demo">
-				<li><a href="sass.html">Sass</a></li>
-				<li><a href="badges.html">Components</a></li>
-				<li><a href="collapsible.html">Javascript</a></li>
-				<li><a href="mobile.html">Mobile</a></li>
+			<ul class="right">
+				<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown2" data-beloworigin="true"><?php echo $this->session->userdata('username'); ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+			</ul>
+			<ul id="mobile-demo" class="side-nav hide-on-large-only" style="width: 308px;">
+				<li style="padding-top: 5%;"><label class="grey-text text-darken-3" style="padding-left: 5%; font-size: 15px;">Home</label></li>
+				<li><div class="divider"></div></li>
+				<li style="padding-top: 5%;"><a href="<?php echo base_url('adminController')?>" class="waves-effect blue-text text-darken-3">Home</a></li>
+				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/studentRegistration')?>">Student Registration</a></li>
+				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
 			</ul>
 		</div>
 	</nav>
+	<br>
+	<div class="container">
+		<div class="card z-depth-2 center-align">
+			<table>
+				<tr>
+					<th class="center-align">
+						<h4>No. of Students</h4>
+					</th>
+					<th class="center-align hide-on-small-only">
+						<h4>No. of Faculties</h4>
+					</th>
+				</tr>
+				<tr>
+					<td class="hide-on-med-and-up">
+						<div class="container circle valign-wrapper">
+							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="hide-on-small-only">
+						<div class="container circle valign-wrapper">
+							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
+						</div>
+					</td>
+					<th class="center-align hide-on-med-and-up">
+						<h4>No. of Faculties</h4>
+					</th>
+					<td class="hide-on-small-only">
+						<div class="container circle valign-wrapper">
+							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="hide-on-med-and-up">
+						<div class="container circle valign-wrapper">
+							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
+						</div>
+					</td>
+				</tr>
+			</div>
+		</div>
+	</div>
+
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
 	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
 	<script type="text/javascript">
