@@ -21,14 +21,24 @@ class LoginController extends CI_Controller {
 		}
 		$this->load->model('loginModel');
 
-		$data = $this->loginModel->getTotal();
-		$user = $this->loginModel->validate();
+		$this->load->library('session');
+
+		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $this->input->post('email'))) {
+    		$user = $this->loginModel->validateStudent();
+    		if($user != null) {
+    			$this->session->set_userdata('usn', $this->input->post('usn'));	
+    		}
+    	}
+    	else {
+    		$user = $this->loginModel->validateFaculty();
+    		if($user != null) {
+    			$this->session->set_userdata('level', $user['level']);	
+    		}	
+    	}
+
 		if($user != null) {
-			$this->load->library('session');
 			$this->session->set_userdata('email', $this->input->post('email'));
 			$this->session->set_userdata('username', $user['username']);
-			$this->session->set_userdata('level', $user['level']);
-			$this->session->set_userdata('totalUsers', $data);
 			switch ($user['level']) {
 				case 1:
 					$this->session->set_userdata('user', 'admin');
@@ -42,13 +52,9 @@ class LoginController extends CI_Controller {
 					$this->session->set_userdata('user', 'proctor');
 					echo "proctor";
 					break;
-				case 4:
+				default:
 					$this->session->set_userdata('user', 'faculty');
 					echo "faculty";
-					break;
-				default:
-					$this->session->set_userdata('user', 'student');
-					echo "student";
 					break;
 			}
 		} else {

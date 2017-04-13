@@ -37,22 +37,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <link href="<?php echo base_url()?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
 
   <style type="text/css">
-   html,
-   body {
-     height: 100%;
-   }
+    html,
+    body {
+      height: 100%;
+    }
 
-   html {
-     display: table;
-     margin: auto;
-   }
+    html {
+      display: table;
+      margin: auto;
+    }
 
-   body {
-    display: table-cell;
-    vertical-align: middle;
-  }
+    body {
+      display: table-cell;
+      vertical-align: middle;
+    }
 
-</style>
+  </style>
 
 </head>
 
@@ -112,67 +112,63 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 
-  <!-- ================================================
-  Scripts
-  ================================================ -->
+<!-- ================================================
+Scripts
+================================================ -->
 
-  <!-- jQuery Library -->
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js"></script>
+<!-- jQuery Library -->
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js"></script>
 
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
-  <!--materialize js-->
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js" async></script>
-  <!--plugins.js - Some Specific JS codes for Plugin Settings-->
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/plugins.js" async></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js" async></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugins.js" async></script>
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    $(function () {
-      if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-        $("#email, #password, #emailSendKey").click(function() {
-          $element = "#" + $(this).attr('id') + "Label";
-          $($element).addClass('active');
-        });
+  $(function () {
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+      $("#email, #password, #emailSendKey").click(function() {
+        $element = "#" + $(this).attr('id') + "Label";
+        $($element).addClass('active');
+      });
 
-        $("#email, #password, #emailSendKey").focusout(function() {
-          $element = "#" + $(this).attr('id') + "Label";
-          if(!$(this).val()){
-            $($element).removeClass('active');
-          }
-        });
-      }
-    });
+      $("#email, #password, #emailSendKey").focusout(function() {
+        $element = "#" + $(this).attr('id') + "Label";
+        if(!$(this).val()){
+          $($element).removeClass('active');
+        }
+      });
+    }
+  });
 
-    $('#hide').click(function() {
+  $('#hide').click(function() {
 
-      if($('#hideDiv').css('display') == 'none'){
-        $('#hideDiv').show('blind');
-      } else {
-        $('#hideDiv').hide('blind');
+    if($('#hideDiv').css('display') == 'none'){
+      $('#hideDiv').show('blind');
+    } else {
+      $('#hideDiv').hide('blind');
 
-      }
-    });
+    }
+  });
 
-    $(document).ready( function() {
+  $(document).ready( function() {
 
-      $('#loginForm').on('submit', function(value) {
+    $('#loginForm').on('submit', function(value) {
 
-        value.preventDefault();
+      value.preventDefault();
 
-        $.ajax({
-          url: '<?php echo base_url("LoginController/validateUser");?>',
-          type: 'POST',
-          data: {
-            email: $('#email').val(),
-            password: $('#password').val()
-          },
-          success:function(data) {
-
-           $sessionVal = "<?php echo $this->session->userdata('email'); ?>";
-           console.log($sessionVal);
-
-           if(data == 'Login Unsuccessful!') {
+      $.ajax({
+        url: '<?php echo base_url("LoginController/validateUser");?>',
+        type: 'POST',
+        data: {
+          email: $('#email').val(),
+          password: $('#password').val()
+        },
+        success:function(data) {
+          if(data == 'Login Unsuccessful!') {
             $('#password').val('');
             $('#unsuccessfulMessage').html(data);
             $('#unsuccessfulMessage').show('blind');
@@ -180,7 +176,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           }
           else {
             switch(data) {
-
               case "admin" : document.location.href = "<?php echo base_url('adminController');?>";
               break;
               case "headProctor" : document.location.href = "<?php echo base_url('headProctorController');?>";
@@ -195,36 +190,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
 
           }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          $('#unsuccessfulMessage').html(errorThrown);
+          $('#unsuccessfulMessage').show('blind');
+          $('#unsuccessfulMessage').delay(3000).hide('blind');
         }
       });
-      });
+    });
 
-      $('#forgotPassword').on('submit', function(value) {
+    $('#forgotPassword').on('submit', function(value) {
 
-        value.preventDefault();
+      value.preventDefault();
 
-        $("#forgotPasswordSubmit").attr('disabled','disabled');
+      $("#forgotPasswordSubmit").attr('disabled','disabled');
 
-        $.ajax({
-          url: '<?php echo base_url("LoginController/forgotPassword");?>',
-          type: 'POST',
-          data: {
-            emailSendKey: $('#emailSendKey').val()
-          },
-          success:function(data) {
+      $.ajax({
+        url: '<?php echo base_url("LoginController/forgotPassword");?>',
+        type: 'POST',
+        data: {
+          emailSendKey: $('#emailSendKey').val()
+        },
+        success:function(data) {
 
-            $('#unsuccessfulMessage').html(data);
-            $('#unsuccessfulMessage').show('blind');
-            $('#unsuccessfulMessage').delay(3000).hide('blind');
-            $('#hideDiv').hide('blind'); 
-            $('#forgotPasswordSubmit').removeAttr('disabled');
-            $('#emailSendKey').val('');
-            $('#emailSendKey').removeClass('valid');
-            $('#emailSendKeyLabel').removeClass('active');
-          }
-        });
+          $('#unsuccessfulMessage').html(data);
+          $('#unsuccessfulMessage').show('blind');
+          $('#unsuccessfulMessage').delay(3000).hide('blind');
+          $('#hideDiv').hide('blind'); 
+          $('#forgotPasswordSubmit').removeAttr('disabled');
+          $('#emailSendKey').val('');
+          $('#emailSendKey').removeClass('valid');
+          $('#emailSendKeyLabel').removeClass('active');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          $('#unsuccessfulMessage').html(errorThrown);
+          $('#unsuccessfulMessage').show('blind');
+          $('#unsuccessfulMessage').delay(3000).hide('blind');
+          $('#hideDiv').hide('blind'); 
+          $('#forgotPasswordSubmit').removeAttr('disabled');
+          $('#emailSendKey').val('');
+          $('#emailSendKey').removeClass('valid');
+          $('#emailSendKeyLabel').removeClass('active');
+        }
       });
     });
-  </script>
+  });
+</script>
 </body>
 </html>

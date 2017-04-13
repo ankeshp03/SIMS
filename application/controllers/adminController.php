@@ -39,16 +39,24 @@ class AdminController extends CI_Controller {
 
 	public function addStudentDB() {
 
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
 		//loading the model where the data will be sent to store in the database
-		$this->load->model('studentModel');
+		$this->load->model('adminModel');
 
 		//passing the variables as paramater to the function that is in the model which will store the data in the database. if the condition is true then the data are added to the database
-		if ($this->studentModel->addStudent()) {
-			redirect('adminController/studentRegistration');
+		if ($this->adminModel->addStudent()) {
+			echo "Added to database";
 		}
 		else {
-			echo "not added";
-			$this->load->view('newStudentRegistration');
+			echo "Not added";
 		}
 	}
 
@@ -74,16 +82,104 @@ class AdminController extends CI_Controller {
 
 	public function addFacultyDB() {
 
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
 		//loading the model where the data will be sent to store in the database
-		$this->load->model('facultyModel');
+		$this->load->model('adminModel');
 
 		//passing the variables as paramater to the function that is in the model which will store the data in the database. if the condition is true then the data are added to the database
-		if ($this->facultyModel->addFaculty()) {
-			redirect('adminController/facultyRegistration');
+		if ($this->adminModel->addFaculty()) {
+			echo "Added to database";
 		}
 		else {
-			echo "not added";
-			$this->load->view('newfacultyRegistration');
+			echo "Not added";
 		}
+	}
+
+	public function getInstitution() {
+
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+
+		$this->adminModel->getInstitute();
+	}
+
+	public function getDepartments() {
+
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+
+		$this->adminModel->getDepartment();
+	}
+
+	public function AUIDexists() {
+
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+
+		$this->adminModel->AUIDexist();
+	}
+
+	public function USNexists() {
+
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+
+		$this->adminModel->USNexist();
+	}
+
+	public function Emailexists() {
+
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+
+		$this->adminModel->Emailexist();
 	}
 }

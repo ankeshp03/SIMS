@@ -18,11 +18,23 @@ if($this->session->userdata('level') != "1") {
 	<style type="text/css">
 		@media screen and (min-width: 991px) {
 			.container {
-				margin-right: 10%;
+				margin-right: 12%;
 			}
+		}
+		body {
+			font-family: sans-serif;
 		}
 		.spanRed {
 			color: #ef5350;
+		}
+		.select2-container--default .select2-selection--single{
+			border-radius: 0;
+			border: 0;
+			border-bottom: 1px solid #ccc;
+		}
+		.select2-container--default.select2-container--focus .select2-selection--single {
+			border: 0;
+			border-bottom: 1px solid #333;
 		}
 
 	</style>
@@ -37,13 +49,19 @@ if($this->session->userdata('level') != "1") {
 	</ul>
 	<!--contents of the dropdown menu end-->
 	<!--main-->
+
 	<div class="container main" ng-app="baseModule" ng-controller="formController">
-		<div class="card-panel">
+		<center>
+			<div id="dbMessage" class="col s12 z-depth-2 center card-panel" style="color: #4F4F4F;
+			word-wrap: break-word; display: none;">
+			</div>
+		</center>
+		<div class="card-panel z-depth-2" style="margin-top: 30px;">
 			<form id="facultyRegistrationForm" class="col s12" method="post" action="<?php echo base_url('facultyRegistration/addfacultyDB')?>" name="facultyRegistrationForm" autocomplete>
 				<div class="row">
 					<div class="input-field col s4">
-						<input id="employee_id" name="employee_id" type="text" class="active" pattern="[A-Za-z]{3}[0-9]{5}" title="Invalid id format" required>
-						<label for="employee_id">Employee Id <span class="spanRed">*</span></label>
+						<input id="employeeId" name="employeeId" type="text" class="active" pattern="[A-Za-z]{3}[0-9]{5}" title="Invalid id format" autofocus required>
+						<label for="employeeId">Employee ID <span class="spanRed">*</span></label>
 					</div>
 					<div class="input-field col s4">
 						<input id="name" name="name" type="text" class="active" pattern="[A-Za-z ]+" title="Special Characters not allowed" required>
@@ -59,19 +77,15 @@ if($this->session->userdata('level') != "1") {
 						<label for="designation">Designation <span class="spanRed">*</span></label>
 						<input id="designation" name="designation" type="text" required>          
 					</div>
-					<div class="input-field col s4">
-						<select name="institution" id="institution">
-							<option value="CET" selected>CET</option>
-							<option value="COMEDK">COMEDK</option>
-							<option value="Management">Management</option>
+					<div class="input-field col s4" style="padding-top: 20px;">
+						<label for="institution" class="active">Institution <span class="spanRed">*</span></label>
+						<select id="institution" name="institution" style="width: 100%;">
 						</select>
-						<label for="institution">Institution <span class="spanRed">*</span></label>
 					</div>
 					<div class="input-field col s4" style="padding-top: 20px;">
 						<label for="department" class="active">Department <span class="spanRed">*</span></label>
-						<select id="department" name="department" style="width: 100%;">
-							<option value="select" disabled selected>select</option>
-							<option value="44">UK (+44)</option>        
+						<select id="department" name="department" style="width: 100%;" disabled>
+							<option value="select" disabled selected>select</option>        
 						</select>
 					</div>
 				</div>
@@ -81,18 +95,18 @@ if($this->session->userdata('level') != "1") {
 						<input id="dob" name="dob" type="date" class="datepicker">
 					</div>
 					<div class="input-field col s4">
-						<label for="doa">Date of Joining <span class="spanRed">*</span></label>
-						<input id="doa" name="doa" type="date" class="datepicker">
+						<label for="doj">Date of Joining <span class="spanRed">*</span></label>
+						<input id="doj" name="doj" type="date" class="datepicker">
 					</div>
 					<div class="input-field col s4">
-						<input id="faculty_mobile_no" type="number" name="faculty_mobile_no" required>
-						<label for="faculty_mobile_no">Contact No <span class="spanRed">*</span></label>
+						<input id="employeeMobile" type="number" name="employeeMobile" required>
+						<label for="employeeMobile">Contact No <span class="spanRed">*</span></label>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
 						<input id="email" name="email" type="email" ng-model="email" class="validate" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
-						<label for="email">Email <span class="spanRed">*</span></label>
+						<label for="email">Email ID<span class="spanRed">*</span></label>
 					</div>
 				</div>
 				<div class="row">
@@ -127,9 +141,38 @@ if($this->session->userdata('level') != "1") {
 	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
 	<script type="text/javascript">
 		$(".button-collapse").sideNav();
+		
 		$(document).ready(function() {
-			$('#institution').material_select();
 			$("#department").select2();
+			$("#institution").select2();
+			loadInstitution();
+		});
+
+		function loadInstitution() {
+			$.ajax({
+				url:'<?php echo base_url("adminController/getInstitution")?>',
+				success: function(data) {
+					$("#institution").html(data);
+				}
+			});
+		}
+
+		$("#institution").change(function() {
+			$.ajax({
+				url: '<?php echo base_url("adminController/getDepartments")?>',
+				type: 'POST',
+				data: {
+					institution: $(this).val()
+				},
+				success: function(data) {
+					$("#department").html(data);
+					$("#department").removeAttr("disabled");
+				}
+			});
+		});
+
+		$("#employeeId").change(function() {
+			this.value = this.value.toUpperCase();
 		});
 
     	//Calculating the date upto yesterday
@@ -141,6 +184,11 @@ if($this->session->userdata('level') != "1") {
     		selectYears: 40,
     		format: 'yyyy-mm-dd'
     	});
+
+    	var $input = $('#doj').pickadate();
+    	var d = new Date();
+    	var picker = $input.pickadate('picker');
+    	picker.set('select',d.getFullYear().toString() + "-" + (d.getMonth()+1).toString() + "-" + d.getDate().toString());
 
     	var app = angular.module('baseModule',[]);
     	app.controller('formController', function($scope) {
@@ -158,6 +206,68 @@ if($this->session->userdata('level') != "1") {
     				$scope.activateLabel = true;
     			}
     		};
+    	});
+
+    	$('#facultyRegistrationForm').on('submit', function(value) {
+
+    		value.preventDefault();
+
+    		if(!$("#institution").val()) {
+				alert("Please select the Institution");
+				return false;
+			}
+
+			if(!$("#department").val()) {
+				alert("Please select the Department");
+				return false;
+			}
+
+    		$.ajax({
+    			url: '<?php echo base_url("adminController/addFacultyDB");?>',
+    			type: 'POST',
+    			data: {
+    				employeeId: $("#employeeId").val(),
+    				name: $("#name").val(),
+    				qualification: $("#qualification").val(),
+    				designation: $("#designation").val(),
+    				institution: $("#institution").val(),
+    				department: $("#department").val(),
+    				dob: $("#dob").val(),
+    				doj: $("#doj").val(),
+    				employeeMobile: $("#employeeMobile").val(),
+    				email: $("#email").val(),
+    				permanentAddress: $("#permanentAddress").val(),
+    				currentAddress: $("#currentAddress").val()    					
+    			},
+    			success:function(data) {
+    				if(data == "Added to database") {
+    					$('#dbMessage').html(data);
+    					$('html, body').animate({scrollTop : 0},800);
+    					$('#facultyRegistrationForm')[0].reset();
+    					var $input = $('#doj').pickadate();
+    					var d = new Date();
+    					var picker = $input.pickadate('picker');
+    					picker.set('select',d.getFullYear().toString() + "-" + (d.getMonth()+1).toString() + "-" + d.getDate().toString());
+    					$('#dbMessage').show('blind');
+    					$('#dbMessage').delay(3000).hide('blind');
+    					loadInstitution();
+    					$('#department').find('option').remove().end().append('<option value="select" selected>select</option>');
+    					$('#department').attr("disabled", "disabled");
+    				}
+    				else {
+    					$('#dbMessage').html(data);
+    					$('html, body').animate({scrollTop : 0},800);
+    					$('#dbMessage').show('blind');
+    					$('#dbMessage').delay(3000).hide('blind');  
+    				}
+    			},
+    			error: function(jqXHR, textStatus, errorThrown) {
+    				$('html, body').animate({scrollTop : 0},800);
+    				$('#dbMessage').html(errorThrown);
+    				$('#dbMessage').show('blind');
+    				$('#dbMessage').delay(3000).hide('blind');
+    			}
+    		});
     	});
     </script>
 </body>
