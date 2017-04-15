@@ -24,40 +24,48 @@ class LoginController extends CI_Controller {
 		$this->load->library('session');
 
 		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $this->input->post('email'))) {
-    		$user = $this->loginModel->validateStudent();
-    		if($user != null) {
-    			$this->session->set_userdata('usn', $this->input->post('usn'));	
-    		}
-    	}
-    	else {
-    		$user = $this->loginModel->validateFaculty();
-    		if($user != null) {
-    			$this->session->set_userdata('level', $user['level']);	
-    		}	
-    	}
+			$user = $this->loginModel->validateStudent();
+			if($user != null) {
+				$this->session->set_userdata('usn', $user['usn']);	
+			}
+		}
+		else {
+			$user = $this->loginModel->validateFaculty();
+			if($user != null) {
+				$this->session->set_userdata('employeeID', $user['employeeID']);
+				$this->session->set_userdata('level', $user['level']);	
+			}	
+		}
 
 		if($user != null) {
 			$this->session->set_userdata('email', $this->input->post('email'));
 			$this->session->set_userdata('username', $user['username']);
-			switch ($user['level']) {
-				case 1:
+			if($this->session->userdata('level')) {
+				switch ($user['level']) {
+					case 1:
 					$this->session->set_userdata('user', 'admin');
 					echo "admin";
 					break;
-				case 2:
+					case 2:
 					$this->session->set_userdata('user', 'head proctor');
 					echo "headProctor";
 					break;
-				case 3:
+					case 3:
 					$this->session->set_userdata('user', 'proctor');
 					echo "proctor";
 					break;
-				default:
+					default:
 					$this->session->set_userdata('user', 'faculty');
 					echo "faculty";
 					break;
+				}
 			}
-		} else {
+			else {
+				$this->session->set_userdata('user', 'student');
+				echo "student";
+			}
+		}
+		else {
 			echo "Login Unsuccessful!";
 		}
 	}

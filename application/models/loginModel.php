@@ -4,7 +4,7 @@ class LoginModel extends CI_Model {
 
 	public function validateStudent() {
 
-		$this->db->where('student_email', $this->input->post('email'));
+		$this->db->where('student_email_id', $this->input->post('email'));
 		$this->db->where('student_password', $this->input->post('password'));
 
 		$query = $this->db->get('student');
@@ -12,7 +12,8 @@ class LoginModel extends CI_Model {
 		if($query->num_rows() > 0) {
 			foreach ($query->result() as $row)
 			{
-				$res['username'] = explode(" ", $row->student_name);
+				$res['usn'] = $row->usn;
+				$res['username'] = $row->student_name;
 				return $res;
 			}
 		}
@@ -31,8 +32,9 @@ class LoginModel extends CI_Model {
 		if($query->num_rows() > 0) {
 			foreach ($query->result() as $row)
 			{
+				$res['employeeID'] = $row->employee_code;
 				$res['level'] = $row->level;
-				$res['username'] = explode(" ", trim($row->faculty_name))[0];
+				$res['username'] = $row->faculty_name;
 				return $res;
 			}
 		}
@@ -129,3 +131,4 @@ class LoginModel extends CI_Model {
 		}
 	}
 }
+?>

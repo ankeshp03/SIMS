@@ -88,7 +88,7 @@ if($this->session->userdata('level') != "1") {
 						<li><a href="<?php echo base_url('adminController')?>">Home</a></li>
 						<li><a href="<?php echo base_url('adminController/studentRegistration')?>">Student Admission</a></li>
 						<li><a href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
-						<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true"><?php echo $this->session->userdata('username'); ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+						<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true"><?php echo explode(" ", trim($this->session->userdata('username')))[0]; ?> <i class="material-icons right">arrow_drop_down</i></a></li>
 					</ul>
 				</div>
 			</nav>
@@ -98,8 +98,8 @@ if($this->session->userdata('level') != "1") {
 		<div class="nav-wrapper">
 			<a href="#!" class="brand-logo" style="color: rgba(255, 255, 255, 0.9);">ADMIN PANEL</a>
 			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-			<ul class="right">
-				<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown2" data-beloworigin="true"><?php echo $this->session->userdata('username'); ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+			<ul class="right hide-on-small-only">
+				<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown2" data-beloworigin="true"><?php echo explode(" ", trim($this->session->userdata('username')))[0]; ?> <i class="material-icons right">arrow_drop_down</i></a></li>
 			</ul>
 			<ul id="mobile-demo" class="side-nav hide-on-large-only" style="width: 308px;">
 				<li style="padding-top: 5%;"><label class="grey-text text-darken-3" style="padding-left: 5%; font-size: 15px;">Home</label></li>
@@ -107,6 +107,8 @@ if($this->session->userdata('level') != "1") {
 				<li style="padding-top: 5%;"><a href="<?php echo base_url('adminController')?>" class="waves-effect blue-text text-darken-3">Home</a></li>
 				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/studentRegistration')?>">Student Registration</a></li>
 				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
+				<li class="hide-on-med-and-up"><a href="#!">Profile</a></li>
+				<li class="hide-on-med-and-up"><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 			</ul>
 		</div>
 	</nav>

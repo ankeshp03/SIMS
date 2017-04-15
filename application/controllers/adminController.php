@@ -26,7 +26,7 @@ class AdminController extends CI_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
-		$data['title'] = 'Student';
+		$data['title'] = 'Student Registration Form';
 		$data['link1'] = 'adminController/studentRegistration#';
 		$data['link2'] = 'adminController/facultyRegistration';
 		$data['color1'] = 'blue';
@@ -69,7 +69,7 @@ class AdminController extends CI_Controller {
 			redirect('loginController');
 		}
 		
-		$data['title'] = 'Faculty';
+		$data['title'] = 'Faculty Registration Form';
 		$data['link1'] = 'adminController/studentRegistration';
 		$data['link2'] = 'adminController/facultyRegistration#';
 		$data['color1'] = 'grey';
