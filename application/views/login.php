@@ -124,7 +124,7 @@ Scripts
 <!--materialize js-->
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js" async></script>
 <!--plugins.js - Some Specific JS codes for Plugin Settings-->
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugins.js" async></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugin.js" async></script>
 
 <script type="text/javascript">
 
@@ -161,7 +161,7 @@ Scripts
       value.preventDefault();
 
       $.ajax({
-        url: '<?php echo base_url("LoginController/validateUser");?>',
+        url: '<?php echo base_url("loginController/validateUser");?>',
         type: 'POST',
         data: {
           email: $('#email').val(),
@@ -206,7 +206,7 @@ Scripts
       $("#forgotPasswordSubmit").attr('disabled','disabled');
 
       $.ajax({
-        url: '<?php echo base_url("LoginController/forgotPassword");?>',
+        url: '<?php echo base_url("loginController/forgotPassword");?>',
         type: 'POST',
         data: {
           emailSendKey: $('#emailSendKey').val()

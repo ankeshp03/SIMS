@@ -70,6 +70,8 @@ class LoginController extends CI_Controller {
 		}
 	}
 
+	/* --- Use in live server, won't work in localhost
+
 	public function forgotPassword() {
 
 		if(!$this->input->is_ajax_request()) {
@@ -104,6 +106,58 @@ class LoginController extends CI_Controller {
 		} else {
 			echo "email not sent!";
 		}
+	} --- */
+
+	public function forgotPassword() {
+
+		if(!$this->input->is_ajax_request()) {
+			exit('No direct script access allowed');
+		}
+		
+		$this->load->model('loginModel');
+
+		if(!$this->loginModel->emailExist()) {
+			exit('Email id is not registered!');
+		}
+
+		$val = $this->loginModel->keyPresent();
+		if($val == null) {
+			$key = md5(uniqid());
+			$this->loginModel->addHashKey($key);
+		}
+		else {
+			$key = $val;
+		}
+		
+		$this->load->library('My_PHPMailer');
+
+		$mail = new PHPMailer;
+
+		$mail->isSMTP();                                  
+		$mail->Host = 'smtp.gmail.com';                   
+		$mail->SMTPAuth = true;                           
+		$mail->Username = 'ankeshp03@gmail.com';         
+		$mail->Password = 'samsungchat';
+		$mail->SMTPSecure = 'tls';                        
+		$mail->Port = 587;                                
+
+		$mail->setFrom('admin@acharya.ac.in', 'Ankesh');
+		$mail->addAddress($this->input->post('emailSendKey'));  
+
+		$mail->isHTML(true); 
+
+		$bodyContent = "<p><a href='".base_url()."loginController/validateKey/$key'>Click here</a> to set your password</p>";
+
+		$mail->Subject = 'SIMS Reset Password';
+		$mail->Body    = $bodyContent;
+
+		if(!$mail->send()) {
+			echo 'Message could not be sent.';
+			//echo 'Mailer Error: ' . $mail->ErrorInfo;
+		} else {
+			echo '<br>Email has been sent to set new password!';
+		}
+
 	}
 
 	public function validateKey($key) {

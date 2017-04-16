@@ -14,6 +14,7 @@ if($this->session->userdata('user') != "student") {
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.min.css">
+	<link href="<?php echo base_url()?>assets/css/studentViewStyle.css" type="text/css" rel="stylesheet" media="screen,projection">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
 		.container {
@@ -44,6 +45,13 @@ if($this->session->userdata('user') != "student") {
 	</style>
 </head>
 <body>
+	<!-- Start Page Loading -->
+	<div id="loader-wrapper">
+		<div id="loader"></div>        
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
+	<!-- End Page Loading -->
 	<ul id="slide-out" class="side-nav hide-on-med-and-up" style="width: 308px;">
 		<li style="padding-top: 5%;"><span style="padding-left: 5%; font-size: 15px;">Profile</span></li>
 		<li><div class="divider"></div></li>
@@ -190,8 +198,15 @@ if($this->session->userdata('user') != "student") {
 		</ul>
 	</div>
 
-	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
-	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
+	<!-- jQuery Library -->
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
+<!--materialize js-->
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugin.js" async></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(".button-collapse").sideNav();

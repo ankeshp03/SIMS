@@ -42,19 +42,26 @@ class LoginModel extends CI_Model {
 			return null;
 		}
 	}
-
+	/*---
 	public function getTotal() {
 
 		$this->db->select('email');
 		$query = $this->db->get('users');
 
 		return $query->num_rows();
-	}
+	} ---*/
 
 	public function emailExist() {
 
-		$this->db->where('email', $this->input->post('emailSendKey'));
-		$query = $this->db->get('users');
+		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $this->input->post('emailSendKey'))) {
+			$this->db->where('student_email_id', $this->input->post('emailSendKey'));
+			$query = $this->db->get('student');
+		}
+		else {
+			$this->db->where('email_id', $this->input->post('emailSendKey'));
+			$query = $this->db->get('faculty');
+		}
+
 		if($query->num_rows() > 0) {
 			return true;
 		}
@@ -111,15 +118,22 @@ class LoginModel extends CI_Model {
 		$this->db->select('email');
 		$this->db->where('hashKey', $key);
 		$query = $this->db->get('forgotPasswordUsers');
-		$val = null;
+		$email = null;
 		foreach ($query->result() as $row)
 		{
-			$val = $row->email;
+			$email = $row->email;
 		}
-		$data = array('password' => $this->input->post('password'));
 
-		$this->db->where('email', $val);
-		$query = $this->db->update('users', $data);
+		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $email)) {
+			$data = array('student_password' => $this->input->post('password'));
+			$this->db->where('student_email_id', $email);
+			$query = $this->db->update('student', $data);
+		}
+		else {
+			$data = array('password' => $this->input->post('password'));
+			$this->db->where('email_id', $email);
+			$query = $this->db->update('faculty', $data);
+		}
 
 		$this->db->where('hashKey', $key);
 		$query = $this->db->delete('forgotPasswordUsers');
