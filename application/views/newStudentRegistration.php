@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "1") {
+if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -570,6 +570,9 @@ if($this->session->userdata('level') != "1") {
 			</div>
 		</form>
 	</div>
+	<div class="hide-on-med-and-down" style="position: fixed; left: 10px; bottom: 10px;">
+		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4">
+	</div>
 	<!--main end-->
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/select2.min.js" async></script>
@@ -1063,7 +1066,7 @@ if($this->session->userdata('level') != "1") {
 					$('#dbMessage').delay(3000).hide('blind');
 				}
 			});
-		});
-	</script>
+});
+</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "1") {
+if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -57,17 +57,20 @@ if($this->session->userdata('level') != "1") {
 			width: 100%;
 			color: rgba(0,0,0,0.7);
 		}
+		.largeNav {
+			padding-right: 9px !important;
+		}
 	</style>
 </head>
 <body>
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
-		<li><a href="#!">Profile</a></li>
+		<li><a href="<?php echo base_url('adminController/adminProfile')?>">Profile</a></li>
 		<li class="divider"></li>
 		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 	</ul>
 	<ul id="dropdown2" class="dropdown-content">
-		<li><a href="#!">Profile</a></li>
+		<li><a href="<?php echo base_url('adminController/adminProfile')?>">Profile</a></li>
 		<li class="divider"></li>
 		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 	</ul>
@@ -88,7 +91,7 @@ if($this->session->userdata('level') != "1") {
 						<li><a href="<?php echo base_url('adminController')?>">Home</a></li>
 						<li><a href="<?php echo base_url('adminController/studentRegistration')?>">Student Admission</a></li>
 						<li><a href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
-						<li><a class="waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true"><?php echo explode(" ", trim($this->session->userdata('username')))[0]; ?> <i class="material-icons right">arrow_drop_down</i></a></li>
+						<li><a class="largeNav waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true"><?php echo explode(" ", trim($this->session->userdata('username')))[0]; ?> <i class="material-icons right">arrow_drop_down</i></a></li>
 					</ul>
 				</div>
 			</nav>

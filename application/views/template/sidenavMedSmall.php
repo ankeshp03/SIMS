@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <li style="padding-top: 5%;"><span style="padding-left: 5%; font-size: 15px;"><?= $title?></span></li>
     <li><div class="divider"></div></li>
     <li style="padding-top: 5%;"><a href="<?php echo base_url('adminController')?>" class="waves-effect grey-text text-darken-3">Home</a></li>
-    <li><a class="waves-effect <?= $color1?>-text text-darken-3" href="<?php echo base_url($link1)?>">Student Registration</a></li>
+    <li><a class="waves-effect <?= $color1?>-text text-darken-3" href="<?php echo base_url($link1)?>">Student Admission</a></li>
     <li><a class="waves-effect <?= $color2?>-text text-darken-3" href="<?php echo base_url($link2)?>">Faculty Registration</a></li>
     <li class="hide-on-med-and-up"><a href="#!">Profile</a></li>
     <li class="hide-on-med-and-up"><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>

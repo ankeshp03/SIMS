@@ -190,6 +190,33 @@ class AdminModel extends CI_Model {
 			echo "no";
 		}
 	}
+
+	public function getAdminDetails($employeeId) {
+
+		$this->db->select('*');
+		$this->db->from('faculty');
+		$this->db->where('faculty.employee_code', $employeeId);
+		$this->db->join('institute_department', 'faculty.institute_department = institute_department.id');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0) {
+			foreach ($query->result() as $row)
+			{
+				$res['qualification'] = $row->qualification;
+				$res['designation'] = $row->designation;
+				$res['dob'] = $row->dob;
+				$res['doj'] = $row->doj;
+				$res['mobile_no'] = $row->mobile_no;
+				$res['email_id'] = $row->email_id;
+				$res['institution'] = $row->institution;
+				$res['department'] = $row->department;
+				return $res;
+			}
+		}
+		else {
+			return null;
+		}
+	}
 }
 
 ?>

@@ -7,7 +7,7 @@ if($this->session->userdata('user') != "student") {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html oncontextmenu="return false">
 <head>
 	<title><?php echo $this->session->userdata('usn'); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
@@ -19,6 +19,7 @@ if($this->session->userdata('user') != "student") {
 	<style type="text/css">
 		.container {
 			font-family: sans-serif;
+			margin-right: 12%
 		}
 		.collHead {
 			color: white;
@@ -44,7 +45,7 @@ if($this->session->userdata('user') != "student") {
 		}
 	</style>
 </head>
-<body>
+<body class="blue-grey lighten-5">
 	<!-- Start Page Loading -->
 	<div id="loader-wrapper">
 		<div id="loader"></div>        
@@ -62,7 +63,7 @@ if($this->session->userdata('user') != "student") {
 	<!--contents of the side navbar for small screen end-->
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
-		<li><a href="#!">Profile</a></li>
+		<li><a href="#">Profile</a></li>
 		<li><a href="#">Time Table</a></li>
 		<li class="divider"></li>
 		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
@@ -128,7 +129,7 @@ if($this->session->userdata('user') != "student") {
 							</table>
 						</div>
 						<div class="input-field col s4 center">
-							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('usn');?>.jpg" class="responsive-img">
+							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('usn');?>.jpg" class="responsive-img" draggable="false">
 						</div>
 					</div>
 					<div class="row">
@@ -196,6 +197,9 @@ if($this->session->userdata('user') != "student") {
 				</div>
 			</li>
 		</ul>
+	</div>
+	<div class="hide-on-med-and-down" style="position: fixed; left: 10px; bottom: 0px;">
+		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4" draggable="false">
 	</div>
 
 	<!-- jQuery Library -->

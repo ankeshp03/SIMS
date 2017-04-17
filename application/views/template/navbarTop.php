@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <!--contents of the dropdown menu-->
 <ul id="dropdown1" class="dropdown-content">
-	<li><a href="#!">Profile</a></li>
+	<li><a href="<?php echo base_url($profile)?>">Profile</a></li>
 	<li class="divider"></li>
 	<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 </ul>

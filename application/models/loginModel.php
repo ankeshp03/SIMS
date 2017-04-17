@@ -14,6 +14,12 @@ class LoginModel extends CI_Model {
 			{
 				$res['usn'] = $row->usn;
 				$res['username'] = $row->student_name;
+				if(strcasecmp($this->input->post('password'), $row->usn) == 0) {
+					$res['firstTime'] = "true";
+				}
+				else {
+					$res['firstTime'] = "false";	
+				}
 				return $res;
 			}
 		}
@@ -141,6 +147,26 @@ class LoginModel extends CI_Model {
 		if($query) {
 			return true;
 		} else {
+			return false;
+		}
+	}
+
+	public function setFirstPassword($email) {
+
+		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $email)) {
+			$data = array('student_password' => $this->input->post('password'));
+			$this->db->where('student_email_id', $email);
+			$query = $this->db->update('student', $data);
+		}
+		else {
+			$data = array('password' => $this->input->post('password'));
+			$this->db->where('email_id', $email);
+			$query = $this->db->update('faculty', $data);
+		}
+		if($query) {
+			return true;
+		}
+		else {
 			return false;
 		}
 	}

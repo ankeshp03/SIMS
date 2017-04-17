@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "1") {
+if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -39,7 +39,7 @@ if($this->session->userdata('level') != "1") {
 
 	</style>
 </head>
-<body bgcolor="#f1f1f1">
+<body class="blue-grey lighten-5">
 	
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
@@ -52,8 +52,7 @@ if($this->session->userdata('level') != "1") {
 
 	<div class="container main" ng-app="baseModule" ng-controller="formController">
 		<center>
-			<div id="dbMessage" class="col s12 z-depth-2 center card-panel" style="color: #4F4F4F;
-			word-wrap: break-word; display: none;">
+			<div id="dbMessage" class="col s12 z-depth-2 center card-panel" style="color: #4F4F4F; word-wrap: break-word; display: none;">
 			</div>
 		</center>
 		<div class="card-panel z-depth-2" style="margin-top: 30px;">
@@ -135,13 +134,16 @@ if($this->session->userdata('level') != "1") {
 			</form>
 		</div>
 	</div>
+	<div class="hide-on-med-and-down" style="position: fixed; left: 10px; bottom: 10px;">
+		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4">
+	</div>
 	<!--main end-->
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/select2.min.js" async></script>
 	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
 	<script type="text/javascript">
 		$(".button-collapse").sideNav();
-		
+
 		$(document).ready(function() {
 			$("#department").select2();
 			$("#institution").select2();
@@ -213,14 +215,14 @@ if($this->session->userdata('level') != "1") {
     		value.preventDefault();
 
     		if(!$("#institution").val()) {
-				alert("Please select the Institution");
-				return false;
-			}
+    			alert("Please select the Institution");
+    			return false;
+    		}
 
-			if(!$("#department").val()) {
-				alert("Please select the Department");
-				return false;
-			}
+    		if(!$("#department").val()) {
+    			alert("Please select the Department");
+    			return false;
+    		}
 
     		$.ajax({
     			url: '<?php echo base_url("adminController/addFacultyDB");?>',

@@ -26,14 +26,15 @@ class AdminController extends CI_Controller {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
-		$data['title'] = 'Student Registration Form';
+		$data['title'] = 'Student Admission Form';
+		$data['profile'] = 'adminController/adminProfile';
 		$data['link1'] = 'adminController/studentRegistration#';
 		$data['link2'] = 'adminController/facultyRegistration';
 		$data['color1'] = 'blue';
 		$data['color2'] = 'grey';
 		$this->load->view('template/navbarTop', $data);
-		$this->load->view('template/sidenavLargeMed', $data);
-		$this->load->view('template/sidenavSmall', $data);
+		$this->load->view('template/sidenavLarge', $data);
+		$this->load->view('template/sidenavMedSmall', $data);
 		$this->load->view('newStudentRegistration');
 	}
 
@@ -63,20 +64,19 @@ class AdminController extends CI_Controller {
 	public function facultyRegistration() {
 
 		$this->load->library('session');
-		$sessionVal = $this->session->userdata('email');
-		
-		if(!$sessionVal) {
-			redirect('loginController');
+		if($this->session->userdata('level') != "1") {
+			redirect($_SERVER['HTTP_REFERER']);
 		}
 		
 		$data['title'] = 'Faculty Registration Form';
+		$data['profile'] = 'adminController/adminProfile';
 		$data['link1'] = 'adminController/studentRegistration';
 		$data['link2'] = 'adminController/facultyRegistration#';
 		$data['color1'] = 'grey';
 		$data['color2'] = 'blue';
 		$this->load->view('template/navbarTop', $data);
-		$this->load->view('template/sidenavLargeMed', $data);
-		$this->load->view('template/sidenavSmall', $data);
+		$this->load->view('template/sidenavLarge', $data);
+		$this->load->view('template/sidenavMedSmall', $data);
 		$this->load->view('newFacultyRegistration');
 	}
 
@@ -110,7 +110,7 @@ class AdminController extends CI_Controller {
 		}
 
 		$this->load->library('session');
-		if($this->session->userdata('level') != "1") {
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
@@ -126,7 +126,7 @@ class AdminController extends CI_Controller {
 		}
 
 		$this->load->library('session');
-		if($this->session->userdata('level') != "1") {
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
@@ -142,7 +142,7 @@ class AdminController extends CI_Controller {
 		}
 
 		$this->load->library('session');
-		if($this->session->userdata('level') != "1") {
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
@@ -158,7 +158,7 @@ class AdminController extends CI_Controller {
 		}
 
 		$this->load->library('session');
-		if($this->session->userdata('level') != "1") {
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
@@ -174,12 +174,37 @@ class AdminController extends CI_Controller {
 		}
 
 		$this->load->library('session');
-		if($this->session->userdata('level') != "1") {
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 
 		$this->load->model('adminModel');
 
 		$this->adminModel->Emailexist();
+	}
+
+	/* --- The below function can be used for faculty also but needs to be implemented in the respective controllers --- */
+
+	public function adminProfile() {
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+
+		$adminData = $this->adminModel->getAdminDetails($this->session->userdata('employeeID'));
+
+		$data['title'] = $this->session->userdata('username');
+		$data['profile'] = '#';
+		$data['link1'] = 'adminController/studentRegistration';
+		$data['link2'] = 'adminController/facultyRegistration';
+		$data['color1'] = 'grey';
+		$data['color2'] = 'grey';
+		$this->load->view('template/navbarTop', $data);
+		$this->load->view('template/sidenavLarge', $data);
+		$this->load->view('template/sidenavMedSmall', $data);
+		$this->load->view('adminView', $adminData);
 	}
 }

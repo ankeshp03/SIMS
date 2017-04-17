@@ -14,6 +14,11 @@ class LoginController extends CI_Controller {
 		$this->load->view('login');
 	}
 
+	public function loginTest() {
+
+		$this->load->view('loginTest');
+	}
+
 	public function validateUser() {
 
 		if(!$this->input->is_ajax_request()) {
@@ -40,30 +45,37 @@ class LoginController extends CI_Controller {
 		if($user != null) {
 			$this->session->set_userdata('email', $this->input->post('email'));
 			$this->session->set_userdata('username', $user['username']);
-			if($this->session->userdata('level')) {
+			if($this->session->userdata('level') && !$this->session->userdata('usn')) {
 				switch ($user['level']) {
 					case 1:
 					$this->session->set_userdata('user', 'admin');
-					echo "admin";
+					//echo "admin";
 					break;
 					case 2:
 					$this->session->set_userdata('user', 'head proctor');
-					echo "headProctor";
+					//echo "headProctor";
 					break;
 					case 3:
 					$this->session->set_userdata('user', 'proctor');
-					echo "proctor";
+					//echo "proctor";
 					break;
 					default:
 					$this->session->set_userdata('user', 'faculty');
-					echo "faculty";
+					//echo "faculty";
 					break;
 				}
 			}
 			else {
 				$this->session->set_userdata('user', 'student');
-				echo "student";
+				//echo "student";
 			}
+			if($user["firstTime"] == "true") {
+				echo "firstTime";
+			}
+			else {
+				echo $this->session->userdata('user');
+			}
+
 		}
 		else {
 			echo "Login Unsuccessful!";
@@ -130,6 +142,8 @@ class LoginController extends CI_Controller {
 		}
 		
 		$this->load->library('My_PHPMailer');
+		$this->load->library('encrypt');
+		$ciphertext = 'ncUJzenhI1HN/6O7qukABu8/nFcGQSnzUskm5AY+9w6reOFSwqXiIRrzw/E4LjcjNFchawkbiLqEebSjHygm6A==';
 
 		$mail = new PHPMailer;
 
@@ -137,7 +151,7 @@ class LoginController extends CI_Controller {
 		$mail->Host = 'smtp.gmail.com';                   
 		$mail->SMTPAuth = true;                           
 		$mail->Username = 'ankeshp03@gmail.com';         
-		$mail->Password = 'samsungchat';
+		$mail->Password = $this->encrypt->decode($ciphertext);
 		$mail->SMTPSecure = 'tls';                        
 		$mail->Port = 587;                                
 
@@ -157,8 +171,13 @@ class LoginController extends CI_Controller {
 		} else {
 			echo '<br>Email has been sent to set new password!';
 		}
-
 	}
+
+	public function setFirstPasswordFunc() {
+
+		$data['key'] = "firstTime";
+		$this->load->view('resetPassword', $data);	
+	}	
 
 	public function validateKey($key) {
 
@@ -177,11 +196,21 @@ class LoginController extends CI_Controller {
 		$key = $this->input->post('key');
 		$this->load->model('loginModel');
 
-		if($this->loginModel->deleteHashKey($key)) {
-			echo "valid";
+		if($key == "firstTime") {
+			if($this->loginModel->setFirstPassword($this->session->userdata('email'))) {
+				echo "valid";
+			}
+			else{
+				echo "invalid";
+			}
 		}
-		else{
-			echo "invalid";
+		else {
+			if($this->loginModel->deleteHashKey($key)) {
+				echo "valid";
+			}
+			else{
+				echo "invalid";
+			}
 		}
 	}
 
