@@ -46,19 +46,14 @@ if($this->session->userdata('user') != "student") {
 			margin-bottom: 0px !important;
 		}
 		th, td {
-			padding:15px 0px !important;
-		}
-		@media screen and (max-width: 600px) {
-			.secHeader {
-				width: 34%;
-			}
+			padding: 15px 5px !important;
 		}
 	</style>
 </head>
 <body class="blue-grey lighten-5">
 	<!-- Start Page Loading -->
-	<div id="loader-wrapper">
-		<div id="loader"></div>        
+	<div id="oader-wrapper">
+		<div id="oader"></div>        
 		<div class="loader-section section-left"></div>
 		<div class="loader-section section-right"></div>
 	</div>
@@ -102,48 +97,56 @@ if($this->session->userdata('user') != "student") {
 				</div>
 				<div class="collapsible-body">
 					<div class="row">
-						<div class="input-field col s12 hide-on-med-and-up center">
+						<div class="s12 hide-on-med-and-up center">
 							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('usn');?>.jpg" class="responsive-img" draggable="false">
 						</div>
 					</div>
 					<div class="row">
-						<div class="input-field col m8 s12">
+						<div class="input-field col m9 s12">
 							<table class="striped bordered">
 								<tr>
-									<th>
-										Name
-									</th>
-									<td colspan="2">
-										<?php echo $this->session->userdata('username');?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											Name
+										</th>
+										<td class="col s8">
+											<?php echo $this->session->userdata('username');?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										AUID
-									</th>
-									<td colspan="2">
-										<?= $auid?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											AUID
+										</th>
+										<td class="col s8">
+											<?= $auid?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										USN
-									</th>
-									<td colspan="2">
-										<?php echo $this->session->userdata('usn');?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											USN
+										</th>
+										<td class="col s8">
+											<?php echo $this->session->userdata('usn');?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Mobile No.
-									</th>
-									<td colspan="2">
-										<?= $mobile?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											Mobile No
+										</th>
+										<td class="col s8">
+											<?= $mobile?>
+										</td>
+									</div>
 								</tr>
 							</table>
 						</div>
-						<div class="input-field col s4 center hide-on-small-only">
+						<div class="input-field col m3 center hide-on-small-only">
 							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('usn');?>.jpg" class="responsive-img" draggable="false">
 						</div>
 					</div>
@@ -151,44 +154,54 @@ if($this->session->userdata('user') != "student") {
 						<div class="input-field col s12">
 							<table class="bordered striped">
 								<tr>
-									<th class="secHeader">
+								<div class="row">
+									<th class="col s4 m3">
 										Email ID
 									</th>
-									<td>
+									<td class="col s8 m9">
 										<?= $email?>
 									</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
+								<div class="row">
+									<th class="col s4 m3">
 										Institute
 									</th>
-									<td>
+									<td class="col s8 m9">
 										<?= $institute?>
 									</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
+								<div class="row">
+									<th class="col s4 m3">
 										Department
 									</th>
-									<td>
+									<td class="col s8 m9">
 										<?= $department?>
 									</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
+								<div class="row">
+									<th class="col s4 m3">
 										Permanent Address
 									</th>
-									<td>
+									<td class="col s8 m9">
 										<?= $permanent_address?>
 									</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
+								<div class="row">
+									<th class="col s4 m3">
 										Local Address
 									</th>
-									<td>
+									<td class="col s8 m9">
 										<?= $local_address?>
 									</td>
+									</div>
 								</tr>
 							</table>
 						</div>

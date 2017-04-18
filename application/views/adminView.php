@@ -48,17 +48,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			margin-bottom: 0px !important;
 		}
 		th, td {
-			padding:15px 0px !important;
-		}
-		@media screen and (min-width: 600px) {
-			.secHeader {
-				width: 32%;
-			}
-		}
-		@media screen and (max-width: 600px) {
-			.secHeader {
-				width: 42%;
-			}
+			padding: 15px 5px !important;
 		}
 	</style>
 </head>
@@ -79,84 +69,100 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				<div class="collapsible-body">
 					<div class="row">
 						<div class="hide-on-med-and-up input-field col s12 center">
-							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img">
+							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img" draggable="false">
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col m9 s12">
 							<table class="striped bordered">
 								<tr>
-									<th>
-										Employee ID
-									</th>
-									<td>
-										<?php echo $this->session->userdata('employeeID');?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											Employee ID
+										</th>
+										<td class="col s8">
+											<?php echo $this->session->userdata('employeeID');?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Name
-									</th>
-									<td>
-										<?php echo $this->session->userdata('username');?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											Name
+										</th>
+										<td class="col s8">
+											<?php echo $this->session->userdata('username');?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Date of Birth
-									</th>
-									<td>
-										<?= $dob?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											Date of Birth
+										</th>
+										<td class="col s8">
+											<?= $dob?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Mobile No.
-									</th>
-									<td>
-										<?= $mobile_no?>
-									</td>
+									<div class="row">
+										<th class="col s4">
+											Mobile No.
+										</th>
+										<td class="col s8">
+											<?= $mobile_no?>
+										</td>
+									</div>
 								</tr>
 							</table>
 						</div>
 						<div class="hide-on-small-only input-field col m3 center">
-							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img">
+							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img" draggable="false">
 						</div>
 					</div>
 					<div class="row">
 						<div class="input-field col s12">
 							<table class="bordered striped">
 								<tr>
-									<th class="secHeader">
-										Date of Joining
-									</th>
-									<td>
-										<?= $doj?>
-									</td>
+									<div class="row">
+										<th class="col s4 m3">
+											Date of Joining
+										</th>
+										<td class="col s8 m9">
+											<?= $doj?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Email ID
-									</th>
-									<td>
-										<?= $email_id?>
-									</td>
+									<div class="row">
+										<th class="col s4 m3">
+											Email ID
+										</th>
+										<td class="col s8 m9">
+											<?= $email_id?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Institute
-									</th>
-									<td>
-										<?= $institution?>
-									</td>
+									<div class="row">
+										<th class="col s4 m3">
+											Institute
+										</th>
+										<td class="col s8 m9">
+											<?= $institution?>
+										</td>
+									</div>
 								</tr>
 								<tr>
-									<th>
-										Department
-									</th>
-									<td>
-										<?= $department?>
-									</td>
+									<div class="row">
+										<th class="col s4 m3">
+											Department
+										</th>
+										<td class="col s8 m9">
+											<?= $department?>
+										</td>
+									</div>
 								</tr>
 							</table>
 						</div>
