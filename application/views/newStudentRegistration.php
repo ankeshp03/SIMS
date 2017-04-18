@@ -571,7 +571,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		</form>
 	</div>
 	<div class="hide-on-med-and-down" style="position: fixed; left: 10px; bottom: 10px;">
-		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4">
+		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4" draggable="false">
 	</div>
 	<!--main end-->
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>

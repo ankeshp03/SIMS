@@ -47,6 +47,19 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		.row {
 			margin-bottom: 0px !important;
 		}
+		th, td {
+			padding:15px 0px !important;
+		}
+		@media screen and (min-width: 600px) {
+			.secHeader {
+				width: 32%;
+			}
+		}
+		@media screen and (max-width: 600px) {
+			.secHeader {
+				width: 42%;
+			}
+		}
 	</style>
 </head>
 <body class="blue-grey lighten-5">
@@ -65,43 +78,48 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				</div>
 				<div class="collapsible-body">
 					<div class="row">
-						<div class="input-field col s8">
+						<div class="hide-on-med-and-up input-field col s12 center">
+							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col m9 s12">
 							<table class="striped bordered">
 								<tr>
-									<th width="30%">
+									<th>
 										Employee ID
 									</th>
-									<td colspan="2">
+									<td>
 										<?php echo $this->session->userdata('employeeID');?>
 									</td>
 								</tr>
 								<tr>
-									<th width="30%">
+									<th>
 										Name
 									</th>
-									<td colspan="2">
+									<td>
 										<?php echo $this->session->userdata('username');?>
 									</td>
 								</tr>
 								<tr>
-									<th width="30%">
+									<th>
 										Date of Birth
 									</th>
-									<td colspan="2">
+									<td>
 										<?= $dob?>
 									</td>
 								</tr>
 								<tr>
-									<th width="30%">
+									<th>
 										Mobile No.
 									</th>
-									<td colspan="2">
+									<td>
 										<?= $mobile_no?>
 									</td>
 								</tr>
 							</table>
 						</div>
-						<div class="input-field col s4 center">
+						<div class="hide-on-small-only input-field col m3 center">
 							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img">
 						</div>
 					</div>
@@ -109,7 +127,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 						<div class="input-field col s12">
 							<table class="bordered striped">
 								<tr>
-									<th width="20%">
+									<th class="secHeader">
 										Date of Joining
 									</th>
 									<td>

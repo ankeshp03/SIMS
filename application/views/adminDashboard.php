@@ -110,7 +110,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				<li style="padding-top: 5%;"><a href="<?php echo base_url('adminController')?>" class="waves-effect blue-text text-darken-3">Home</a></li>
 				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/studentRegistration')?>">Student Registration</a></li>
 				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
-				<li class="hide-on-med-and-up"><a href="#!">Profile</a></li>
+				<li class="hide-on-med-and-up"><a href="<?php echo base_url('adminController/adminProfile')?>">Profile</a></li>
 				<li class="hide-on-med-and-up"><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 			</ul>
 		</div>

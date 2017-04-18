@@ -197,7 +197,7 @@ class AdminController extends CI_Controller {
 		$adminData = $this->adminModel->getAdminDetails($this->session->userdata('employeeID'));
 
 		$data['title'] = $this->session->userdata('username');
-		$data['profile'] = '#';
+		$data['profile'] = 'adminController/adminProfile#';
 		$data['link1'] = 'adminController/studentRegistration';
 		$data['link2'] = 'adminController/facultyRegistration';
 		$data['color1'] = 'grey';

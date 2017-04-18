@@ -40,14 +40,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	</style>
 </head>
 <body class="blue-grey lighten-5">
-	
-	<!--contents of the dropdown menu-->
-	<ul id="dropdown1" class="dropdown-content">
-		<li><a href="#!">Profile</a></li>
-		<li class="divider"></li>
-		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
-	</ul>
-	<!--contents of the dropdown menu end-->
+
 	<!--main-->
 
 	<div class="container main" ng-app="baseModule" ng-controller="formController">

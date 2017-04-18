@@ -17,9 +17,11 @@ if($this->session->userdata('user') != "student") {
 	<link href="<?php echo base_url()?>assets/css/studentViewStyle.css" type="text/css" rel="stylesheet" media="screen,projection">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
-		.container {
-			font-family: sans-serif;
-			margin-right: 12%
+		@media screen and (min-width: 991px) {
+			.container {
+				font-family: sans-serif;
+				margin-right: 12%
+			}
 		}
 		.collHead {
 			color: white;
@@ -32,7 +34,7 @@ if($this->session->userdata('user') != "student") {
 			padding: 1%;
 			padding-left: 4%;
 			padding-right: 4%;
-			
+
 			background-color: white;
 		}
 		img {
@@ -42,6 +44,14 @@ if($this->session->userdata('user') != "student") {
 		}
 		.row {
 			margin-bottom: 0px !important;
+		}
+		th, td {
+			padding:15px 0px !important;
+		}
+		@media screen and (max-width: 600px) {
+			.secHeader {
+				width: 34%;
+			}
 		}
 	</style>
 </head>
@@ -56,7 +66,7 @@ if($this->session->userdata('user') != "student") {
 	<ul id="slide-out" class="side-nav hide-on-med-and-up" style="width: 308px;">
 		<li style="padding-top: 5%;"><span style="padding-left: 5%; font-size: 15px;">Profile</span></li>
 		<li><div class="divider"></div></li>
-		<li style="padding-top: 5%;"><a href="<?php echo base_url('adminController')?>" class="waves-effect blue-text text-darken-3">Profile</a></li>
+		<li style="padding-top: 5%;"><a href="#" class="waves-effect blue-text text-darken-3">Profile</a></li>
 		<li><a class="waves-effect grey-text text-darken-3" href="#">Time Table</a></li>
 		<li class="hide-on-med-and-up"><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 	</ul>
@@ -92,10 +102,15 @@ if($this->session->userdata('user') != "student") {
 				</div>
 				<div class="collapsible-body">
 					<div class="row">
-						<div class="input-field col s8">
+						<div class="input-field col s12 hide-on-med-and-up center">
+							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('usn');?>.jpg" class="responsive-img" draggable="false">
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-field col m8 s12">
 							<table class="striped bordered">
 								<tr>
-									<th width="30%">
+									<th>
 										Name
 									</th>
 									<td colspan="2">
@@ -103,7 +118,7 @@ if($this->session->userdata('user') != "student") {
 									</td>
 								</tr>
 								<tr>
-									<th width="30%">
+									<th>
 										AUID
 									</th>
 									<td colspan="2">
@@ -111,7 +126,7 @@ if($this->session->userdata('user') != "student") {
 									</td>
 								</tr>
 								<tr>
-									<th width="30%">
+									<th>
 										USN
 									</th>
 									<td colspan="2">
@@ -119,7 +134,7 @@ if($this->session->userdata('user') != "student") {
 									</td>
 								</tr>
 								<tr>
-									<th width="30%">
+									<th>
 										Mobile No.
 									</th>
 									<td colspan="2">
@@ -128,7 +143,7 @@ if($this->session->userdata('user') != "student") {
 								</tr>
 							</table>
 						</div>
-						<div class="input-field col s4 center">
+						<div class="input-field col s4 center hide-on-small-only">
 							<img src="<?php echo base_url()?>assets/images/students/<?php echo $this->session->userdata('usn');?>.jpg" class="responsive-img" draggable="false">
 						</div>
 					</div>
@@ -136,7 +151,7 @@ if($this->session->userdata('user') != "student") {
 						<div class="input-field col s12">
 							<table class="bordered striped">
 								<tr>
-									<th width="20%">
+									<th class="secHeader">
 										Email ID
 									</th>
 									<td>
@@ -163,7 +178,7 @@ if($this->session->userdata('user') != "student") {
 									<th>
 										Permanent Address
 									</th>
-									<td colspan="3">
+									<td>
 										<?= $permanent_address?>
 									</td>
 								</tr>
@@ -171,7 +186,7 @@ if($this->session->userdata('user') != "student") {
 									<th>
 										Local Address
 									</th>
-									<td colspan="3">
+									<td>
 										<?= $local_address?>
 									</td>
 								</tr>
@@ -203,14 +218,14 @@ if($this->session->userdata('user') != "student") {
 	</div>
 
 	<!-- jQuery Library -->
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-1.11.2.min.js"></script>
 
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
-<!--materialize js-->
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
-<!--plugins.js - Some Specific JS codes for Plugin Settings-->
-<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugin.js" async></script>
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
+	<!--materialize js-->
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
+	<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugin.js" async></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(".button-collapse").sideNav();

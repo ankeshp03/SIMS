@@ -195,7 +195,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 break;
                 case "student" : document.location.href = "<?php echo base_url('studentController');?>";
                 break;
-                default : document.location.href = "<?php echo base_url('pageNotFoundController');?>";              
+                case "firstTime" : document.location.href = "<?php echo base_url('loginController/setFirstPasswordFunc');?>";
+                break;
+                default : document.location.href = "<?php echo base_url('pageNotFoundController');?>";
+                break;              
               }
 
             }
