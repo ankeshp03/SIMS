@@ -41,6 +41,7 @@ class LoginModel extends CI_Model {
 				$res['employeeID'] = $row->employee_code;
 				$res['level'] = $row->level;
 				$res['username'] = $row->faculty_name;
+				$res['institute_department'] = $row->institute_department;
 				return $res;
 			}
 		}

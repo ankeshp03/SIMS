@@ -13,7 +13,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- Icons -->
 
   <link href="<?php echo base_url()?>assets/css/icon.css" type="text/css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- Favicons-->
 
@@ -187,7 +186,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               switch(data) {
                 case "admin" : document.location.href = "<?php echo base_url('adminController');?>";
                 break;
-                case "headProctor" : document.location.href = "<?php echo base_url('headProctorController');?>";
+                case "head proctor" : document.location.href = "<?php echo base_url('headProctorController');?>";
                 break;
                 case "proctor" : document.location.href = "<?php echo base_url('proctorController');?>";
                 break;

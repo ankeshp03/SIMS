@@ -14,11 +14,6 @@ class LoginController extends CI_Controller {
 		$this->load->view('login');
 	}
 
-	public function loginTest() {
-
-		$this->load->view('loginTest');
-	}
-
 	public function validateUser() {
 
 		if(!$this->input->is_ajax_request()) {
@@ -38,7 +33,8 @@ class LoginController extends CI_Controller {
 			$user = $this->loginModel->validateFaculty();
 			if($user != null) {
 				$this->session->set_userdata('employeeID', $user['employeeID']);
-				$this->session->set_userdata('level', $user['level']);	
+				$this->session->set_userdata('level', $user['level']);
+				$this->session->set_userdata('institute_department', $user['institute_department']);
 			}	
 		}
 
@@ -135,7 +131,6 @@ class LoginController extends CI_Controller {
 		$val = $this->loginModel->keyPresent();
 		if($val == null) {
 			$key = md5(uniqid());
-			$this->loginModel->addHashKey($key);
 		}
 		else {
 			$key = $val;
@@ -166,9 +161,10 @@ class LoginController extends CI_Controller {
 		$mail->Body    = $bodyContent;
 
 		if(!$mail->send()) {
-			echo 'Message could not be sent.';
+			echo 'Email could not be sent.';
 			//echo 'Mailer Error: ' . $mail->ErrorInfo;
 		} else {
+			$this->loginModel->addHashKey($key);
 			echo '<br>Email has been sent to set new password!';
 		}
 	}

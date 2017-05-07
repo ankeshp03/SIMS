@@ -24,6 +24,7 @@ class AdminModel extends CI_Model {
 			'gender' => $this->input->post('gender'),
 			'nationality' => $this->input->post('nationality'),
 			'date_of_birth' => $this->input->post('dob'),
+			'year' => 1,
 			'permanent_address' => $this->input->post('permanentAddress'),
 			'correspondence_address' => $this->input->post('correspondanceAddress'),
 			'student_email_id' => $this->input->post('studentEmail'),
@@ -178,10 +179,29 @@ class AdminModel extends CI_Model {
 		}
 	}
 
+	public function employeeIdExist() {
+
+		$this->db->where('employee_code', $this->input->post('employeeId'));
+		$query = $this->db->get('faculty');
+
+		if($query->num_rows() > 0) {
+			echo "Employee Id already exists!";
+		}
+		else {
+			echo "no";
+		}
+	}
+
 	public function Emailexist() {
 
-		$this->db->where('student_email_id', $this->input->post('studentEmail'));
-		$query = $this->db->get('student');
+		if($this->input->post('user') == "student") {
+			$this->db->where('student_email_id', $this->input->post('email'));
+			$query = $this->db->get('student');
+		}
+		else if($this->input->post('user') == "faculty") {
+			$this->db->where('email_id', $this->input->post('email'));
+			$query = $this->db->get('faculty');
+		}
 
 		if($query->num_rows() > 0) {
 			echo "yes";

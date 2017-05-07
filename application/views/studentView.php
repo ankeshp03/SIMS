@@ -52,8 +52,8 @@ if($this->session->userdata('user') != "student") {
 </head>
 <body class="blue-grey lighten-5">
 	<!-- Start Page Loading -->
-	<div id="oader-wrapper">
-		<div id="oader"></div>        
+	<div id="loader-wrapper">
+		<div id="loader"></div>        
 		<div class="loader-section section-left"></div>
 		<div class="loader-section section-right"></div>
 	</div>

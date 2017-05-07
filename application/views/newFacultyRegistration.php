@@ -52,8 +52,18 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			<form id="facultyRegistrationForm" class="col s12" method="post" action="<?php echo base_url('facultyRegistration/addfacultyDB')?>" name="facultyRegistrationForm" autocomplete>
 				<div class="row">
 					<div class="input-field col s4">
-						<input id="employeeId" name="employeeId" type="text" class="active" pattern="[A-Za-z]{3}[0-9]{5}" title="Invalid id format" autofocus required>
+						<input id="employeeId" name="employeeId" type="text" class="active" pattern="[A-Za-z]+[0-9]+" title="Invalid id format" autofocus required>
 						<label for="employeeId">Employee ID <span class="spanRed">*</span></label>
+					</div>
+					<div class="input-field col" style="margin-left: -53px;">
+						<center>
+							<div class="tickEmployeeId" style="display: none;">
+								<img src="<?php echo base_url()?>assets/images/tick.png" style="border-radius: 50%; width: 30px; margin-top: 10px;">
+							</div>
+							<div class="crossEmployeeId" style="display: none;">
+								<img src="<?php echo base_url()?>assets/images/cross.png" style="border-radius: 50%; width: 30px; margin-top: 10px;">
+							</div>
+						</center>
 					</div>
 					<div class="input-field col s4">
 						<input id="name" name="name" type="text" class="active" pattern="[A-Za-z ]+" title="Special Characters not allowed" required>
@@ -96,9 +106,36 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s12">
-						<input id="email" name="email" type="email" ng-model="email" class="validate" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
+					<div class="input-field col m9 s7">
+						<input id="email" name="email" type="text" ng-model="email" class="validate" pattern="^[A-Za-z0-9\.]+$" title="Enter valid Acharya email id" required>
 						<label for="email">Email ID<span class="spanRed">*</span></label>
+					</div>
+					<div class="input-field col m3 s5" style="margin-left: -23px;">
+						<input type="text" id="acharyaEmail" name="acharyaEmail" value="@acharya.ac.in" style="text-align: center; padding-right: 22px; border-bottom-color: " readonly>
+						<label for="acharyaEmail" class="active"></label>
+					</div>
+					<div class="input-field col" style="margin-left: -35px;">
+						<center>
+							<div class="preloader-wrapper small active" style="display: none;">
+								<div class="spinner-layer spinner-blue-only">
+									<div class="circle-clipper left">
+										<div class="circle"></div>
+									</div>
+									<div class="gap-patch">
+										<div class="circle"></div>
+									</div>
+									<div class="circle-clipper right">
+										<div class="circle"></div>
+									</div>
+								</div>
+							</div>
+							<div class="tick" style="display: none;">
+								<img src="<?php echo base_url()?>assets/images/tick.png" style="border-radius: 50%; width: 30px; margin-top: 10px;">
+							</div>
+							<div class="cross" style="display: none;">
+								<img src="<?php echo base_url()?>assets/images/cross.png" style="border-radius: 50%; width: 30px; margin-top: 10px;">
+							</div>
+						</center>
 					</div>
 				</div>
 				<div class="row">
@@ -113,8 +150,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 						<label for="copy">If current address is same as permanent address</label>
 					</div>
 				</div>
-				<div class="row">
-					<div class="input-field col s12">
+				<div class="row" style="margin-top: 50px;">
+					<div class="input-field col s12" >
 						<input type="text" name="currentAddress" id="currentAddress" name="currentAddress" ng-model="currentAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
 						<label for="currentAddress" ng-class="{'active':activateLabel}">Current Address <span class="spanRed">*</span></label>
 					</div>
@@ -166,6 +203,37 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			});
 		});
 
+		$("#employeeId").keyup(function() {
+
+			$(".tickEmployeeId").hide();
+			$(".crossEmployeeId").hide();
+			if(!/^[A-Za-z]+[0-9]+$/.test($("#employeeId").val())){
+				$(".tickEmployeeId").hide();
+				$(".crossEmployeeId").hide();
+				return false;
+			}
+
+			$.ajax({
+				url:'<?php echo base_url("adminController/employeeIdExists")?>',
+				type: 'POST',
+				data: {
+					employeeId: $("#employeeId").val()
+				},
+				success: function(data) {
+					if(data == "no") {
+						$(".crossEmployeeId").hide();
+						$(".tickEmployeeId").show();
+						$(".tickEmployeeId").delay(5000).hide(0);
+					}
+					else {
+						$(".tickEmployeeId").hide();
+						$(".crossEmployeeId").show();
+						$(".crossEmployeeId").delay(5000).hide(0);
+					}
+				}
+			});
+		});
+
 		$("#employeeId").change(function() {
 			this.value = this.value.toUpperCase();
 		});
@@ -203,6 +271,77 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     		};
     	});
 
+    	$("#email").focusin(function() {
+    		if(!$("#email").val()) {
+    			$("#acharyaEmail").css("border-bottom", "1px solid #26a69a");
+    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #26a69a");
+    		}
+    		else if(/^[A-Za-z0-9\.]+$/.test($("#email").val())){
+    			$("#acharyaEmail").css("border-bottom", "1px solid #4caf50");
+    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #4caf50");
+    		}
+    		else if(!/^[A-Za-z0-9\.]+$/.test($("#email").val())){
+    			$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
+    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
+    		}
+    	});
+
+    	$("#email").focusout(function() {
+    		if(!$("#email").val()) {
+    			$("#acharyaEmail").css("border-bottom", "1px solid #9e9e9e");
+    			$("#acharyaEmail").css("box-shadow", "none");
+    		}
+    		else if(/^[A-Za-z0-9\.]+$/.test($("#email").val())){
+    			$("#acharyaEmail").css("border-bottom", "1px solid #4caf50");
+    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #4caf50");
+    		}
+    		else if(!/^[A-Za-z0-9\.]+$/.test($("#email").val())){
+    			$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
+    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
+    		}
+    	});
+
+    	$("#email").keyup(function() {
+
+    		$(".tick").hide();
+    		$(".cross").hide();
+    		if($("#email").val()){
+    			$(".preloader-wrapper").show();
+    		}
+    		else {
+    			$(".preloader-wrapper").hide();	
+    		}
+
+    		if(!/^[A-Za-z0-9\.]+$/.test($("#email").val())){
+    			return false;
+    		}
+
+    		email = $("#email").val() + "@acharya.ac.in";
+
+    		$.ajax({
+    			url:'<?php echo base_url("adminController/Emailexists")?>',
+    			type: 'POST',
+    			data: {
+    				email: email,
+    				user: "faculty"
+    			},
+    			success: function(data) {
+    				if(data == "no") {
+    					$(".preloader-wrapper").hide();
+    					$(".cross").hide();
+    					$(".tick").show();
+    					$(".tick").delay(5000).hide(0);
+    				}
+    				else {
+    					$(".preloader-wrapper").hide();
+    					$(".tick").hide();
+    					$(".cross").show();
+    					$(".cross").delay(5000).hide(0);
+    				}
+    			}
+    		});
+    	});
+
     	$('#facultyRegistrationForm').on('submit', function(value) {
 
     		value.preventDefault();
@@ -230,7 +369,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     				dob: $("#dob").val(),
     				doj: $("#doj").val(),
     				employeeMobile: $("#employeeMobile").val(),
-    				email: $("#email").val(),
+    				email: $("#email").val() + "@acharya.ac.in",
     				permanentAddress: $("#permanentAddress").val(),
     				currentAddress: $("#currentAddress").val()    					
     			},
@@ -239,6 +378,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     					$('#dbMessage').html(data);
     					$('html, body').animate({scrollTop : 0},800);
     					$('#facultyRegistrationForm')[0].reset();
+    					$("label").removeClass("active");
+    					$("label[for='institution'], label[for='department']").addClass("active");
     					var $input = $('#doj').pickadate();
     					var d = new Date();
     					var picker = $input.pickadate('picker');

@@ -168,22 +168,22 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 								<label for="copy">If correspondance address is same as permanent address</label>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" style="margin-top: 50px;">
 							<div class="input-field col s12">
 								<input type="text" name="correspondanceAddress" id="correspondanceAddress" name="correspondanceAddress" ng-model="correspondanceAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
 								<label for="correspondanceAddress" ng-class="{'active':activateLabel}">Correspondance Address <span class="spanRed">*</span></label>
 							</div>
 						</div>
 						<div class="row">
-							<div class="input-field col s5">
+							<div class="input-field col m5 s6">
 								<input id="studentEmail" name="studentEmail" type="text" class="validate" pattern="^[a-z]+\.[a-z]{4}\.([0-9][1-9]|[1-9][0-9])$" title="Enter valid Acharya email id" required>
-								<label for="studentEmail">Student Acharya Email ID <span class="spanRed">*</span></label>
+								<label for="studentEmail">Student Email ID <span class="spanRed">*</span></label>
 							</div>
-							<div class="input-field col s2" style="margin-left: -23px; margin-right: 23px;">
-								<input type="text" id="acharyaEmail" name="acharyaEmail" value="@acharya.ac.in" style="text-align: right; padding-right: 30px; border-bottom-color: " readonly>
+							<div class="input-field col m3 s6" style="margin-left: -23px; margin-right: 22px;">
+								<input type="text" id="acharyaEmail" name="acharyaEmail" value="@acharya.ac.in" style="text-align: center; padding-right: 22px; border-bottom-color: " readonly>
 								<label for="acharyaEmail" class="active"></label>
 							</div>
-							<div class="input-field col s1">
+							<div class="input-field col" style="margin-left: -60px;">
 								<center>
 									<div class="preloader-wrapper small active" style="display: none;">
 										<div class="spinner-layer spinner-blue-only">
@@ -206,7 +206,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 									</div>
 								</center>
 							</div>
-							<div class="input-field col center s4">
+							<div class="input-field col center m4 s12">
 								<input id="studentMobile" name="studentMobile" type="number" required>
 								<label for="studentMobile">Student Mobile <span class="spanRed">*</span></label>
 							</div>
@@ -225,7 +225,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 							<div class="input-field col s4">
 								<input id="cYes" type="radio" name="category" value="1" checked>
 								<label for="cYes">Yes</label>
-								<input id="cNo" type="radio" name="category" value="2">
+								<input id="cNo" type="radio" name="category" value="0">
 								<label for="cNo">No</label>
 							</div>
 						</div>
@@ -236,7 +236,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 							<div class="input-field col s4">
 								<input id="nYes" type="radio" name="nriForeign" value="1" checked>
 								<label for="nYes">Yes</label>
-								<input id="nNo" type="radio" name="nriForeign" value="2">
+								<input id="nNo" type="radio" name="nriForeign" value="0">
 								<label for="nNo">No</label>
 							</div>
 						</div>
@@ -274,7 +274,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<input type="text" id="officeAddress" name="officeAddress" ng-model="permanentAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
+								<input type="text" id="officeAddress" name="officeAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
 								<label for="officeAddress">Office Address <span class="spanRed">*</span></label>
 							</div>
 						</div>
@@ -528,7 +528,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 							</div>
 						</div>
 						<div class="row">
-							<div class="input-field col s8" id="categoryCertificateDiv">				
+							<div class="input-field col s8" id="categoryCertificateDiv">
 								<input id="categoryCertificate" class="chkbox" type="checkbox" name="categoryCertificate" value="1">
 								<label for="categoryCertificate">Category Certificate (SC/ST or BC/BT) </label> 
 							</div>
@@ -728,7 +728,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				url:'<?php echo base_url("adminController/Emailexists")?>',
 				type: 'POST',
 				data: {
-					studentEmail: email
+					email: email,
+					user: "student"
 				},
 				success: function(data) {
 					if(data == "no") {
@@ -786,7 +787,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
 			$("input[name='category'], input[name='nriForeign']").change(function() {
 				divName = "#" + $(this).attr("name") + "CertificateDiv";
-				if ($(this).val() == 'no'){
+				if ($(this).val() == '0'){
 					$(divName).hide();
 				}
 				else{
