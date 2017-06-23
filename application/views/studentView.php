@@ -62,14 +62,12 @@ if($this->session->userdata('user') != "student") {
 		<li style="padding-top: 5%;"><span style="padding-left: 5%; font-size: 15px;">Profile</span></li>
 		<li><div class="divider"></div></li>
 		<li style="padding-top: 5%;"><a href="#" class="waves-effect blue-text text-darken-3">Profile</a></li>
-		<li><a class="waves-effect grey-text text-darken-3" href="#">Time Table</a></li>
 		<li class="hide-on-med-and-up"><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 	</ul>
 	<!--contents of the side navbar for small screen end-->
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
 		<li><a href="#">Profile</a></li>
-		<li><a href="#">Time Table</a></li>
 		<li class="divider"></li>
 		<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 	</ul>

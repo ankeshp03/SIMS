@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "2" || $this->session->userdata('user') != "head proctor") {
+if($this->session->userdata('level') != "3" || $this->session->userdata('user') != "head proctor") {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -15,9 +15,11 @@ if($this->session->userdata('level') != "2" || $this->session->userdata('user') 
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
-		.containerMain {
-			padding-left: 15px;
-			width: 60%;
+		@media screen and (min-width: 991px) {
+			.containerMain {
+				padding-left: 15px;
+				width: 60%;
+			}
 		}
 		body {
 			font-family: sans-serif;
@@ -42,12 +44,15 @@ if($this->session->userdata('level') != "2" || $this->session->userdata('user') 
 					<div class="col s6 facultyList"></div>
 				</div>
 				<div class="row">
-					<button id="submitButton" class="btn waves-effect waves-light" style="margin-left: 10px;" type="submit" name="action">Submit
+					<button id="submitButton" class="btn waves-effect waves-light" style="margin-left: 10px;" type="submit" name="action">Assign
 						<i class="material-icons right">send</i>
 					</button>
 				</div>
 			</form>
 		</div>
+	</div>
+	<div class="hide-on-med-and-down" style="position: fixed; left: 10px; bottom: 10px;">
+		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4">
 	</div>
 
 	<!-- jQuery Library -->
@@ -59,9 +64,10 @@ if($this->session->userdata('level') != "2" || $this->session->userdata('user') 
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$(".button-collapse").sideNav();
+			studentFacultyList();
 		});
 
-		$(document).ready(function() {
+		function studentFacultyList() {
 
 			$.ajax({
 				url: '<?php echo base_url("headProctorController/getStudents");?>',
@@ -82,6 +88,47 @@ if($this->session->userdata('level') != "2" || $this->session->userdata('user') 
 				},
 				success:function(data) {
 					$(".facultyList").html(data);
+				}
+			});
+		};
+
+		$("#proctorAssignForm").on("submit", function(value) {
+
+			value.preventDefault();
+
+			var checked_list = [];
+
+			$('.check_list').each(function() {
+				if($(this).is(":checked")) {
+					checked_list.push($(this).val());
+				}
+			});
+			
+			$.ajax({
+				url: '<?php echo base_url("headProctorController/assignProctorToStudent");?>',
+				type: 'POST',
+				data: {
+					checked_list: checked_list,
+					faculty: $('[name=facultyName]:checked').val(),
+					year: $("#year").val()
+				},
+				success:function(data) {
+					studentFacultyList();
+				}
+			});
+		});
+
+		$("#reassign1,#reassign2").on("click", function(value) {
+
+			value.preventDefault();
+			$.ajax({
+				url: '<?php echo base_url("headProctorController/reassignProctor");?>',
+				type: 'POST',
+				data: {
+					year: $("#year").val()
+				},
+				success:function(data) {
+					location.reload();
 				}
 			});
 		});

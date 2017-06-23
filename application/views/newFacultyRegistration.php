@@ -92,15 +92,25 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<label for="dob">Date of Birth <span class="spanRed">*</span></label>
 						<input id="dob" name="dob" type="date" class="datepicker">
 					</div>
-					<div class="input-field col s4">
+					<div class="input-field col s3">
 						<label for="doj">Date of Joining <span class="spanRed">*</span></label>
 						<input id="doj" name="doj" type="date" class="datepicker">
 					</div>
-					<div class="input-field col s4">
+					<div class="input-field col s3">
+						<select id="employeeLevel" name="employeeLevel">
+							<option value="1">Admin</option>
+							<option value="2">HoD</option>
+							<option value="3">Head Proctor</option>
+							<option value="4">Proctor</option>
+							<option value="5" selected>Faculty</option>
+						</select>
+						<label>Employee Type <span class="spanRed">*</span></label>
+					</div>
+					<div class="input-field col s3">
 						<input id="employeeMobile" type="number" name="employeeMobile" required>
 						<label for="employeeMobile">Contact No <span class="spanRed">*</span></label>
 					</div>
@@ -175,6 +185,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		$(".button-collapse").sideNav();
 
 		$(document).ready(function() {
+			$('#employeeLevel').material_select();
 			$("#department").select2();
 			$("#institution").select2();
 			loadInstitution();
@@ -244,7 +255,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     	$('.datepicker').pickadate({
     		max: yesterday+1,
     		selectMonths: true,
-    		selectYears: 40,
+    		selectYears: 60,
     		format: 'yyyy-mm-dd'
     	});
 
@@ -356,6 +367,11 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     			return false;
     		}
 
+    		if(!$("#employeeLevel").val()) {
+    			alert("Please select the Employee Type");
+    			return false;
+    		}
+
     		$.ajax({
     			url: '<?php echo base_url("adminController/addFacultyDB");?>',
     			type: 'POST',
@@ -368,6 +384,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     				department: $("#department").val(),
     				dob: $("#dob").val(),
     				doj: $("#doj").val(),
+    				employeeLevel: $("#employeeLevel").val(),
     				employeeMobile: $("#employeeMobile").val(),
     				email: $("#email").val() + "@acharya.ac.in",
     				permanentAddress: $("#permanentAddress").val(),

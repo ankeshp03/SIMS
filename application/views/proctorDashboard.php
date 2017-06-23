@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "3" || $this->session->userdata('user') != "head proctor") {
+if($this->session->userdata('level') != "4" || $this->session->userdata('user') != "proctor") {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -44,7 +44,7 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 						</div>
 						<div class="card-action">
 							<center>
-								<a href="<?php echo base_url('headProctorController/assignStudentFaculties/1')?>" style="width: 100%; display: block;">Assign Students</a>
+								<a href="<?php echo base_url('proctorController/studentInProctor/1')?>" style="width: 100%; display: block;">Assign Students</a>
 							</center>
 						</div>
 					</div>
@@ -57,7 +57,7 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 						</div>
 						<div class="card-action">
 							<center>
-								<a href="<?php echo base_url('headProctorController/assignStudentFaculties/2')?>" style="width: 100%; display: block;">Assign Students</a>
+								<a href="<?php echo base_url('proctorController/studentInProctor/2')?>" style="width: 100%; display: block;">Assign Students</a>
 							</center>
 						</div>
 					</div>
@@ -72,7 +72,7 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 						</div>
 						<div class="card-action">
 							<center>
-								<a href="<?php echo base_url('headProctorController/assignStudentFaculties/3')?>" style="width: 100%; display: block;">Assign Students</a>
+								<a href="<?php echo base_url('proctorController/studentInProctor/3')?>" style="width: 100%; display: block;">Assign Students</a>
 							</center>
 						</div>
 					</div>
@@ -85,7 +85,7 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 						</div>
 						<div class="card-action">
 							<center>
-								<a href="<?php echo base_url('headProctorController/assignStudentFaculties/4')?>" style="width: 100%; display: block;">Assign Students</a>
+								<a href="<?php echo base_url('proctorController/studentInProctor/4')?>" style="width: 100%; display: block;">Assign Students</a>
 							</center>
 						</div>
 					</div>

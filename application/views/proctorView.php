@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
+if($this->session->userdata('level') != "4" || $this->session->userdata('user') != "proctor") {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>

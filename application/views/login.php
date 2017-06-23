@@ -186,6 +186,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               switch(data) {
                 case "admin" : document.location.href = "<?php echo base_url('adminController');?>";
                 break;
+                case "hod" : document.location.href = "<?php echo base_url('hodController');?>";
+                break;
                 case "head proctor" : document.location.href = "<?php echo base_url('headProctorController');?>";
                 break;
                 case "proctor" : document.location.href = "<?php echo base_url('proctorController');?>";

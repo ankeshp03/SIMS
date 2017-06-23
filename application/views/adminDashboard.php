@@ -62,7 +62,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		}
 	</style>
 </head>
-<body>
+<body class="blue-grey lighten-5">
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
 		<li><a href="<?php echo base_url('adminController/adminProfile')?>">Profile</a></li>
@@ -116,7 +116,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		</div>
 	</nav>
 	<br>
-	<div class="container">
+	<!--div class="container">
 		<div class="card z-depth-2 center-align">
 			<table>
 				<tr>
@@ -156,9 +156,9 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 						</div>
 					</td>
 				</tr>
-			</div>
+			</table>
 		</div>
-	</div>
+	</div-->
 
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
 	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>

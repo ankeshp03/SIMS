@@ -5,7 +5,7 @@ class LoginModel extends CI_Model {
 	public function validateStudent() {
 
 		$this->db->where('student_email_id', $this->input->post('email'));
-		$this->db->where('student_password', $this->input->post('password'));
+		$this->db->where('student_password', hash ( "sha256", $this->input->post('password')));
 
 		$query = $this->db->get('student');
 
@@ -31,7 +31,7 @@ class LoginModel extends CI_Model {
 	public function validateFaculty() {
 
 		$this->db->where('email_id', $this->input->post('email'));
-		$this->db->where('password', $this->input->post('password'));
+		$this->db->where('password', hash ( "sha256", $this->input->post('password')));
 
 		$query = $this->db->get('faculty');
 
@@ -132,12 +132,12 @@ class LoginModel extends CI_Model {
 		}
 
 		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $email)) {
-			$data = array('student_password' => $this->input->post('password'));
+			$data = array('student_password' => hash ( "sha256", $this->input->post('password')));
 			$this->db->where('student_email_id', $email);
 			$query = $this->db->update('student', $data);
 		}
 		else {
-			$data = array('password' => $this->input->post('password'));
+			$data = array('password' => hash ( "sha256", $this->input->post('password')));
 			$this->db->where('email_id', $email);
 			$query = $this->db->update('faculty', $data);
 		}
@@ -155,12 +155,12 @@ class LoginModel extends CI_Model {
 	public function setFirstPassword($email) {
 
 		if (1 == preg_match("/^[a-zA-Z]+\.[a-zA-Z]+\.([0-9][1-9]|[1-9][0-9])@acharya\.ac\.in$/", $email)) {
-			$data = array('student_password' => $this->input->post('password'));
+			$data = array('student_password' => hash ( "sha256", $this->input->post('password')));
 			$this->db->where('student_email_id', $email);
 			$query = $this->db->update('student', $data);
 		}
 		else {
-			$data = array('password' => $this->input->post('password'));
+			$data = array('password' => hash ( "sha256", $this->input->post('password')));
 			$this->db->where('email_id', $email);
 			$query = $this->db->update('faculty', $data);
 		}

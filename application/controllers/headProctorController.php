@@ -13,7 +13,7 @@ class HeadProctorController extends CI_Controller {
 
 		$this->load->library('session');
 		
-		if($this->session->userdata('level') != "2") {
+		if($this->session->userdata('level') != "3") {
 			redirect('loginController');
 		}
 
@@ -24,27 +24,53 @@ class HeadProctorController extends CI_Controller {
 		$data['profile'] = 'headProctorController/headProctorProfile';
 		$data['link1'] = 'headProctorController/assignStudentFaculties';
 		$data['color1'] = 'blue';
-		$data['text'] = 'Home';
+		$data['text1'] = 'Home';
+		$data['text2'] = '';
 		$this->load->view('template/headProctorNavbarTop', $data);
 		$this->load->view('template/headProctorSidenavLarge', $data);
 		$this->load->view('template/headProctorSidenavMedSmall', $data);
 		$this->load->view('headProctorDashboard', $value);
 	}
 
+	public function headProctorProfile() {
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "3" || $this->session->userdata('user') != "head proctor") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('headProctorModel');
+
+		$headProctorData = $this->headProctorModel->getHeadProctorDetails($this->session->userdata('employeeID'));
+
+		$data['title'] = $this->session->userdata('username');
+		$data['profile'] = 'headProctorController/headProctorProfile';
+		$data['link1'] = 'headProctorController/assignStudentFaculties';
+		$data['color1'] = 'grey';
+		$data['text1'] = 'Home';
+		$data['text2'] = '';
+		$this->load->view('template/headProctorNavbarTop', $data);
+		$this->load->view('template/headProctorSidenavLarge', $data);
+		$this->load->view('template/headProctorSidenavMedSmall', $data);
+		$this->load->view('headProctorView', $headProctorData);
+	}
+
 	public function assignStudentFaculties($year) {
 
 		$this->load->library('session');
 		
-		if($this->session->userdata('level') != "2") {
+		if($this->session->userdata('level') != "3") {
 			redirect('loginController');
 		}
 
 		$yearVal['year'] = $year;
+		$data['year'] = $year;
 		$data['title'] = 'Proctor Assignment';
 		$data['profile'] = 'headProctorController/headProctorProfile';
 		$data['link1'] = 'headProctorController/assignStudentFaculties';
 		$data['color1'] = 'grey';
-		$data['text'] = 'Home';
+		$data['text1'] = 'Home';
+		$data['text2'] = 'Proctor Reassign';
 		$this->load->view('template/headProctorNavbarTop', $data);
 		$this->load->view('template/headProctorSidenavLarge', $data);
 		$this->load->view('template/headProctorSidenavMedSmall', $data);
@@ -55,7 +81,7 @@ class HeadProctorController extends CI_Controller {
 
 		$this->load->library('session');
 		
-		if($this->session->userdata('level') != "2") {
+		if($this->session->userdata('level') != "3") {
 			redirect('loginController');
 		}
 
@@ -67,11 +93,35 @@ class HeadProctorController extends CI_Controller {
 
 		$this->load->library('session');
 		
-		if($this->session->userdata('level') != "2") {
+		if($this->session->userdata('level') != "3") {
 			redirect('loginController');
 		}
 
 		$this->load->model("headProctorModel");
 		$students = $this->headProctorModel->facultiesList($this->session->userdata('institute_department'));
+	}
+
+	public function assignProctorToStudent() {
+
+		$this->load->library('session');
+		
+		if($this->session->userdata('level') != "3") {
+			redirect('loginController');
+		}
+
+		$this->load->model("headProctorModel");
+		$students = $this->headProctorModel->proctorStudentAssignment($this->session->userdata('institute_department'));
+	}
+
+	public function reassignProctor($year) {
+
+		$this->load->library('session');
+		
+		if($this->session->userdata('level') != "3") {
+			redirect('loginController');
+		}
+
+		$this->load->model("headProctorModel");
+		$students = $this->headProctorModel->proctorReassignment($this->session->userdata('institute_department'));	
 	}
 }

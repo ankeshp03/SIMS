@@ -12,7 +12,17 @@ class LoginController extends CI_Controller {
 	public function index()  {
 
 		$this->load->view('login');
+		//$this->load->view('passwords');
 	}
+
+	/*public function generate() {
+
+		//$this->load->library('encrypt');
+
+		echo hash ( "sha256", ($this->input->post('password')));
+		echo "<br>";
+		//echo $this->encrypt->decode($this->input->post('password'));
+	}*/
 
 	public function validateUser() {
 
@@ -45,25 +55,23 @@ class LoginController extends CI_Controller {
 				switch ($user['level']) {
 					case 1:
 					$this->session->set_userdata('user', 'admin');
-					//echo "admin";
 					break;
 					case 2:
-					$this->session->set_userdata('user', 'head proctor');
-					//echo "headProctor";
+					$this->session->set_userdata('user', 'hod');
 					break;
 					case 3:
+					$this->session->set_userdata('user', 'head proctor');
+					break;
+					case 4:
 					$this->session->set_userdata('user', 'proctor');
-					//echo "proctor";
 					break;
 					default:
 					$this->session->set_userdata('user', 'faculty');
-					//echo "faculty";
 					break;
 				}
 			}
 			else {
 				$this->session->set_userdata('user', 'student');
-				//echo "student";
 			}
 			if($user["firstTime"] == "true") {
 				echo "firstTime";
@@ -138,14 +146,14 @@ class LoginController extends CI_Controller {
 		
 		$this->load->library('My_PHPMailer');
 		$this->load->library('encrypt');
-		$ciphertext = 'ncUJzenhI1HN/6O7qukABu8/nFcGQSnzUskm5AY+9w6reOFSwqXiIRrzw/E4LjcjNFchawkbiLqEebSjHygm6A==';
+		$ciphertext = 'Ql7jmznM/sWwRvQVma/mhfoHrA7YALRHAVpD7z+QOIJY+/bzDh4O0WR4/SEpbjp8RzBRXVMUduBMWW7OBb+AcA==';
 
 		$mail = new PHPMailer;
 
 		$mail->isSMTP();                                  
 		$mail->Host = 'smtp.gmail.com';                   
 		$mail->SMTPAuth = true;                           
-		$mail->Username = 'ankeshp03@gmail.com';         
+		$mail->Username = 'ank.paramanik@gmail.com';         
 		$mail->Password = $this->encrypt->decode($ciphertext);
 		$mail->SMTPSecure = 'tls';                        
 		$mail->Port = 587;                                
