@@ -38,4 +38,10 @@ Proctor Module
 
 This module can be accessed by the Proctors of the different departments. The proctor can choose the year, for which they get the list of 
 students under him/her. He/she can select a student and see their details, marks, attendance and add or modify them as per need.
-He/she can see the 
+They can also check their profile, where they can view there details.
+
+**************
+Student Module
+**************
+
+This module can be accessed by the Students. The students can see their personal details, marks and attendance of the current semester.
