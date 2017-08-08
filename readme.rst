@@ -5,21 +5,24 @@ Student Information Management System
 Student Information Management System (SIMS) is a Management System, that can be used by a college to 
 manage student as well as faculty informations.
 
+It contains 5 modules at present.
 
-*******************
-Release Information
-*******************
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+************
+Login Module
+************
 
-**************************
-Changelog and New Features
-**************************
+In this module, users (admin, students, faculties) can login to use the system.
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+If the student logins for the first time, the unique key (here University Seat Number) will be the password.
+On login the student will be redirected to Reset Password page, where they can set a new password.
+
+************
+Admin Module
+************
+
+This module can be accessed only by the admin of the system. The admin can register new faculty, admit new student, check 
+there own profile, where they can view there details.
 
 *******************
 Server Requirements
