@@ -221,6 +221,6 @@ class AdminController extends CI_Controller {
 		$this->load->view('template/adminNavbarTop', $data);
 		$this->load->view('template/adminSidenavLarge', $data);
 		$this->load->view('template/adminSidenavMedSmall', $data);
-		$this->load->view('adminView', $adminData);
+		$this->load->view('adminView', $adminData);	
 	}
 }

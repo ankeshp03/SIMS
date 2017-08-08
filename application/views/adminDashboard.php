@@ -17,30 +17,28 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
 		.header {
-			height: 300px;
+			height: 150px;
 			position: relative;
 			
 		}
 		.line {
-			height: 300px;
+			height: 150px;
 			width: 65%;
-			margin-left: -110px;
+			margin-left: -100px;
 			-webkit-transform: skew(145deg);
 			-moz-transform: skew(145deg);
 			-o-transform: skew(145deg);
 		}
 		.helloText, .adminText {
-			padding-left: 10%;
+			padding-left: 20%;
+			padding-top: 2%;
 			color: rgba(255, 255, 255, 0.7);
 			font-family: courier;
 			text-shadow: black 10px 10px 0.2em;
-			font-size: 100px;
+			font-size: 75px;
 			-ms-transform: skew(-145deg); /* IE 9 */
 			-webkit-transform: skew(-145deg); /* Safari */
 			transform: skew(-145deg);
-		}
-		.adminText {
-			padding-left: 55%;
 		}
 		.navDiv {
 			width: 50.5%;
@@ -78,10 +76,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<div class="header z-depth-2 teal darken-4 hide-on-med-and-down">
 		<div class="line z-depth-2">
 			<div class="helloText">
-				HELLO
-			</div>
-			<div class="adminText">
-				ADMIN
+				HELLO ADMIN
 			</div>
 		</div>
 		<div class="navDiv">

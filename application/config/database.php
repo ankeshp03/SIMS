@@ -94,3 +94,17 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+
+	$mysqli = new mysqli(
+    $db['default']['hostname'],
+    $db['default']['username'],
+    $db['default']['password']
+);
+
+	if (!$mysqli->select_db($db['default']['database'])) {
+
+		$mysqli->query( "CREATE DATABASE ".$db['default']['database'] );
+	    $mysqli->select_db($db['default']['database']);
+		$mysqli->multi_query( file_get_contents( 'db/college_db.sql'));
+	}

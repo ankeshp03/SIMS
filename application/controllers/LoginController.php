@@ -12,17 +12,7 @@ class LoginController extends CI_Controller {
 	public function index()  {
 
 		$this->load->view('login');
-		//$this->load->view('passwords');
 	}
-
-	/*public function generate() {
-
-		//$this->load->library('encrypt');
-
-		echo hash ( "sha256", ($this->input->post('password')));
-		echo "<br>";
-		//echo $this->encrypt->decode($this->input->post('password'));
-	}*/
 
 	public function validateUser() {
 
@@ -146,6 +136,9 @@ class LoginController extends CI_Controller {
 		
 		$this->load->library('My_PHPMailer');
 		$this->load->library('encrypt');
+
+		//Here the cyphertext is the password used to login to the gmail account
+
 		$ciphertext = 'Ql7jmznM/sWwRvQVma/mhfoHrA7YALRHAVpD7z+QOIJY+/bzDh4O0WR4/SEpbjp8RzBRXVMUduBMWW7OBb+AcA==';
 
 		$mail = new PHPMailer;
@@ -153,12 +146,13 @@ class LoginController extends CI_Controller {
 		$mail->isSMTP();                                  
 		$mail->Host = 'smtp.gmail.com';                   
 		$mail->SMTPAuth = true;                           
-		$mail->Username = 'ank.paramanik@gmail.com';         
-		$mail->Password = $this->encrypt->decode($ciphertext);
+		$mail->Username = 'ank.paramanik@gmail.com'; //Email ID from where the reset password mail will be sent
+		//$mail->Password = 'password'; Password used to loginn to your account
+		$mail->Password = $this->encrypt->decode($ciphertext); //can be removed when previous line is used
 		$mail->SMTPSecure = 'tls';                        
 		$mail->Port = 587;                                
 
-		$mail->setFrom('admin@acharya.ac.in', 'Ankesh');
+		$mail->setFrom('ank.paramanik@gmail.com', 'Ankesh');
 		$mail->addAddress($this->input->post('emailSendKey'));  
 
 		$mail->isHTML(true); 

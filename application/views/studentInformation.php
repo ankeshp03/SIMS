@@ -30,7 +30,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 
 		@media screen and (min-width: 991px) {
 			#personalInfo, #modifyBtn {
-				margin-left: 10%;
+				/*margin-left: 80px;*/
 			}
 		}
 		#modifyBtn, .modify {
@@ -67,7 +67,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 			</div>
 		</div>
 		<div  class="row perInfoRow">
-			<div class="col s12" id="personalInfo">
+			<div class="col s10 container card-panel" id="personalInfo">
 			</div>
 		</div>
 			<!--a class="col s2 waves-effect btn" id="modifyBtn" style="margin-top: 4%;">Modify</a>
@@ -193,10 +193,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 	 	url : personalInformationUrl,
 	 	type : "GET",
 	 	success : function (data) {
-	 		//$("#personalInfo").html(data);
-	 		console.log("fetching student personal Information");
-	 		console.log(data);
-
+	 		
 	 		var Sname, Susn, Sfathername, Sauid;
 
 	 		var len = data.length;
@@ -215,20 +212,16 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 	 				Saddress = data[i].student_local_address;
 	 				Sfathername = data[i].parent_name;
 	 			}
-	 			console.log("//////");
-	 			console.log(Sname);
-	 			console.log(Susn);
-	 			console.log(Sfathername);
-	 			console.log("//////");
-	 			var student = document.createElement('span');
-	 			student.id = "student";
-	 			student.innerText ="\n Name :"+ Sname + 
-	 			"\n AUID :"+ Sauid + 
-	 			"\n USN :" + Susn +
-	 			"\n Mobile No :" + Smobile +
-	 			"\n Father Name :"+ Sfathername +
-	 			"\n Email ID :" + Semail +
-	 			"\n Local Address:" + Saddress;
+	 			
+	 			var student = "<table class='stripped bordered responsive'><tr><th>\n Name :</th><td>"+ Sname + 
+	 			"</td></tr><tr><th>\n AUID :</th><td>"+ Sauid + 
+	 			"</td></tr><tr><th>\n USN :</td><td>" + Susn +
+	 			"</td></tr><tr><th>\n Mobile No :</th><td>" + Smobile +
+	 			"</td></tr><tr><th>\n Father Name :</th><td>"+ Sfathername +
+	 			"</td></tr><tr><th>\n Email ID :</th><td>" + Semail +
+	 			"</td></tr><tr><th>\n Local Address:</th><td>" + Saddress +
+	 			"</td></tr></table>";
+
 	 			$("#personalInfo").append(student);
 
 	 		}
@@ -335,15 +328,13 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 				options : options
 			} );
 
-			console.log("Nice,it seem's to be Working  for attendance graph!!! :)");
-			console.log();
+			// console.log("Nice,it seem's to be Working  for attendance graph!!! :)");
+			// console.log();
 
 		},
 		error : function(data) {
-			console.log("Error in data parsing");
-			console.log();
-			//console.log(data);
-			//console.log("error function");
+			// console.log("Error in data parsing");
+			// console.log();
 		}
 	});
 
@@ -353,12 +344,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 				url : marksMethodUrl,
 				type : "GET",
 				success : function(data){
-			/*
-			console.log(data);
-			console.log("++++" + data.length);
-			console.log("++++" + subjects.length);
-			console.log("inside successfunction 2");
-			*/
+			
 			var dataLen = data.length;
 			var firstInternalMarks = [];
 			var secondInternalMarks = [];
@@ -383,12 +369,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 					}
 				};
 			};
-			/*
-			console.log(firstInternalMarks);
-			console.log(secondInternalMarks);
-			console.log(thirdInternalMarks);
-			*/
-
+			
 			//get canvas
 			var ctx = $(".marks");
 

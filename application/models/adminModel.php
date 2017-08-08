@@ -28,7 +28,7 @@ class AdminModel extends CI_Model {
 			'permanent_address' => $this->input->post('permanentAddress'),
 			'correspondence_address' => $this->input->post('correspondanceAddress'),
 			'student_email_id' => $this->input->post('studentEmail'),
-			'student_password' => hash ( "sha256", $this->input->post('usn')),
+			'student_password' => hash ( "sha256", strtolower($this->input->post('usn'))),
 			'student_mobile' => $this->input->post('studentMobile'),
 			'category' => $this->input->post('category'),
 			'nri_or_foreign_national' => $this->input->post('nriForeign'),
@@ -115,7 +115,7 @@ class AdminModel extends CI_Model {
 			'email_id' => $this->input->post('email'),
 			'permanent_address' => $this->input->post('permanentAddress'),
 			'current_address' => $this->input->post('currentAddress'),
-			'password' => hash ( "sha256", $this->input->post('employeeId')),
+			'password' => hash ( "sha256", strtolower($this->input->post('employeeId'))),
 			'institute_department' => $institute_department_id
 			);
 

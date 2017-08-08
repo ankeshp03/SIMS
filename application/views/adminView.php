@@ -53,13 +53,6 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	</style>
 </head>
 <body class="blue-grey lighten-5">
-	<!-- Start Page Loading -->
-	<div id="loader-wrapper">
-		<div id="loader"></div>        
-		<div class="loader-section section-left"></div>
-		<div class="loader-section section-right"></div>
-	</div>
-	<!-- End Page Loading -->
 	<div class="container">
 		<ul class="collapsible z-depth-2" style="margin-top: 30px; letter-spacing: 0.1px;" data-collapsible="expandable">
 			<li>
@@ -180,8 +173,6 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
 	<!--materialize js-->
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
-	<!--plugins.js - Some Specific JS codes for Plugin Settings-->
-	<script type="text/javascript" src="<?php echo base_url()?>assets/js/plugin.js" async></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$(".button-collapse").sideNav();
