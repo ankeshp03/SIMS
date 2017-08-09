@@ -26,9 +26,9 @@ class HeadProctorController extends CI_Controller {
 		$data['color1'] = 'blue';
 		$data['text1'] = 'Home';
 		$data['text2'] = '';
-		$this->load->view('template/headProctorNavbarTop', $data);
-		$this->load->view('template/headProctorSidenavLarge', $data);
-		$this->load->view('template/headProctorSidenavMedSmall', $data);
+		$this->load->view('navbar/headProctorNavbarTop', $data);
+		$this->load->view('navbar/headProctorSidenavLarge', $data);
+		$this->load->view('navbar/headProctorSidenavMedSmall', $data);
 		$this->load->view('headProctorDashboard', $value);
 	}
 
@@ -49,9 +49,9 @@ class HeadProctorController extends CI_Controller {
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
 		$data['text2'] = '';
-		$this->load->view('template/headProctorNavbarTop', $data);
-		$this->load->view('template/headProctorSidenavLarge', $data);
-		$this->load->view('template/headProctorSidenavMedSmall', $data);
+		$this->load->view('navbar/headProctorNavbarTop', $data);
+		$this->load->view('navbar/headProctorSidenavLarge', $data);
+		$this->load->view('navbar/headProctorSidenavMedSmall', $data);
 		$this->load->view('headProctorView', $headProctorData);
 	}
 
@@ -71,9 +71,9 @@ class HeadProctorController extends CI_Controller {
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
 		$data['text2'] = 'Proctor Reassign';
-		$this->load->view('template/headProctorNavbarTop', $data);
-		$this->load->view('template/headProctorSidenavLarge', $data);
-		$this->load->view('template/headProctorSidenavMedSmall', $data);
+		$this->load->view('navbar/headProctorNavbarTop', $data);
+		$this->load->view('navbar/headProctorSidenavLarge', $data);
+		$this->load->view('navbar/headProctorSidenavMedSmall', $data);
 		$this->load->view('studentProctorAssignment', $yearVal);
 	}
 

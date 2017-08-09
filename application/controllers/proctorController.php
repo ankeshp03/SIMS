@@ -28,9 +28,9 @@ class ProctorController extends CI_Controller {
 		$data['link1'] = 'proctorController/assignStudentFaculties';
 		$data['color1'] = 'blue';
 		$data['text1'] = 'Home';
-		$this->load->view('template/proctorNavbarTop', $data);
-		$this->load->view('template/proctorSidenavLarge', $data);
-		$this->load->view('template/proctorSidenavMedSmall', $data);
+		$this->load->view('navbar/proctorNavbarTop', $data);
+		$this->load->view('navbar/proctorSidenavLarge', $data);
+		$this->load->view('navbar/proctorSidenavMedSmall', $data);
 		$this->load->view('proctorDashboard', $value);
 
 	}
@@ -50,9 +50,9 @@ class ProctorController extends CI_Controller {
 		$data['link1'] = 'proctorController/assignStudentFaculties';
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
-		$this->load->view('template/proctorNavbarTop', $data);
-		$this->load->view('template/proctorSidenavLarge', $data);
-		$this->load->view('template/proctorSidenavMedSmall', $data);
+		$this->load->view('navbar/proctorNavbarTop', $data);
+		$this->load->view('navbar/proctorSidenavLarge', $data);
+		$this->load->view('navbar/proctorSidenavMedSmall', $data);
 		$this->data['usn'] = $usn;
 		// usn of student is passed as a parameter so that attendanceGraph.php can use it
 		$this->load->view('studentInformation', $this->data);
@@ -132,9 +132,9 @@ class ProctorController extends CI_Controller {
 		$data['link1'] = 'proctorController/assignStudentFaculties';
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
-		$this->load->view('template/proctorNavbarTop', $data);
-		$this->load->view('template/proctorSidenavLarge', $data);
-		$this->load->view('template/proctorSidenavMedSmall', $data);
+		$this->load->view('navbar/proctorNavbarTop', $data);
+		$this->load->view('navbar/proctorSidenavLarge', $data);
+		$this->load->view('navbar/proctorSidenavMedSmall', $data);
 
 		$this->load->model("proctorModel");
 		$this->data['studentInProctor'] = $this->proctorModel->studentInProctorDb($this->session->userdata('institute_department'), $year);
@@ -186,9 +186,9 @@ class ProctorController extends CI_Controller {
 		$data['link1'] = 'proctorController/assignStudentFaculties';
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
-		$this->load->view('template/proctorNavbarTop', $data);
-		$this->load->view('template/proctorSidenavLarge', $data);
-		$this->load->view('template/proctorSidenavMedSmall', $data);
+		$this->load->view('navbar/proctorNavbarTop', $data);
+		$this->load->view('navbar/proctorSidenavLarge', $data);
+		$this->load->view('navbar/proctorSidenavMedSmall', $data);
 		$this->load->view('proctorView', $proctorData);
 	}
 }

@@ -32,9 +32,9 @@ class AdminController extends CI_Controller {
 		$data['link2'] = 'adminController/facultyRegistration';
 		$data['color1'] = 'blue';
 		$data['color2'] = 'grey';
-		$this->load->view('template/adminNavbarTop', $data);
-		$this->load->view('template/adminSidenavLarge', $data);
-		$this->load->view('template/adminSidenavMedSmall', $data);
+		$this->load->view('navbar/adminNavbarTop', $data);
+		$this->load->view('navbar/adminSidenavLarge', $data);
+		$this->load->view('navbar/adminSidenavMedSmall', $data);
 		$this->load->view('newStudentRegistration');
 	}
 
@@ -74,9 +74,9 @@ class AdminController extends CI_Controller {
 		$data['link2'] = 'adminController/facultyRegistration#';
 		$data['color1'] = 'grey';
 		$data['color2'] = 'blue';
-		$this->load->view('template/adminNavbarTop', $data);
-		$this->load->view('template/adminSidenavLarge', $data);
-		$this->load->view('template/adminSidenavMedSmall', $data);
+		$this->load->view('navbar/adminNavbarTop', $data);
+		$this->load->view('navbar/adminSidenavLarge', $data);
+		$this->load->view('navbar/adminSidenavMedSmall', $data);
 		$this->load->view('newFacultyRegistration');
 	}
 
@@ -218,9 +218,9 @@ class AdminController extends CI_Controller {
 		$data['link2'] = 'adminController/facultyRegistration';
 		$data['color1'] = 'grey';
 		$data['color2'] = 'grey';
-		$this->load->view('template/adminNavbarTop', $data);
-		$this->load->view('template/adminSidenavLarge', $data);
-		$this->load->view('template/adminSidenavMedSmall', $data);
+		$this->load->view('navbar/adminNavbarTop', $data);
+		$this->load->view('navbar/adminSidenavLarge', $data);
+		$this->load->view('navbar/adminSidenavMedSmall', $data);
 		$this->load->view('adminView', $adminData);	
 	}
 }

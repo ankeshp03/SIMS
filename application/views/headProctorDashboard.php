@@ -12,7 +12,7 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 	<title>Home | Head Proctor</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.min.css">
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
 		@media screen and (min-width: 991px) {

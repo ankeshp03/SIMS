@@ -34,6 +34,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
   <link href="<?php echo base_url()?>assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="<?php echo base_url()?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="<?php echo base_url()?>assets/css/loader.css" type="text/css" rel="stylesheet" media="screen,projection">
 
   <style type="text/css">
     .wrap {

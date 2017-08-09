@@ -13,7 +13,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 	</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">  
   <link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">    
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/materialize.min.css')?>">
+  <link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
   <style type="text/css">
     @media screen and (min-width: 991px) {
       .container {

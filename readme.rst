@@ -45,3 +45,9 @@ Student Module
 **************
 
 This module can be accessed by the Students. The students can see their personal details, marks and attendance of the current semester.
+
+***********
+User Manual
+***********
+
+If you want to use the system, here you can get the `Detailed Documentation <https://codeigniter.com/user_guide/installation/index.html>`_.
