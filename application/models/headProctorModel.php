@@ -5,13 +5,13 @@ class HeadProctorModel extends CI_Model {
 
 	public function year($institute_department) {
 
-		$this->db->select('DISTINCT(year)');
+		$this->db->select('DISTINCT(current_year)');
 		$this->db->where('institute_department', $institute_department);
 		$years = $this->db->get('student')->num_rows();
 
 		for($i = 1; $i <= 4; $i++) {
 
-			$this->db->where('year', $i);
+			$this->db->where('current_year', $i);
 			$this->db->where('institute_department', $institute_department);
 			$data['year'.$i] = $this->db->count_all_results('student');
 		}
@@ -22,7 +22,7 @@ class HeadProctorModel extends CI_Model {
 
 		$this->db->select('student_name, usn');
 		$this->db->where('institute_department', $institute_department);
-		$this->db->where('year', $this->input->post('year'));
+		$this->db->where('current_year', $this->input->post('year'));
 		$query = $this->db->get('student');
 
 		echo "<ul style='padding-left:20%;'>";
@@ -59,22 +59,23 @@ class HeadProctorModel extends CI_Model {
 				$data = array(
 					'eid' => $this->input->post('faculty'),
 					'usn' => $list,
-					'year' => $this->input->post('year')
+					'current_year' => $this->input->post('year')
 					);
 
 				$query = $this->db->insert('proctor', $data);
 			}
-
-			$data = array('level' => 4);
-			$this->db->where('employee_code', $this->input->post('faculty'));
-			$query = $this->db->update('faculty', $data);
+			if($query) {
+				$data = array('level' => 4);
+				$this->db->where('employee_code', $this->input->post('faculty'));
+				$query = $this->db->update('faculty', $data);
+			}
 		}
 	}
 
 	public function proctorReassignment($institute_department) {
 
 		$this->db->select('usn');
-		$this->db->where('year', $this->input->post('year'));
+		$this->db->where('current_year', $this->input->post('year'));
 		$this->db->where('institute_department', $institute_department);
 		$query = $this->db->get('student');
 

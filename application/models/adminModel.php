@@ -24,7 +24,6 @@ class AdminModel extends CI_Model {
 			'gender' => $this->input->post('gender'),
 			'nationality' => $this->input->post('nationality'),
 			'date_of_birth' => $this->input->post('dob'),
-			'year' => 1,
 			'permanent_address' => $this->input->post('permanentAddress'),
 			'correspondence_address' => $this->input->post('correspondanceAddress'),
 			'student_email_id' => $this->input->post('studentEmail'),
@@ -112,7 +111,7 @@ class AdminModel extends CI_Model {
 			'doj' => $this->input->post('doj'),
 			'level' => $this->input->post('employeeLevel'),
 			'mobile_no' => $this->input->post('employeeMobile'),
-			'email_id' => $this->input->post('email'),
+			'email_id' => $this->input->post('email') . "@acharya.ac.in",
 			'permanent_address' => $this->input->post('permanentAddress'),
 			'current_address' => $this->input->post('currentAddress'),
 			'password' => hash ( "sha256", strtolower($this->input->post('employeeId'))),
@@ -168,29 +167,49 @@ class AdminModel extends CI_Model {
 		}
 	}
 
-	public function USNexist() {
+	public function USNexist($val) {
 
 		$this->db->where('usn', $this->input->post('usn'));
 		$query = $this->db->get('student');
 
 		if($query->num_rows() > 0) {
-			echo "USN already exists!";
+			if($val == '1') {
+				return 0;
+			}
+			else {
+				echo "USN already exists!";
+			}
 		}
 		else {
-			echo "no";
+			if($val == '1') {
+				return 1;
+			}
+			else {
+				echo "no";
+			}
 		}
 	}
 
-	public function employeeIdExist() {
+	public function employeeIdExist($val) {
 
 		$this->db->where('employee_code', $this->input->post('employeeId'));
 		$query = $this->db->get('faculty');
 
 		if($query->num_rows() > 0) {
-			echo "Employee Id already exists!";
+			if($val == '1') {
+				return 0;
+			}
+			else {
+				echo "Employee Id already exists!";
+			}
 		}
 		else {
-			echo "no";
+			if($val == '1') {
+				return 1;
+			}
+			else {
+				echo "no";
+			}
 		}
 	}
 
@@ -234,6 +253,224 @@ class AdminModel extends CI_Model {
 				$res['department'] = $row->department;
 				return $res;
 			}
+		}
+		else {
+			return null;
+		}
+	}
+
+	public function recentStudentAdmissions() {
+
+		$this->db->select('*');
+		$this->db->order_by('date_of_admission', 'DESC');
+		$this->db->limit('4');
+		$result = $this->db->get('student');
+		if($result->num_rows() > 0) {
+
+			foreach ($result->result() as $key) {
+
+				echo "
+				<div id='$key->auid' class='student-div row'>
+					<div class='col s5'>
+						<span>$key->student_name</span>
+					</div>
+					<div class='col s5'>
+						<span>$key->auid</span>
+					</div>
+					<div class='col s1 student-div'>
+						<button class='btn-floating waves-effect' onclick='toggleDialogue(\"#$key->auid-dialogue\", \"#$key->auid\")'>
+							<i class='material-icons'>more_vert</i>
+						</button>
+						<div id='$key->auid-dialogue' class='dialogue-box'>
+							<a class='view-details' onclick='viewDetails(\"$key->auid\", \"$key->student_name\", \"student\")' href='#'>View Details</a>
+							<a href='#'>Edit Details</a>
+							<a href='#'>Remove</a>
+						</div>
+					</div>
+				</div>";
+			}
+		}
+		else {
+
+			echo "<div class='noData'><span>No Recent Admissions!</span></div>";
+		}
+	}
+
+	public function recentFacultyRegistrations() {
+
+		$this->db->select('*');
+		$this->db->order_by('doj', 'DESC');
+		$this->db->limit('4');
+		$result = $this->db->get('faculty');
+		if($result->num_rows()>0) {
+
+			foreach ($result->result() as $key) {
+
+				echo "
+				<div id='$key->employee_code' class='faculty-div row'>
+					<div class='col s5'>
+						<span>$key->faculty_name</span>
+					</div>
+					<div class='col s5'>
+						<span>$key->employee_code</span>
+					</div>
+					<div class='col s1 student-div'>
+						<button class='btn-floating waves-effect' onclick='toggleDialogue(\"#$key->employee_code-dialogue\", \"#$key->employee_code\")'>
+							<i class='material-icons'>more_vert</i>
+						</button>
+						<div id='$key->employee_code-dialogue' class='dialogue-box'>
+							<a class='view-details' onclick='viewDetails(\"$key->employee_code\", \"$key->faculty_name\", \"faculty\")' href='#'>View Details</a>
+							<a href='#'>Edit Details</a>
+							<a href='#'>Remove</a>
+						</div>
+					</div>
+				</div>";
+			}
+		}
+		else {
+
+			echo "<div class='noData'><span>No Recent Registrations!</span></div>";
+		}
+	}
+
+	public function getStudentDetails() {
+		
+		$this->db->select('*');
+		$this->db->from('student');
+		$this->db->where('student.auid', $this->input->post('id'));
+		$this->db->join('institute_department', 'student.institute_department = institute_department.id');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0) {
+			foreach ($query->result() as $row)
+			{
+				$res['auid'] = $row->auid;
+				$res['institute'] = $row->institution;
+				$res['department'] = $row->department;
+				$res['dob'] = $row->date_of_birth;
+				$res['email'] = $row->student_email_id;
+				$res['mobile'] = $row->student_local_mobile;
+				$res['permanent_address'] = $row->permanent_address;
+				$res['local_address'] = $row->student_local_address;
+			}
+			echo $res['institute'] . " " . $res['email'];
+		}
+		else {
+			return null;
+		}
+	}
+
+	public function getFacultyDetails() {
+
+		$this->db->select('*');
+		$this->db->from('faculty');
+		$this->db->where('faculty.employee_code', $this->input->post('id'));
+		$this->db->join('institute_department', 'faculty.institute_department = institute_department.id');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0) {
+			foreach ($query->result() as $row)
+			{
+				$res['empid'] = $row->employee_code;
+				$res['name'] = $row->faculty_name;
+				$res['qualification'] = $row->qualification;
+				$res['designation'] = $row->designation;
+				$res['institution'] = $row->institution;
+				$res['department'] = $row->department;
+				$res['dob'] = $row->dob;
+				$res['doj'] = $row->doj;
+				// $res['type'] = $row->type;
+				$res['mobile_no'] = $row->mobile_no;
+				$res['email_id'] = $row->email_id;
+				$res['permanentAddress'] = $row->permanent_address;
+				$res['currentAddress'] = $row->current_address;
+			}
+			echo '
+			<div class="input-field col s12">
+				<table cellpadding="10">
+					<tr>
+						<div class="row">
+							<th class="col s4">
+								Employee ID
+							</th>
+							<td class="col s8">
+								' . $res["empid"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4">
+								Name
+							</th>
+							<td class="col s8">
+								' . $res["name"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4">
+								Date of Birth
+							</th>
+							<td class="col s8">
+								' . $res["dob"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4">
+								Mobile No.
+							</th>
+							<td class="col s8">
+								' . $res["mobile_no"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4 m3">
+								Date of Joining
+							</th>
+							<td class="col s8 m9">
+								' . $res["doj"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4 m3">
+								Email ID
+							</th>
+							<td class="col s8 m9">
+								' . $res["email_id"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4 m3">
+								Institute
+							</th>
+							<td class="col s8 m9">
+								' . $res["institution"] . '
+							</td>
+						</div>
+					</tr>
+					<tr>
+						<div class="row">
+							<th class="col s4 m3">
+								Department
+							</th>
+							<td class="col s8 m9">
+								' . $res["department"] . '
+							</td>
+						</div>
+					</tr>
+				</table>
+			</div>
+			';
 		}
 		else {
 			return null;

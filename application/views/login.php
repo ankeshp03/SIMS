@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="row">
               <div class="container center-align">
-                <button id="forgotPasswordSubmit" class="btn translucent waves-effect col s12" type="submit" name="action">Submit<i class="material-icons right">send</i></button>
+                <button id="forgotPasswordSubmit" class="btn translucent waves-effect col s12" type="submit" name="action">Reset Password<i class="material-icons right">send</i></button>
               </div>
             </div>
           </div>

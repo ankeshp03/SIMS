@@ -181,11 +181,15 @@ class ProctorController extends CI_Controller {
 
 		$proctorData = $this->proctorModel->getProctorDetails($this->session->userdata('employeeID'));
 
+		$path = './assets/faculties/';
+
 		$data['title'] = $this->session->userdata('username');
 		$data['profile'] = 'proctorController/proctorProfile';
 		$data['link1'] = 'proctorController/assignStudentFaculties';
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
+		$data['path'] = $path;
+		$data['ext'] = pathinfo($path, PATHINFO_EXTENSION);
 		$this->load->view('navbar/proctorNavbarTop', $data);
 		$this->load->view('navbar/proctorSidenavLarge', $data);
 		$this->load->view('navbar/proctorSidenavMedSmall', $data);

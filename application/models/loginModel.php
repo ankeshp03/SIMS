@@ -42,8 +42,30 @@ class LoginModel extends CI_Model {
 				$res['level'] = $row->level;
 				$res['username'] = $row->faculty_name;
 				$res['institute_department'] = $row->institute_department;
-				return $res;
 			}
+			if($res['level'] == "1") {
+
+				$this->db->select('quote');
+				$this->db->where('date', date("Y-m-d"));
+				$query = $this->db->get('quotes')->row();
+				if(!$query) {
+					$data = array('date' => "0000-00-00");
+					$this->db->where('date !=', date("Y-m-d"));
+					$this->db->where('date !=', "0000-00-00");
+					$this->db->update('quotes', $data);
+
+					$randId = rand(1, 25);
+					$this->db->select('quote');
+					$this->db->where('id', $randId);
+					$query = $this->db->get('quotes')->row();
+
+					$data = array('date' => date("Y-m-d"));
+					$this->db->where('id', $randId);
+					$this->db->update('quotes', $data);
+				}
+				$res['quote'] = $query->quote;
+			}
+			return $res;
 		}
 		else {
 			return null;

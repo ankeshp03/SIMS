@@ -12,10 +12,14 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<title>Home | Admin SIMS</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
+		body {
+			background: url(<?php echo base_url()?>assets/images/noise2.png);
+			background-repeat: repeat;
+			filter: contrast();
+		}
 		.header {
 			height: 150px;
 			position: relative;
@@ -58,9 +62,78 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		.largeNav {
 			padding-right: 9px !important;
 		}
+		#quotes {
+			margin: 8% 4% 0 4%;
+			text-align: center;
+			font-size: 26px;
+			font-weight: 400;
+			font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+			color: #345;
+			animation: quoteAnimation 0.5s ease-in-out 1;
+		}
+		@keyframes quoteAnimation {
+			0% {
+				-webkit-transform: scale(0.1);
+				-ms-transform: scale(0.1);
+				-o-transform: scale(0.1);
+				transform: scale(0.1);
+				opacity: 0.1;
+				transform: rotateX(-5deg);
+			}
+			50% {
+				-webkit-transform: scale(1.2);
+				-ms-transform: scale(1.2);
+				-o-transform: scale(1.2);
+				transform: scale(1.2);
+			}
+			75% {
+				-webkit-transform: scale(0.9);
+				-ms-transform: scale(0.9);
+				-o-transform: scale(0.9);
+				transform: scale(0.9);
+			}
+			87% {
+				-webkit-transform: scale(1.05);
+				-ms-transform: scale(1.05);
+				-o-transform: scale(1.05);
+				transform: scale(1.05);
+			}
+			100% {
+				-webkit-transform: scale(1);
+				-ms-transform: scale(1);
+				-o-transform: scale(1);
+				transform: scale(1);
+				opacity: 1;
+				transform: rotateX(0deg);
+			}
+		}
+		@media (max-width: 992px) {
+			#quotes b {
+				font-size: 40px;
+				font-weight: 400;
+				font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+				color: #444;
+				line-height: 2.5;
+				text-shadow: 10px 10px 6px darkgray;
+				
+			}
+		}
+		@media (min-width: 992px) {
+			#quotes b {
+				font-size: 60px;
+				font-weight: 400;
+				font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+				color: #444;
+				line-height: 2.5;
+				text-shadow: 10px 10px 6px darkgray;
+			}
+		}
+		#quotes a {
+			display: none;
+		}
 	</style>
 </head>
-<body class="blue-grey lighten-5">
+<body>
 	<!--contents of the dropdown menu-->
 	<ul id="dropdown1" class="dropdown-content">
 		<li><a href="<?php echo base_url('adminController/adminProfile')?>">Profile</a></li>
@@ -84,7 +157,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				<div class="nav-wrapper">
 					<ul class="right hide-on-med-and-down">
 						<li><a href="<?php echo base_url('adminController')?>">Home</a></li>
-						<li><a href="<?php echo base_url('adminController/studentRegistration')?>">Student Admission</a></li>
+						<li><a href="<?php echo base_url('adminController/studentAdmission')?>">Student Admission</a></li>
 						<li><a href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
 						<li><a class="largeNav waves-effect waves-light dropdown-button" data-activates="dropdown1" data-beloworigin="true"><?php echo explode(" ", trim($this->session->userdata('username')))[0]; ?> <i class="material-icons right">arrow_drop_down</i></a></li>
 					</ul>
@@ -103,14 +176,24 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				<li style="padding-top: 5%;"><label class="grey-text text-darken-3" style="padding-left: 5%; font-size: 15px;">Home</label></li>
 				<li><div class="divider"></div></li>
 				<li style="padding-top: 5%;"><a href="<?php echo base_url('adminController')?>" class="waves-effect blue-text text-darken-3">Home</a></li>
-				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/studentRegistration')?>">Student Registration</a></li>
+				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/studentAdmission')?>">Student Registration</a></li>
 				<li><a class="waves-effect grey-text text-darken-3" href="<?php echo base_url('adminController/facultyRegistration')?>">Faculty Registration</a></li>
 				<li class="hide-on-med-and-up"><a href="<?php echo base_url('adminController/adminProfile')?>">Profile</a></li>
 				<li class="hide-on-med-and-up"><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
 			</ul>
 		</div>
 	</nav>
-	<br>
+	<div id="quotes">
+		<script type="text/javascript" src="https://www.brainyquote.com/link/quotebr.js"></script>
+		<!-- <script type="text/javascript">
+			if(navigator.onLine) {
+				alert("true");
+			}
+			else {
+				alert("false");
+			}
+		</script> -->
+	</div>
 	<!--div class="container">
 		<div class="card z-depth-2 center-align">
 			<table>
@@ -155,10 +238,16 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 		</div>
 	</div-->
 
-	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
 	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
 	<script type="text/javascript">
 		$(".button-collapse").sideNav();
+
+		$(document).ready(function() {
+			if(!navigator.onLine) {
+				$('#quotes').html("<b>Quote of the Day</b><br><?php echo $this->session->userdata('quote');?>");
+			}
+		});
 	</script>
 </body>
 </html>

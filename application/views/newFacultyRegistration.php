@@ -12,7 +12,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<title>Faculty Registration Form | Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
-	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize1.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/select2.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
@@ -37,6 +37,9 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			border-bottom: 1px solid #333;
 		}
 
+		input::placeholder {
+			color: #9e9e9e;
+		}
 	</style>
 </head>
 <body class="blue-grey lighten-5">
@@ -49,7 +52,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			</div>
 		</center>
 		<div class="card-panel z-depth-2" style="margin-top: 30px;">
-			<form id="facultyRegistrationForm" class="col s12" method="post" action="<?php echo base_url('facultyRegistration/addfacultyDB')?>" name="facultyRegistrationForm" autocomplete>
+			<form id="facultyRegistrationForm" class="col s12" method="post" action="<?php echo base_url('facultyRegistration/addfacultyDB')?>" name="facultyRegistrationForm" enctype="multipart/form-data" autocomplete>
 				<div class="row">
 					<div class="input-field col s4">
 						<input id="employeeId" name="employeeId" type="text" class="active" pattern="[A-Za-z]+[0-9]+" title="Invalid id format" autofocus required>
@@ -121,10 +124,10 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 						<label for="email">Email ID<span class="spanRed">*</span></label>
 					</div>
 					<div class="input-field col m3 s5" style="margin-left: -23px;">
-						<input type="text" id="acharyaEmail" name="acharyaEmail" value="@acharya.ac.in" style="text-align: center; padding-right: 22px; border-bottom-color: " readonly>
+						<input type="text" id="acharyaEmail" name="acharyaEmail" value="@acharya.ac.in" style="text-align: center; padding-right: 22px;" readonly>
 						<label for="acharyaEmail" class="active"></label>
 					</div>
-					<div class="input-field col" style="margin-left: -35px;">
+					<div class="input-field col" style="margin-left: -40px;">
 						<center>
 							<div class="preloader-wrapper small active" style="display: none;">
 								<div class="spinner-layer spinner-blue-only">
@@ -149,14 +152,20 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 					</div>
 				</div>
 				<div class="row">
-					<div class="input-field col s12">
+					<div class="input-field col s8">
 						<input type="text" id="permanentAddress" name="permanentAddress" ng-model="permanentAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
 						<label for="permanentAddress">Permanent Address <span class="spanRed">*</span></label>
+					</div>
+					<div class="file-field input-field col s4">
+						<input type="file" id="photo" name="photo" required>
+						<div class="file-path-wrapper">
+							<input placeholder="Upload Pic *" class="file-path validate" type="text">
+						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="input-field col s12">
-						<input type="checkbox" id="copy" ng-model="copy" ng-change="copyAddress()" ng-disabled="!permanentAddress">
+						<input type="checkbox" id="copy" ng-model="copy" ng-change="copyAddress()" ng-disabled="!permanentAddress" checked="true">
 						<label for="copy">If current address is same as permanent address</label>
 					</div>
 				</div>
@@ -188,6 +197,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			$('#employeeLevel').material_select();
 			$("#department").select2();
 			$("#institution").select2();
+			$("<li><a class='waves-effect <?= $color3?>-text text-darken-3' href='<?php echo base_url($link3)?>'>Recent Registrations</a></li>").insertAfter("#facReg");
 			loadInstitution();
 		});
 
@@ -253,6 +263,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     	var yesterday = new Date((new Date()).valueOf()-1000*60*60*24);
     	//Disable future dates
     	$('.datepicker').pickadate({
+    		min: [1957,1,1],
     		max: yesterday+1,
     		selectMonths: true,
     		selectYears: 60,
@@ -283,9 +294,16 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     	});
 
     	$("#email").focusin(function() {
+    		
     		if(!$("#email").val()) {
-    			$("#acharyaEmail").css("border-bottom", "1px solid #26a69a");
-    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #26a69a");
+    			if($("#email").css('box-shadow') == 'none') {
+    				$("#acharyaEmail").css("border-bottom", "1px solid #26a69a");
+    				$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #26a69a");
+    			}
+    			else {
+    				$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
+    				$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
+    			}
     		}
     		else if(/^[A-Za-z0-9\.]+$/.test($("#email").val())){
     			$("#acharyaEmail").css("border-bottom", "1px solid #4caf50");
@@ -298,9 +316,10 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     	});
 
     	$("#email").focusout(function() {
+
     		if(!$("#email").val()) {
-    			$("#acharyaEmail").css("border-bottom", "1px solid #9e9e9e");
-    			$("#acharyaEmail").css("box-shadow", "none");
+    			$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
+    			$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
     		}
     		else if(/^[A-Za-z0-9\.]+$/.test($("#email").val())){
     			$("#acharyaEmail").css("border-bottom", "1px solid #4caf50");
@@ -372,24 +391,21 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     			return false;
     		}
 
+    		/* Not necessary, since required attribute used */
+    		if(!$("#photo").val()) {
+    			alert("Please select image to upload");
+    			return false;
+    		}
+
+    		var formData = new FormData(this);
+
     		$.ajax({
     			url: '<?php echo base_url("adminController/addFacultyDB");?>',
     			type: 'POST',
-    			data: {
-    				employeeId: $("#employeeId").val(),
-    				name: $("#name").val(),
-    				qualification: $("#qualification").val(),
-    				designation: $("#designation").val(),
-    				institution: $("#institution").val(),
-    				department: $("#department").val(),
-    				dob: $("#dob").val(),
-    				doj: $("#doj").val(),
-    				employeeLevel: $("#employeeLevel").val(),
-    				employeeMobile: $("#employeeMobile").val(),
-    				email: $("#email").val() + "@acharya.ac.in",
-    				permanentAddress: $("#permanentAddress").val(),
-    				currentAddress: $("#currentAddress").val()    					
-    			},
+    			data: formData,
+    			contentType: false,
+    			cache: false,
+    			processData: false,
     			success:function(data) {
     				if(data == "Added to database") {
     					$('#dbMessage').html(data);
@@ -406,6 +422,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
     					loadInstitution();
     					$('#department').find('option').remove().end().append('<option value="select" selected>select</option>');
     					$('#department').attr("disabled", "disabled");
+    					$("#acharyaEmail").css("border-bottom", "1px solid #9e9e9e");
+    					$("#acharyaEmail").css("box-shadow", "none");
     				}
     				else {
     					$('#dbMessage').html(data);

@@ -9,7 +9,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 <!DOCTYPE html>
 <html oncontextmenu="return false">
 <head>
-	<title>Home | Head Proctor</title>
+	<title>Home | Proctor</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">

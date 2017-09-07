@@ -12,7 +12,6 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<title><?php echo $this->session->userdata('employeeID'); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
 	<link href="<?php echo base_url()?>assets/css/loader.css" type="text/css" rel="stylesheet" media="screen,projection">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>

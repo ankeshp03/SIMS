@@ -3,13 +3,13 @@ class ProctorModel extends CI_Model{
 
 	public function year($institute_department) {
 
-		$this->db->select('DISTINCT(year)');
+		$this->db->select('DISTINCT(current_year)');
 		$this->db->where('institute_department', $institute_department);
 		$years = $this->db->get('student')->num_rows();
 
 		for($i = 1; $i <= 4; $i++) {
 
-			$this->db->where('year', $i);
+			$this->db->where('current_year', $i);
 			$this->db->where('eid', $this->session->userdata('employeeID'));
 			$data['year'.$i] = $this->db->count_all_results('proctor');
 		}

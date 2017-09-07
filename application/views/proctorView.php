@@ -118,7 +118,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 							</table>
 						</div>
 						<div class="hide-on-small-only input-field col m3 center">
-							<img src="<?php echo base_url()?>assets/images/faculties/<?php echo $this->session->userdata('employeeID');?>.jpg" class="responsive-img" draggable="false">
+							<img src="<?php echo base_url()?>assets/images/faculties/<?php echo $this->session->userdata('employeeID');?>.<?=$path?><?=$ext?>" class="responsive-img" draggable="false">
 						</div>
 					</div>
 					<div class="row">

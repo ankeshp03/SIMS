@@ -9,11 +9,10 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 <!DOCTYPE html>
 <html oncontextmenu="return false">
 <head>
-	<title>Student Registration Form | Admin</title>
+	<title>Student Admission Form | Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">      
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/icon.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize1.css">
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/select2.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
@@ -67,6 +66,9 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			background-position: 2px 3px;
 		}
 
+		input::placeholder {
+			color: #9e9e9e;
+		}
 	</style>
 </head>
 <body class="blue-grey lighten-5">
@@ -78,7 +80,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			word-wrap: break-word; display: none;"></div>
 		</center>
 
-		<form id="studentRegistrationForm" class="col s12" method="post" action="<?php echo base_url('studentRegistration/addStudentDB')?>" name="studentRegistrationForm" autocomplete>
+		<form id="studentRegistrationForm" class="col s12" method="post" action="<?php echo base_url('studentRegistration/addStudentDB')?>" name="studentRegistrationForm" enctype="multipat/form-data" autocomplete>
 			<ul class="collapsible z-depth-2" style="margin-top: 30px; letter-spacing: 0.1px;" data-collapsible="expandable">
 				<li>
 					<div class="firstCollapsible collapsible-header indigo lighten-2 active"><!--active class-->
@@ -157,9 +159,15 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 							</div>
 						</div>
 						<div class="row">
-							<div class="input-field col s12">
+							<div class="input-field col s8">
 								<input type="text" id="permanentAddress" name="permanentAddress" ng-model="permanentAddress" pattern="[A-Za-z0-9 .,/\-#]+" title="Special Characters not allowed" required>
 								<label for="permanentAddress">Permanent Address <span class="spanRed">*</span></label>
+							</div>
+							<div class="file-field input-field col s4">
+								<input type="file" id="photo" name="photo" required>
+								<div class="file-path-wrapper">
+									<input placeholder="Upload Pic *" class="file-path validate" type="text">
+								</div>
 							</div>
 						</div>
 						<div class="row">
@@ -585,6 +593,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			$('#parentType').material_select();
 			$("#department").select2();
 			$("#institution").select2();
+			$("<li><a class='waves-effect <?= $color3?>-text text-darken-3' href='<?php echo base_url($link3)?>'>Recent Registrations</a></li>").insertAfter("#facReg");
 			loadInstitution();
 		});
 
@@ -613,14 +622,20 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
 		$("#studentEmail").focusin(function() {
 			if(!$("#studentEmail").val()) {
-				$("#acharyaEmail").css("border-bottom", "1px solid #26a69a");
-				$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #26a69a");
+				if($("#studentEmail").css('box-shadow') == 'none') {
+					$("#acharyaEmail").css("border-bottom", "1px solid #26a69a");
+					$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #26a69a");
+				}
+				else {
+					$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
+					$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
+				}
 			}
 			else if(/^[a-z]+\.[a-z]{4}\.([0-9][1-9]|[1-9][0-9])$/.test($("#studentEmail").val())){
 				$("#acharyaEmail").css("border-bottom", "1px solid #4caf50");
 				$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #4caf50");
 			}
-			else if(!/^[a-z]+\.[a-z]{4}\.([0-9][1-9]|[1-9][0-9])$/.test($("#studentEmail").val())){
+			else if(/^[a-z]+\.[a-z]{4}\.([0-9][1-9]|[1-9][0-9])$/.test($("#studentEmail").val())){
 				$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
 				$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
 			}
@@ -628,8 +643,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
 		$("#studentEmail").focusout(function() {
 			if(!$("#studentEmail").val()) {
-				$("#acharyaEmail").css("border-bottom", "1px solid #9e9e9e");
-				$("#acharyaEmail").css("box-shadow", "none");
+				$("#acharyaEmail").css("border-bottom", "1px solid #f44336");
+				$("#acharyaEmail").css("box-shadow", "0 1px 0 0 #f44336");
 			}
 			else if(/^[a-z]+\.[a-z]{4}\.([0-9][1-9]|[1-9][0-9])$/.test($("#studentEmail").val())){
 				$("#acharyaEmail").css("border-bottom", "1px solid #4caf50");
@@ -801,6 +816,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
     	//Disable future dates
     	$('.datepicker').pickadate({
+    		min: [1977,1,1],
     		max: yesterday+1,
     		selectMonths: true,
     		selectYears: 40,
@@ -966,81 +982,27 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
 			$("#submitButton").attr("disabled", "disabled");
 
+			var formData = new FormData($("#studentRegistrationForm")[0]);
+
+			formData.append("gender", gender);
+			formData.append("category", category);
+			formData.append("nriForeign", nriForeign);
+
 			$.ajax({
 				url: '<?php echo base_url("adminController/addStudentDB");?>',
 				type: 'POST',
-				data: {
-					studentName: $('#studentName').val(),
-					auid: $('#auid').val(),
-					usn: $('#usn').val(),
-					institution: $('#institution').val(),
-					department: $('#department').val(),
-					doa: $('#doa').val(),
-					gender: gender,
-					nationality: $('#nationality').val(),
-					dob: $('#dob').val(),
-					permanentAddress: $('#permanentAddress').val(),
-					correspondanceAddress: $('#correspondanceAddress').val(),
-					studentEmail: $('#studentEmail').val() + "@acharya.ac.in",
-					studentMobile: $('#studentMobile').val(),
-					category: category,
-					nriForeign: nriForeign,
-					parentType: $('#parentType').val(),
-					parentName: $('#parentName').val(),
-					parentOccupation: $('#parentOccupation').val(),
-					parentDesignation: $('#parentDesignation').val(),
-					officeAddress: $('#officeAddress').val(),
-					parentEmail: $('#parentEmail').val(),
-					parentMobile: $('#parentMobile').val(),
-					pan: $('#pan').val(),
-					localAddress: $('#localAddress').val(),
-					studentLocalMobile: $('#studentLocalMobile').val(),
-					tenthBoard: $('#tenthBoard').val(),
-					twelveBoard: $('#twelveBoard').val(),
-					tenthSchool: $('#tenthSchool').val(),
-					twelveSchool: $('#twelveSchool').val(),
-					tenthMaxMarks: $('#tenthMaxMarks').val(),
-					twelveMaxMarks: $('#twelveMaxMarks').val(),
-					tenthMarks: $('#tenthMarks').val(),
-					twelveMarks: $('#twelveMarks').val(),
-					tenthPercentage: $('#tenthPercentage').val(),
-					twelvePercentage: $('#twelvePercentage').val(),
-					entranceExam: $('#entranceExam').val(),
-					entranceState: $('#entranceState').val(),
-					entranceYear: $('#entranceYear').val(),
-					entranceScore: $('#entranceScore').val(),
-					pgExam: $('#pgExam').val(),
-					pgUniversity: $('#pgUniversity').val(),
-					pgPassingYear: $('#pgPassingYear').val(),
-					pgSubject1: $('#pgSubject1').val(),
-					pgSubject2: $('#pgSubject2').val(),
-					pgSubject3: $('#pgSubject3').val(),
-					pgSubject4: $('#pgSubject4').val(),
-					pgSubject5: $('#pgSubject5').val(),
-					pgSubject6: $('#pgSubject6').val(),
-					pgMarksYear1: $('#pgMarksYear1').val(),
-					pgMarksYear2: $('#pgMarksYear2').val(),
-					pgMarksYear3: $('#pgMarksYear3').val(),
-					pgMarksYear4: $('#pgMarksYear4').val(),
-					pgTotalPercentage: $('#pgTotalPercentage').val(),
-					pucCertificate: $('#pucCertificate').val(),
-					sslcCertificate: $('#sslcCertificate').val(),
-					tc: $('#tc').val(),
-					conductCertificate: $('#conductCertificate').val(),
-					migrationCertificate: $('#migrationCertificate').val(),
-					entranceScorecard: $('#entranceScorecard').val(),
-					categoryCertificate: $('#categoryCertificate').val(),
-					nriForeignCertificate: $('#nriForeignCertificate').val(),
-					totalAmount: $('#totalAmount').val(),
-					receiptNo: $('#receiptNo').val(),
-					feePaidDate: $('#feePaidDate').val()
-				},
+				data: formData,
+				contentType: false,
+				cache: false,
+				processData: false,
 				success:function(data) {
 					if(data == "Added to database") {
 						$("#submitButton").removeAttr("disabled");
 						$('#dbMessage').html(data);
 						$('html, body').animate({scrollTop : 0},800);
 						$('#studentRegistrationForm')[0].reset();
+						$("label").removeClass("active");
+						$("label[for='institution'], label[for='department']").addClass("active");
 						var $input = $('#doa').pickadate();
 						var d = new Date();
 						var picker = $input.pickadate('picker');
@@ -1050,6 +1012,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 						loadInstitution();
 						$('#department').find('option').remove().end().append('<option value="select" selected>select</option>');
 						$('#department').attr("disabled", "disabled");
+						$("#acharyaEmail").css("border-bottom", "1px solid #9e9e9e");
+						$("#acharyaEmail").css("box-shadow", "none");
 					}
 					else {
 						$("#submitButton").removeAttr("disabled");

@@ -44,6 +44,7 @@ class LoginController extends CI_Controller {
 			if($this->session->userdata('level') && !$this->session->userdata('usn')) {
 				switch ($user['level']) {
 					case 1:
+					$this->session->set_userdata('quote', $user['quote']);
 					$this->session->set_userdata('user', 'admin');
 					break;
 					case 2:
