@@ -63,7 +63,7 @@ class HeadProctorController extends CI_Controller {
 			redirect('loginController');
 		}
 
-		$yearVal['year'] = $year;
+		$viewData['year'] = $year;
 		$data['year'] = $year;
 		$data['title'] = 'Proctor Assignment';
 		$data['profile'] = 'headProctorController/headProctorProfile';
@@ -71,10 +71,10 @@ class HeadProctorController extends CI_Controller {
 		$data['color1'] = 'grey';
 		$data['text1'] = 'Home';
 		$data['text2'] = 'Proctor Reassign';
-		$this->load->view('navbar/headProctorNavbarTop', $data);
-		$this->load->view('navbar/headProctorSidenavLarge', $data);
-		$this->load->view('navbar/headProctorSidenavMedSmall', $data);
-		$this->load->view('studentProctorAssignment', $yearVal);
+		$viewData['top'] = $this->load->view('navbar/headProctorNavbarTop', $data, TRUE);
+		$viewData['sideLarge'] = $this->load->view('navbar/headProctorSidenavLarge', $data, TRUE);
+		$viewData['sideSmall'] = $this->load->view('navbar/headProctorSidenavMedSmall', $data, TRUE);
+		$this->load->view('studentProctorAssignment', $viewData);
 	}
 
 	public function getStudents() {

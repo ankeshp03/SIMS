@@ -34,10 +34,11 @@ class AdminController extends CI_Controller {
 		$data['color1'] = 'blue';
 		$data['color2'] = 'grey';
 		$data['color3'] = 'grey';
-		$this->load->view('navbar/adminNavbarTop', $data);
-		$this->load->view('navbar/adminSidenavLarge', $data);
-		$this->load->view('navbar/adminSidenavMedSmall', $data);
-		$this->load->view('newStudentAdmission');
+		$data['color4'] = 'grey';
+		$navViews['top'] = $this->load->view('navbar/adminNavbarTop', $data, TRUE);
+		$navViews['sideLarge'] = $this->load->view('navbar/adminSidenavLarge', $data, TRUE);
+		$navViews['sideSmall'] = $this->load->view('navbar/adminSidenavMedSmall', $data, TRUE);
+		$this->load->view('newStudentAdmission', $navViews);
 	}
 
 	public function addStudentDB() {
@@ -79,8 +80,6 @@ class AdminController extends CI_Controller {
 			echo "Not added";
 		}
 
-
-
 	}
 
 	public function facultyRegistration() {
@@ -98,10 +97,12 @@ class AdminController extends CI_Controller {
 		$data['color1'] = 'grey';
 		$data['color2'] = 'blue';
 		$data['color3'] = 'grey';
-		$this->load->view('navbar/adminNavbarTop', $data);
-		$this->load->view('navbar/adminSidenavLarge', $data);
-		$this->load->view('navbar/adminSidenavMedSmall', $data);
-		$this->load->view('newFacultyRegistration');
+		$data['color4'] = 'grey';
+		$navViews['top'] = $this->load->view('navbar/adminNavbarTop', $data, TRUE);
+		$navViews['sideLarge'] = $this->load->view('navbar/adminSidenavLarge', $data, TRUE);
+		$navViews['sideSmall'] = $this->load->view('navbar/adminSidenavMedSmall', $data, TRUE);
+		// $this->load->view('newFacultyRegistration', $navViews);
+		$this->load->view('editFacultyDetails', $navViews);
 	}
 
 	public function recentRegistrations() {
@@ -119,10 +120,12 @@ class AdminController extends CI_Controller {
 		$data['color1'] = 'grey';
 		$data['color2'] = 'grey';
 		$data['color3'] = 'blue';
-		$this->load->view('navbar/adminNavbarTop', $data);
-		$this->load->view('navbar/adminSidenavLarge', $data);
-		$this->load->view('navbar/adminSidenavMedSmall', $data);
-		$this->load->view('recentRegistrationView');
+		$data['color4'] = 'grey';
+		$navViews['top'] = $this->load->view('navbar/adminNavbarTop', $data, TRUE);
+		$navViews['sideLarge'] = $this->load->view('navbar/adminSidenavLarge', $data, TRUE);
+		$navViews['sideSmall'] = $this->load->view('navbar/adminSidenavMedSmall', $data, TRUE);
+		// $this->output->cache(3);
+		$this->load->view('recentRegistrationView', $navViews);
 	}
 
 	public function addFacultyDB() {
@@ -148,6 +151,7 @@ class AdminController extends CI_Controller {
 				echo $this->upload->display_errors();
 			}
 			else {
+
 				//loading the model where the data will be sent to store in the database
 				$this->load->model('adminModel');	
 
@@ -308,13 +312,16 @@ class AdminController extends CI_Controller {
 
 		$data['title'] = $this->session->userdata('username');
 		$data['profile'] = 'adminController/adminProfile#';
-		$data['link1'] = 'adminController/studentRegistration';
+		$data['link1'] = 'adminController/studentAdmission';
 		$data['link2'] = 'adminController/facultyRegistration';
+		$data['link3'] = 'adminController/recentRegistrations';
 		$data['color1'] = 'grey';
 		$data['color2'] = 'grey';
-		$this->load->view('navbar/adminNavbarTop', $data);
-		$this->load->view('navbar/adminSidenavLarge', $data);
-		$this->load->view('navbar/adminSidenavMedSmall', $data);
+		$data['color3'] = 'grey';
+		$data['color4'] = 'blue';
+		$adminData['top'] = $this->load->view('navbar/adminNavbarTop', $data, TRUE);
+		$adminData['sideLarge'] = $this->load->view('navbar/adminSidenavLarge', $data, TRUE);
+		$adminData['sideSmall'] = $this->load->view('navbar/adminSidenavMedSmall', $data, TRUE);
 		$this->load->view('adminView', $adminData);	
 	}
 
@@ -331,6 +338,42 @@ class AdminController extends CI_Controller {
 		}
 		else {
 			$this->adminModel->getFacultyDetails();	
+		}
+	}
+
+	public function editDetails($usr, $id) {
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+		$d['usr'] = $usr;
+		$d['id'] = $id;
+		
+		if($usr == 'student') {
+			$this->load->view('editStudentDetails', $d);
+		}
+		else {
+			// $this->adminModel->editFacultyDetails();	
+			$this->load->view('editFacultyDetails', $d);
+		}
+	}
+	
+	public function removeUser() {
+
+		$this->load->library('session');
+		if($this->session->userdata('level') != "1" || $this->session->userdata('user') != "admin") {
+			redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$this->load->model('adminModel');
+		
+		if($this->input->post('user') == 'student') {
+			$this->adminModel->removeStudentDetails();
+		}
+		else {
+			$this->adminModel->removeFacultyDetails();	
 		}
 	}
 }

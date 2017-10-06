@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 <!--contents of the dropdown menu-->
-<ul id="dropdown1" class="dropdown-content">
+<ul id="dropdown1" class="dropdown-content" style="display: none;">
 	<li><a href="<?php echo base_url($profile)?>">Profile</a></li>
 	<li class="divider"></li>
 	<li><a href="<?php echo base_url('loginController/logout')?>">Logout</a></li>
@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!--contents of the dropdown menu end-->
 
 <!--top navbar-->
-<div class="navbar-fixed">
+<div class="navbar-fixed" style="display: none;">
 	<nav class="light-blue darken-3">
 		<div class="nav-wrapper">
 			<a href="#" data-activates="slide-out" class="button-collapse circle hide-on-large-only"><i style="padding-left: 20%; font-size: 25px;" class="material-icons">menu</i></a>

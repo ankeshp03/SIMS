@@ -25,7 +25,7 @@ class HeadProctorModel extends CI_Model {
 		$this->db->where('current_year', $this->input->post('year'));
 		$query = $this->db->get('student');
 
-		echo "<ul style='padding-left:20%;'>";
+		echo "<ul class='studentLi' style='padding-left:20%;'>";
 		foreach ($query->result() as $key) {
 
 			$this->db->where('usn', $key->usn);
@@ -44,7 +44,7 @@ class HeadProctorModel extends CI_Model {
 		$this->db->where('level', '5');
 		$query = $this->db->get('faculty');
 
-		echo "<ul style='padding-left:35%'>";
+		echo "<ul class='facultyLi' style='padding-left:35%'>";
 		foreach ($query->result() as $key) {
 			echo "<li><input id='$key->employee_code' type='radio' class='col' name='facultyName' value='$key->employee_code'><label for='$key->employee_code'>".$key->faculty_name."</label></li>";
 		}

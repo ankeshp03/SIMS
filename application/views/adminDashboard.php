@@ -15,123 +15,133 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/materialize.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
-		body {
-			background: url(<?php echo base_url()?>assets/images/noise2.png);
-			background-repeat: repeat;
-			filter: contrast();
+	html, body {
+		height: 100%;
+	}
+	body {
+		background: url(<?php echo base_url()?>assets/images/noise2.png);
+		background-repeat: repeat;
+		filter: contrast();
+	}
+	.header {
+		height: 150px;
+		position: relative;
+
+	}
+	.line {
+		height: 150px;
+		width: 65%;
+		margin-left: -100px;
+		-webkit-transform: skew(145deg);
+		-moz-transform: skew(145deg);
+		-o-transform: skew(145deg);
+	}
+	.helloText, .adminText {
+		padding-left: 20%;
+		padding-top: 2%;
+		color: rgba(255, 255, 255, 0.7);
+		font-family: courier;
+		text-shadow: black 10px 10px 0.2em;
+		font-size: 75px;
+		-ms-transform: skew(-145deg); /* IE 9 */
+		-webkit-transform: skew(-145deg); /* Safari */
+		transform: skew(-145deg);
+	}
+	nav ul a {
+		font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+	}
+	.navDiv {
+		width: 50.5%;
+		float: right;
+		margin-top: -65px;
+	}
+	.circle {
+		border: 5px solid rgba(0,0,0,0.7);
+		border-radius: 50%;
+		width: 150px;
+		height: 150px;
+	}
+	.circleText {
+		width: 100%;
+		color: rgba(0,0,0,0.7);
+	}
+	.largeNav {
+		padding-right: 9px !important;
+	}
+	#quotes {
+		text-align: center;
+		font-size: 26px;
+		font-weight: 400;
+		font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+		color: #345;
+		animation: quoteAnimation 0.5s ease-in-out 1;
+	}
+	@keyframes quoteAnimation {
+		0% {
+			-webkit-transform: scale(0.1);
+			-ms-transform: scale(0.1);
+			-o-transform: scale(0.1);
+			transform: scale(0.1);
+			opacity: 0.1;
+			transform: rotateX(-5deg);
 		}
-		.header {
-			height: 150px;
-			position: relative;
-			
+		50% {
+			-webkit-transform: scale(1.2);
+			-ms-transform: scale(1.2);
+			-o-transform: scale(1.2);
+			transform: scale(1.2);
 		}
-		.line {
-			height: 150px;
-			width: 65%;
-			margin-left: -100px;
-			-webkit-transform: skew(145deg);
-			-moz-transform: skew(145deg);
-			-o-transform: skew(145deg);
+		75% {
+			-webkit-transform: scale(0.9);
+			-ms-transform: scale(0.9);
+			-o-transform: scale(0.9);
+			transform: scale(0.9);
 		}
-		.helloText, .adminText {
-			padding-left: 20%;
-			padding-top: 2%;
-			color: rgba(255, 255, 255, 0.7);
-			font-family: courier;
-			text-shadow: black 10px 10px 0.2em;
-			font-size: 75px;
-			-ms-transform: skew(-145deg); /* IE 9 */
-			-webkit-transform: skew(-145deg); /* Safari */
-			transform: skew(-145deg);
+		87% {
+			-webkit-transform: scale(1.05);
+			-ms-transform: scale(1.05);
+			-o-transform: scale(1.05);
+			transform: scale(1.05);
 		}
-		.navDiv {
-			width: 50.5%;
-			float: right;
-			margin-top: -65px;
+		100% {
+			-webkit-transform: scale(1);
+			-ms-transform: scale(1);
+			-o-transform: scale(1);
+			transform: scale(1);
+			opacity: 1;
+			transform: rotateX(0deg);
 		}
-		.circle {
-			border: 5px solid rgba(0,0,0,0.7);
-			border-radius: 50%;
-			width: 150px;
-			height: 150px;
-		}
-		.circleText {
-			width: 100%;
-			color: rgba(0,0,0,0.7);
-		}
-		.largeNav {
-			padding-right: 9px !important;
-		}
+	}
+	#quotes b {
+		display: block;
+		width: 90%;
+		margin: auto;
+		font-weight: 400;
+		font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+		color: #444;
+		line-height: 2.5;
+		text-shadow: 10px 10px 6px darkgray;
+	}
+	@media (max-width: 992px) {
 		#quotes {
-			margin: 8% 4% 0 4%;
-			text-align: center;
-			font-size: 26px;
-			font-weight: 400;
-			font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-			color: #345;
-			animation: quoteAnimation 0.5s ease-in-out 1;
+			margin-top: calc(60vh - 256px);
 		}
-		@keyframes quoteAnimation {
-			0% {
-				-webkit-transform: scale(0.1);
-				-ms-transform: scale(0.1);
-				-o-transform: scale(0.1);
-				transform: scale(0.1);
-				opacity: 0.1;
-				transform: rotateX(-5deg);
-			}
-			50% {
-				-webkit-transform: scale(1.2);
-				-ms-transform: scale(1.2);
-				-o-transform: scale(1.2);
-				transform: scale(1.2);
-			}
-			75% {
-				-webkit-transform: scale(0.9);
-				-ms-transform: scale(0.9);
-				-o-transform: scale(0.9);
-				transform: scale(0.9);
-			}
-			87% {
-				-webkit-transform: scale(1.05);
-				-ms-transform: scale(1.05);
-				-o-transform: scale(1.05);
-				transform: scale(1.05);
-			}
-			100% {
-				-webkit-transform: scale(1);
-				-ms-transform: scale(1);
-				-o-transform: scale(1);
-				transform: scale(1);
-				opacity: 1;
-				transform: rotateX(0deg);
-			}
+		#quotes b {
+			font-size: 40px;
 		}
-		@media (max-width: 992px) {
-			#quotes b {
-				font-size: 40px;
-				font-weight: 400;
-				font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-				color: #444;
-				line-height: 2.5;
-				text-shadow: 10px 10px 6px darkgray;
-				
-			}
+	}
+	@media (min-width: 993px) {
+		#quotes {
+			margin-top: calc(60vh - 267px);
 		}
-		@media (min-width: 992px) {
-			#quotes b {
-				font-size: 60px;
-				font-weight: 400;
-				font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-				color: #444;
-				line-height: 2.5;
-				text-shadow: 10px 10px 6px darkgray;
-			}
+		#quotes b {
+			font-size: 60px;
 		}
-		#quotes a {
-			display: none;
-		}
-	</style>
+	}
+	#quotes a {
+		display: none;
+	}
+</style>
 </head>
 <body>
 	<!--contents of the dropdown menu-->
@@ -183,61 +193,9 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			</ul>
 		</div>
 	</nav>
-	<div id="quotes">
+	<div id="quotes" class="">
 		<script type="text/javascript" src="https://www.brainyquote.com/link/quotebr.js"></script>
-		<!-- <script type="text/javascript">
-			if(navigator.onLine) {
-				alert("true");
-			}
-			else {
-				alert("false");
-			}
-		</script> -->
 	</div>
-	<!--div class="container">
-		<div class="card z-depth-2 center-align">
-			<table>
-				<tr>
-					<th class="center-align">
-						<h4>No. of Students</h4>
-					</th>
-					<th class="center-align hide-on-small-only">
-						<h4>No. of Faculties</h4>
-					</th>
-				</tr>
-				<tr>
-					<td class="hide-on-med-and-up">
-						<div class="container circle valign-wrapper">
-							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="hide-on-small-only">
-						<div class="container circle valign-wrapper">
-							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
-						</div>
-					</td>
-					<th class="center-align hide-on-med-and-up">
-						<h4>No. of Faculties</h4>
-					</th>
-					<td class="hide-on-small-only">
-						<div class="container circle valign-wrapper">
-							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td class="hide-on-med-and-up">
-						<div class="container circle valign-wrapper">
-							<h1 class="circleText center-align"><?php echo $this->session->userdata('totalUsers');?></h1>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div-->
-
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/ajax.jquery-1.11.2.min.js"></script>
 	<script src="<?php echo base_url()?>assets/js/materialize.min.js"></script>
 	<script type="text/javascript">

@@ -33,12 +33,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <!-- CORE CSS-->
 
   <link href="<?php echo base_url()?>assets/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection">
-  <link href="<?php echo base_url()?>assets/css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+  <link href="<?php echo base_url()?>assets/css/login-page.css" type="text/css" rel="stylesheet" media="screen,projection">
   <link href="<?php echo base_url()?>assets/css/loader.css" type="text/css" rel="stylesheet" media="screen,projection">
 
   <style type="text/css">
+    body {
+      height: 100%;
+      font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+    }
     .wrap {
-      margin-bottom: -20px;
+      margin-bottom: 0px;
     }
     #unsuccessfulMessage {
       color: white;
@@ -48,12 +52,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       margin: auto;
     }
     #login-page {
+      margin-bottom: 0px;
       width: 300px;
     }
     .imgDiv {
       margin-top: 20px;
     }
-
+    .btn-container {
+      position: relative;
+    }
+    .preloader {
+      display: none;
+      position: absolute;
+      z-index: 999;
+      float: right;
+      margin-left: 75%;
+    }
+    @media only screen and (min-width: 991px) {
+      #preloader-2 {
+        margin-top: 29%;
+      }
+    }
+    @media only screen and (max-width: 991px) {
+      #preloader-2 {
+        margin-top: 28%;
+      }
+    }
   </style>
 
 </head>
@@ -81,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           <div class="row margin">
             <div class="input-field col s12">
               <i class="material-icons prefix">perm_identity</i>
-              <input id="email" name="email" type="email" class="white-text flow-text validate" autocomplete="on" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
+              <input id="email" name="email" type="text" class="white-text flow-text validate" autocomplete="on" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required>
               <label id="emailLabel" for="email" class="white-text flow-text">Email</label>
             </div>
           </div>
@@ -93,13 +117,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </div>
           <div class="row margin">
-            <div class="container center-align">
-              <button type="submit" class="btn translucent waves-effect col s12">Login</button>
+            <div class="btn-container container center-align">
+              <button id="submit-btn" type="submit" class="btn translucent waves-effect col s12">Login</button>
+              <div id="preloader-1" class="preloader preloader-wrapper small active">
+                <div class="spinner-layer spinner-blue-only">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>
         <form id="forgotPassword" class="login-form" method="post">
-          <div class="row">
+          <div class="row" style="display: inline-block;">
             <a id="hide" href="#" class='col s12'>Forgot password ?</a>
           </div>
           <div id="hideDiv" style="display: none;">
@@ -107,9 +144,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <input id="emailSendKey" name="emailSendKey" type="email" class="white-text flow-text validate" pattern="^[A-Za-z0-9\.]+@acharya\.ac\.in$" title="Enter valid Acharya email id" required autocomplete="off">
               <label id="emailSendKeyLabel" for="emailSendKey" class="white-text flow-text">Email</label>
             </div>
-            <div class="row">
-              <div class="container center-align">
-                <button id="forgotPasswordSubmit" class="btn translucent waves-effect col s12" type="submit" name="action">Reset Password<i class="material-icons right">send</i></button>
+            <div class="row margin">
+              <div class="btn-container container center-align">
+                <button id="forgotPasswordSubmit" class="btn translucent waves-effect col s12" type="submit" name="action">Reset Password</button>
+                <div id="preloader-2" class="preloader preloader-wrapper small active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -132,7 +182,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui.min.js"></script>
   <!--materialize js-->
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/materialize.min.js" async></script>
-  <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+
   <script type="text/javascript" src="<?php echo base_url()?>assets/js/plugin.js" async></script>
 
   <script type="text/javascript">
@@ -169,6 +219,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
         value.preventDefault();
 
+        $("#submit-btn").attr('disabled','disabled');
+        $('#preloader-1').show();
+
+        $('#hideDiv').hide('blind');
+
         $.ajax({
           url: '<?php echo base_url("loginController/validateUser");?>',
           type: 'POST',
@@ -179,6 +234,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           success:function(data) {
             if(data == 'Login Unsuccessful!') {
               $('#password').val('');
+              $("label[for='password']").removeClass("active");
+              $("#submit-btn").removeAttr('disabled');
+              $('#preloader-1').hide();
               $('#unsuccessfulMessage').html(data);
               $('#unsuccessfulMessage').show('blind');
               $('#unsuccessfulMessage').delay(3000).hide('blind');     
@@ -207,6 +265,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           },
           error: function(jqXHR, textStatus, errorThrown) {
             $('#unsuccessfulMessage').html(errorThrown);
+            $("#submit-btn").removeAttr('disabled');
+            $('#preloader-1').hide();
+            $('#loginForm')[0].reset();
+            $("label[for='email'], label[for='password']").removeClass("active");
             $('#unsuccessfulMessage').show('blind');
             $('#unsuccessfulMessage').delay(3000).hide('blind');
           }
@@ -218,6 +280,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         value.preventDefault();
 
         $("#forgotPasswordSubmit").attr('disabled','disabled');
+        $('#preloader-2').show();
 
         $.ajax({
           url: '<?php echo base_url("loginController/forgotPassword");?>',
@@ -227,11 +290,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           },
           success:function(data) {
 
+            $('#hideDiv').hide('blind');
             $('#unsuccessfulMessage').html(data);
-            $('#unsuccessfulMessage').show('blind');
+            $('#unsuccessfulMessage').delay(500).show('blind');
             $('#unsuccessfulMessage').delay(3000).hide('blind');
-            $('#hideDiv').hide('blind'); 
+            
             $('#forgotPasswordSubmit').removeAttr('disabled');
+            $('#preloader-2').hide();
             $('#emailSendKey').val('');
             $('#emailSendKey').removeClass('valid');
             $('#emailSendKeyLabel').removeClass('active');
@@ -242,6 +307,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $('#unsuccessfulMessage').delay(3000).hide('blind');
             $('#hideDiv').hide('blind'); 
             $('#forgotPasswordSubmit').removeAttr('disabled');
+            $('#preloader-2').hide();
             $('#emailSendKey').val('');
             $('#emailSendKey').removeClass('valid');
             $('#emailSendKeyLabel').removeClass('active');

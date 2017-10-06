@@ -107,9 +107,8 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
 	<div class="determinate"></div>
 
-	<?= $top ?>
-	<?= $sideLarge ?>
-	<?= $sideSmall ?>
+	<?= $usr ?>
+	<?= $id ?>
 	
 	<!--main-->
 	<div class="container main" ng-app="baseModule" ng-controller="formController">

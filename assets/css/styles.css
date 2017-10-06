@@ -1,0 +1,31 @@
+#cover {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background: #222;
+	z-index: 9999;
+	margin-top: -30px;
+}
+
+body {
+	font-family: "Lato","proxima-nova","Helvetica Neue",Arial,sans-serif;
+	font-size: 1em !important;
+	color: #333 !important;
+}
+
+.large-side-nav li>a {
+	font-size: 1em !important;
+	padding: 0 !important;
+}
+
+.small-side-nav li>a {
+	font-size: 1em !important;
+	padding: 0 32px !important;
+}
+
+.collHead {
+	color: white;
+	font-size: 16px;
+	letter-spacing: 1px;
+	font-weight: lighter;
+}

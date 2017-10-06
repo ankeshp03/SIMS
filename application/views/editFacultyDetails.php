@@ -17,10 +17,9 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url()?>assets/css/select2.min.css">
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/angular.min.js"></script>
 	<style type="text/css">
-	@media screen and (min-width: 991px) {
-		.container {
-			margin-right: 12%;
-		}
+	.container {
+		width: 100%;
+		max-width: 100%;
 	}
 	.spanRed {
 		color: #ef5350;
@@ -87,11 +86,10 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 <body class="blue-grey lighten-5">
 	<div id="cover"></div>
 
-	<div class="determinate"></div>
+	<?= $usr?>
+	<?= $id?>
 
-	<?= $top ?>
-	<?= $sideLarge ?>
-	<?= $sideSmall ?>
+	<div class="determinate"></div>
 
 	<!--main-->
 
@@ -100,7 +98,7 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 			<div id="dbMessage" class="col s12 z-depth-2 center card-panel" style="color: #4F4F4F; word-wrap: break-word; display: none;">
 			</div>
 		</center>
-		<div class="card-panel z-depth-2" style="margin-top: 30px;">
+		<div class="card-panel z-depth-2" style="margin: 0;">
 			<form id="facultyRegistrationForm" class="col s12" method="post" action="<?php echo base_url('facultyRegistration/addfacultyDB')?>" name="facultyRegistrationForm" enctype="multipart/form-data" autocomplete>
 				<div class="row">
 					<div class="input-field col m4 s12">
@@ -241,9 +239,6 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 				</div>
 			</form>
 		</div>
-	</div>
-	<div class="hide-on-med-and-down" style="position: fixed; left: 10px; bottom: 10px;">
-		<img src="<?php echo base_url()?>assets/images/acharya_wm.png" class="responsive-img" width="160px;" style="opacity: 0.4">
 	</div>
 	<!--main end-->
 	<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-3.1.1.min.js"></script>
@@ -499,12 +494,6 @@ if($this->session->userdata('level') != "1" || $this->session->userdata('user') 
 
     		if(!$("#employeeLevel").val()) {
     			alert("Please select the Employee Type");
-    			return false;
-    		}
-
-    		/* Not necessary, since required attribute used */
-    		if(!$("#photo").val()) {
-    			alert("Please select image to upload");
     			return false;
     		}
 
