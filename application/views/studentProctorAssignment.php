@@ -71,7 +71,7 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 						<div class="col s6 facultyList"></div>
 					</div>
 					<div class="row">
-						<button id="submitButton" class="btn waves-effect waves-light" style="margin-left: 10px;" type="submit" name="action">Assign
+						<button id="submitButton" class="btn waves-effect waves-light" style="margin-left: 10%;" type="submit" name="action">Assign
 							<i class="material-icons right">send</i>
 						</button>
 					</div>

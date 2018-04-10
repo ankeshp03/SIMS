@@ -1,36 +1,90 @@
 <?php 
+class FacultyModel extends CI_Model{
 
-	class FacultyModel extends CI_Model {
+	public function year($institute_department) {
 
-		//the data passed comes here and they are store in the array and passed to the insert function so that it can be added in the database
-		public function addFaculty() {
+		// $this->db->select('DISTINCT(current_year)');
+		// $this->db->where('institute_department', $institute_department);
+		// $years = $this->db->get('student')->num_rows();
 
-			$data = array(
-				'fname' => $this->input->post('fname'),
-				'mname' => $this->input->post('mname'),
-				'lname' => $this->input->post('lname'),
-				'gender' => $this->input->post('gender'),
-				'dob' => $this->input->post('dob'),
-				'doa' => $this->input->post('doa'),
-				'facultyCountryCode' => $this->input->post('facultyCountryCode'),
-				'facultyPhone' => $this->input->post('facultyPhone'),
-				'parentCountryCode' => $this->input->post('alternateCountryCode'),
-				'parentPhone' => $this->input->post('alternatePhone'),
-				'email' => $this->input->post('email'),
-				'quota' => $this->input->post('quota'),
-				'permanentAddress' => $this->input->post('permanentAddress'),
-				'currentAddress' => $this->input->post('currentAddress')
-			);
+		for($i = 1; $i <= 4; $i++) {
 
-			//variable query has the query for inserting data
-			$query = $this->db->insert('faculty', $data);
-
-			//if the query is executed then it returns true
-			if ($query)
-				return true;
-			else
-				return false;	
+			$this->db->where('current_year', $i);
+			$this->db->where('institute_department', $institute_department);
+			$data['year'.$i] = $this->db->count_all_results('student');
 		}
+		return $data;
 	}
 
-?>
+// returns data of students attendance 
+	public function fetchdata()
+	{
+		$this->db->select("usn, subject_code, total_days, days_attended");
+		$this->db->from("attendance");
+		$q = $this->db->get();
+		return $q->result();
+		
+	}
+
+// returns data of students marks
+	public function getMarks()
+	{
+		$this->db->select("usn, subject_code, internal, marks");
+		$this->db->from("marks");
+		$q = $this->db->get();
+		return $q->result();
+	}
+
+	public function studentInFacultyDb($institute_department, $year)
+	{
+		/*$this->db->select("student_name, usn");
+		$this->db->from("student");
+		$this->db->where("institute_department", $institute_department);
+		$this->db->where("year", $year);
+		$query = $this->db->get();
+		return $query->result();*/
+
+		$this->db->select("student.usn, student.student_name");
+		$this->db->from('student');
+		$this->db->where("institute_department", $institute_department);
+		$this->db->where("current_year", $year);
+		$query = $this->db->get();
+		return $query->result();
+	}
+
+	public function personalInformationMethod()
+	{
+		$this->db->select("usn, student_name, parent_name, auid, student_email_id, student_local_mobile, student_local_address");
+		$this->db->from("student");
+		$query = $this->db->get();
+
+		return $query->result();
+	}
+
+	public function getFacultyDetails($employeeId) {
+
+		$this->db->select('*');
+		$this->db->from('faculty');
+		$this->db->where('faculty.employee_code', $employeeId);
+		$this->db->join('institute_department', 'faculty.institute_department = institute_department.id');
+		$query = $this->db->get();
+
+		if($query->num_rows() > 0) {
+			foreach ($query->result() as $row)
+			{
+				$res['qualification'] = $row->qualification;
+				$res['designation'] = $row->designation;
+				$res['dob'] = $row->dob;
+				$res['doj'] = $row->doj;
+				$res['mobile_no'] = $row->mobile_no;
+				$res['email_id'] = $row->email_id;
+				$res['institution'] = $row->institution;
+				$res['department'] = $row->department;
+				return $res;
+			}
+		}
+		else {
+			return null;
+		}
+	}
+}

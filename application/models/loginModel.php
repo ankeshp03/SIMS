@@ -102,7 +102,7 @@ class LoginModel extends CI_Model {
 	public function keyPresent() {
 
 		$this->db->where('email', $this->input->post('emailSendKey'));
-		$query = $this->db->get('forgotPasswordUsers');
+		$query = $this->db->get('forgotpasswordusers');
 		if($query->num_rows() > 0) {
 			foreach ($query->result() as $row)
 			{
@@ -121,7 +121,7 @@ class LoginModel extends CI_Model {
 			'hashKey' => $key
 			);
 
-		$query = $this->db->insert('forgotPasswordUsers', $data);
+		$query = $this->db->insert('forgotpasswordusers', $data);
 
 		if($this->db->affected_rows() > 0) {
 			return true;
@@ -133,7 +133,7 @@ class LoginModel extends CI_Model {
 	public function validateHashKey($key) {
 
 		$this->db->where('hashKey', $key);
-		$query = $this->db->get('forgotPasswordUsers');
+		$query = $this->db->get('forgotpasswordusers');
 
 		if($query->num_rows() > 0) {
 			return true;
@@ -146,7 +146,7 @@ class LoginModel extends CI_Model {
 
 		$this->db->select('email');
 		$this->db->where('hashKey', $key);
-		$query = $this->db->get('forgotPasswordUsers');
+		$query = $this->db->get('forgotpasswordusers');
 		$email = null;
 		foreach ($query->result() as $row)
 		{
@@ -165,7 +165,7 @@ class LoginModel extends CI_Model {
 		}
 
 		$this->db->where('hashKey', $key);
-		$query = $this->db->delete('forgotPasswordUsers');
+		$query = $this->db->delete('forgotpasswordusers');
 
 		if($query) {
 			return true;

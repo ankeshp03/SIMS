@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if($this->session->userdata('level') != "4" || $this->session->userdata('user') != "proctor") {
+if(($this->session->userdata('level') != "4" || $this->session->userdata('user') != "faculty") && ($this->session->userdata('level') != "5" || $this->session->userdata('user') != "faculty")) {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -67,7 +67,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 			</div>
 		</div>
 		<div  class="row perInfoRow">
-			<div class="col s10 container card-panel" id="personalInfo">
+			<div class="col s12 container card-panel" id="personalInfo">
 			</div>
 		</div>
 			<!--a class="col s2 waves-effect btn" id="modifyBtn" style="margin-top: 4%;">Modify</a>
@@ -165,13 +165,13 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 	var usn = "<?php echo $usn?>" ;
 		//console.log(usn);
 
-		var methodUrl = '<?php echo base_url("proctorController/attendance/");?>';
+		var methodUrl = '<?php echo base_url("facultyController/attendance/");?>';
 		var attendanceMethodUrl = methodUrl.concat(usn);
 
-		var methodUrl2 = '<?php echo base_url("proctorController/returnMarks/");?>';
+		var methodUrl2 = '<?php echo base_url("facultyController/returnMarks/");?>';
 		var marksMethodUrl = methodUrl2.concat(usn);
 
-		var personalInformationMethod = '<?php echo base_url("proctorController/retrievePersonalInformation/");?>';
+		var personalInformationMethod = '<?php echo base_url("facultyController/retrievePersonalInformation/");?>';
 		var personalInformationUrl = personalInformationMethod.concat(usn);
 
 		var subjects = [];
@@ -179,7 +179,7 @@ if($this->session->userdata('level') != "4" || $this->session->userdata('user') 
 		$(document).ready(function() {
 
 	/**
-	url : "http://localhost/ci/proctorController/retrieve_data"
+	url : "http://localhost/ci/facultyController/retrieve_data"
 	 * call the data.php file to fetch the result from db table.
 	 */
 	 //$('#area').empty();
