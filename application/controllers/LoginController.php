@@ -156,16 +156,19 @@ class LoginController extends CI_Controller {
 
 		//Here the cyphertext is the password used to login to the gmail account
 
-		$ciphertext = 'Ql7jmznM/sWwRvQVma/mhfoHrA7YALRHAVpD7z+QOIJY+/bzDh4O0WR4/SEpbjp8RzBRXVMUduBMWW7OBb+AcA==';
+		$ciphertext = ''; //cyphertext of your password
 
 		$mail = new PHPMailer;
 
 		$mail->isSMTP();                                  
 		$mail->Host = 'smtp.gmail.com';                   
 		$mail->SMTPAuth = true;                           
-		$mail->Username = 'ank.paramanik@gmail.com'; //Email ID from where the reset password mail will be sent
-		//$mail->Password = 'password'; Password used to loginn to your account
+		$mail->Username = 'your-email@gmail.com'; //Email ID from where the reset password mail will be sent
+
+		//$mail->Password = 'your password'; Password used to login to your account
+		//(OR)
 		$mail->Password = $this->encrypt->decode($ciphertext); //can be removed when previous line is used
+		
 		$mail->SMTPSecure = 'tls';                        
 		$mail->Port = 587;                                
 
