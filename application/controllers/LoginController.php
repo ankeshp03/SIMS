@@ -101,14 +101,14 @@ class LoginController extends CI_Controller {
 		}
 		$this->load->library('encrypt');
 		
-		$ciphertext = ''; //cyphertext for password
+		$ciphertext = ''; //cyphertext of your password
 		
 	    $config = Array(
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'ank.paramanik@gmail.com',
-            'smtp_pass' => $this->encrypt->decode($ciphertext),
+            'smtp_user' => 'your-email@gmail.com',
+            'smtp_pass' => '', //either your password or the  decrypted cyphertext of your password i.e., $this->encrypt->decode($ciphertext)
             'mailtype'  => 'html', 
             'charset'   => 'iso-8859-1'
         );
