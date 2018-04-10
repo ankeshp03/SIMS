@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if(($this->session->userdata('level') != "4" || $this->session->userdata('user') != "faculty") && ($this->session->userdata('level') != "5" || $this->session->userdata('user') != "faculty")) {
+if(($this->session->userdata('level') != "4" || $this->session->userdata('user') != "proctor") && ($this->session->userdata('level') != "5" || $this->session->userdata('user') != "faculty")) {
 	redirect($_SERVER['HTTP_REFERER']);
 }
 ?>
@@ -165,13 +165,14 @@ if(($this->session->userdata('level') != "4" || $this->session->userdata('user')
 	var usn = "<?php echo $usn?>" ;
 		//console.log(usn);
 
-		var methodUrl = '<?php echo base_url("facultyController/attendance/");?>';
+		var methodUrl = '<?php echo base_url($this->session->userdata('user') . "Controller/attendance/");?>';
+		
 		var attendanceMethodUrl = methodUrl.concat(usn);
 
-		var methodUrl2 = '<?php echo base_url("facultyController/returnMarks/");?>';
+		var methodUrl2 = '<?php echo base_url($this->session->userdata('user') . "Controller/returnMarks/");?>';
 		var marksMethodUrl = methodUrl2.concat(usn);
 
-		var personalInformationMethod = '<?php echo base_url("facultyController/retrievePersonalInformation/");?>';
+		var personalInformationMethod = '<?php echo base_url($this->session->userdata('user') . "Controller/retrievePersonalInformation/");?>';
 		var personalInformationUrl = personalInformationMethod.concat(usn);
 
 		var subjects = [];

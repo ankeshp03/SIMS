@@ -99,17 +99,33 @@ class LoginController extends CI_Controller {
 		else {
 			$key = $val;
 		}
+		$this->load->library('encrypt');
+		
+		$ciphertext = ''; //cyphertext for password
+		
+	    $config = Array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'ank.paramanik@gmail.com',
+            'smtp_pass' => $this->encrypt->decode($ciphertext),
+            'mailtype'  => 'html', 
+            'charset'   => 'iso-8859-1'
+        );
+		
+		$this->load->library('email', $config); //array('mailtype'=>'html')
+		$this->email->set_newline("\r\n");
 
-		$this->load->library('email', array('mailtype'=>'html'));
 
 		$this->email->from('admin@acharya.ac.in', "Ankesh");
 		$this->email->to($this->input->post('emailSendKey'));
+		$this->email->subject("Student Information Management System | Reset Password Link");
 
 		$message = "<p><a href='".base_url()."loginController/validateKey/$key'>Click here</a> to set your password</p>";
 		$this->email->message($message);
-
+		
 		if($this->email->send()) {
-			echo "<br>Email has been sent to set new password!";
+			echo "<br>Email has been sent to set new password! ";
 		} else {
 			echo "email not sent!";
 		}
@@ -186,7 +202,7 @@ class LoginController extends CI_Controller {
 			$data['key'] = $key;
 			$this->load->view('resetPassword', $data);
 		} else {
-			echo "Unable to validate email!";
+			echo "You have already reset the password!"; //Unable to validate email
 		}
 	}
 
