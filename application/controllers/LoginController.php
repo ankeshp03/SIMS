@@ -172,7 +172,7 @@ class LoginController extends CI_Controller {
 		$mail->SMTPSecure = 'tls';                        
 		$mail->Port = 587;                                
 
-		$mail->setFrom('ank.paramanik@gmail.com', 'Ankesh');
+		$mail->setFrom('admin@acharya.ac.in', 'Ankesh');
 		$mail->addAddress($this->input->post('emailSendKey'));  
 
 		$mail->isHTML(true); 
