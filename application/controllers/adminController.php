@@ -102,7 +102,7 @@ class AdminController extends CI_Controller {
 		$navViews['sideLarge'] = $this->load->view('navbar/adminSidenavLarge', $data, TRUE);
 		$navViews['sideSmall'] = $this->load->view('navbar/adminSidenavMedSmall', $data, TRUE);
 		// $this->load->view('newFacultyRegistration', $navViews);
-		$this->load->view('editFacultyDetails', $navViews);
+		$this->load->view('newFacultyRegistration', $navViews);
 	}
 
 	public function recentRegistrations() {
