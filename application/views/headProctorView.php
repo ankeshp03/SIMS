@@ -50,6 +50,10 @@ if($this->session->userdata('level') != "3" || $this->session->userdata('user') 
 		th, td {
 			padding: 15px 5px !important;
 		}
+		
+		#reassign1, #reassign2 {
+			display: none;
+		}
 	</style>
 </head>
 <body class="blue-grey lighten-5">
